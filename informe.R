@@ -95,13 +95,13 @@ violin <- function(df, nombre_x, nombre_y) {
     geom_boxplot()
 }
 
-IMG_DIR = "imagenes/"
+
 graficar_var <- function(df, var_x) {
   ggsave(paste(IMG_DIR, "boxplot_", var_x, ".png", sep = ""), violin(df, "adulto", var_x))
   ggsave(paste(IMG_DIR, "freqpoly_", var_x, ".png", sep = ""), freqpoly(df, "adulto", var_x))
 }
 
-
+IMG_DIR = "imagenes/"
 walk(variables_explicativas, ~graficar_var(abalone, .))
 
 abalone %>% 
@@ -111,6 +111,8 @@ abalone %>%
 abalone %>%
   ggplot(aes(long.altura, peso.total, color = adulto)) +
   geom_point()
+
+abalone %>% ggplot(aes(long.altura)) + geom_histogram() + coord_trans(y = "log1p")
 
 abalone <- abalone %>%
   mutate(long.altura = ifelse(long.altura > 0.3, NA, long.altura))
@@ -131,3 +133,4 @@ abalone %>%
   ggplot(aes(long.altura, sqrt(peso.caparazon), color = adulto)) +
   geom_jitter(alpha = 0.3) +
   guides(alpha = "none")
+

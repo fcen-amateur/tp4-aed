@@ -35,24 +35,17 @@ read_csv("abalone.data", col_types = tipos_columnas) %>%
 source("tp4-lib.R")
 
 rlog1 <- rlog(adulto ~ anillos + long.diametro, abalone,
-              alfa = 1e-5, epsilon = 1e-1, max_ciclos = 10000)
+              tasa_aprendizaje = 1e-5, min_delta = 1e-7, max_ciclos = 10000)
 
-rlog2 <- rlog(adulto ~ anillos, abalone,
-              alfa = 1e-5, epsilon = 1e-1)
-
-rlog3 <- rlog(adulto ~ long.diametro, abalone,
-              alfa = 1e-5, epsilon = 1e-1)
-
-rlog4 <- rlog(adulto ~ scale(long.diametro), abalone,
-              alfa = 1e-5, epsilon = 1e-1)
-
+rlog2 <- rlog(adulto ~ peso.total + long.largo + long.diametro + anillos, abalone,
+              tasa_aprendizaje = 1e-5, min_delta = 1e-7)
 
 str(rlog1)
 str(rlog2)
-str(rlog3)
-str(rlog4)
 
 evolucion_parametros <- function(valores_beta) {
+  #' Dada la matriz de valores_beta que devuelve `rlog()`, grafica
+  #' la evolución de los parámetros a través de las iteraciones.
   valores_beta %>% t() %>% as_tibble() %>%
     gather(coef, valor) %>%
     group_by(coef) %>%
@@ -61,26 +54,26 @@ evolucion_parametros <- function(valores_beta) {
     geom_line()
 }
 
-evolucion_parametros(rlog3$valores_beta)
-evolucion_parametros(rlog4$valores_beta)
+evolucion_parametros(rlog1$valores_beta)
+evolucion_parametros(rlog2$valores_beta)
 
-grafica_roc <- function(aucroc) { aucroc %>% ggplot(aes(fpr, tpr)) + geom_line() }
+grafica_roc <- function(aucroc) {
+  # Genera la gráfica de "área bajo la curva" de ROC
+  aucroc %>% ggplot(aes(fpr, tpr)) + geom_line()
+}
 
-roc3 <- aucroc(abalone$adulto, as.vector(rlog3$probs), seq(0, 1, 0.1))
-roc4 <- aucroc(abalone$adulto, as.vector(rlog4$probs), seq(0, 1, 0.1))
+roc1 <- aucroc(abalone$adulto, as.vector(rlog1$probs), seq(0, 1, 0.1))
+roc2 <- aucroc(abalone$adulto, as.vector(rlog2$probs), seq(0, 1, 0.1))
 
-grafica_roc(roc3)
-grafica_roc(roc4)
+grafica_roc(roc1)
+grafica_roc(roc2)
 
-roc3 <- aucroc(abalone$adulto, as.vector(rlog3$probs), seq(0, 1, 0.001))
-grafica_roc(roc3)
+tibble(x = as.vector(rlog1$probs)) %>% ggplot(aes(x)) + geom_histogram()
+tibble(x = as.vector(rlog2$probs)) %>% ggplot(aes(x)) + geom_histogram()
+mean(rlog1$probs)
+mean(rlog2$probs)
 
-tibble(x = as.vector(rlog3$probs)) %>% ggplot(aes(x)) + geom_histogram()
-tibble(x = as.vector(rlog4$probs)) %>% ggplot(aes(x)) + geom_histogram()
-mean(rlog3$probs)
-mean(rlog4$probs)
-
-##### Grafiquitos ####
+##### Grafiquitos parte descriptiva del TP ####
 GGally::ggpairs(abalone)
 
 variables_explicativas <- names(select(abalone, anillos:peso.dif))

@@ -43,7 +43,7 @@ k_vecinos <- function(formula, train_df, k) {
     test_df_escalado[[var_y]] <- NA
 
     # Cruzamos cada nueva observación con cada dato de training
-    distancias <-
+    obs_vs_train <-
       test_df_escalado %>%
       rowid_to_column("obs_id") %>%
       crossing(train_df_escalado)
@@ -55,25 +55,29 @@ k_vecinos <- function(formula, train_df, k) {
       dist(rbind(observacion, dato_train), method = "euclidean")[[1]]
     }
 
-    distancias[["distancia"]] <- apply(distancias, 1, calcular_distancia)
+    obs_vs_train[["distancia"]] <- apply(obs_vs_train, 1, calcular_distancia)
 
+    top_n <- function(df, n) { head(df, n) }
     vecinos_mas_cercanos <-
-      distancias %>%
+      obs_vs_train %>%
       group_by(obs_id) %>%
-      top_n(-k, distancia) %>% # Incluye empates!
-      arrange(obs_id, distancia)
+      arrange(distancia) %>%
+      do( top_n(., k) )
+      # NOTE: top_n(-k, distancia) # No sirve porque incluye empates
 
     votos <-
       vecinos_mas_cercanos %>%
       group_by_("obs_id", var_y_con_sufijo) %>%
       summarise(votes = n()) %>%
-      arrange(obs_id)
+      arrange(obs_id, votes)
 
-    # FIXME: no resuelve los empates.
+    categorias <-
+      votos %>%
+      group_by(obs_id) %>%
+      do( top_n(., 1) ) # Si hay un empate, desambigua aleatoriamente
+
     # TODO: Comparar con una versión enlatada de knn
-    result <- top_n(categorias, 1, votes)[[var_y_con_sufijo]]
-
-    return (result)
+    return (categorias[[var_y_con_sufijo]])
   }
 
   return (list(predictor = predictor))

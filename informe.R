@@ -18,7 +18,7 @@ nombres_castellano <- c(
   "Diameter" = "long.diametro",
   "Height" = "long.altura",
   "WholeWeight" = "peso.total",
-  "SchuckedWeight" = "peso.vaina",
+  "SchuckedWeight" = "peso.desenvainado",
   "VisceraWeight" = "peso.viscera",
   "ShellWeight" = "peso.caparazon",
   "Rings" = "anillos"
@@ -28,7 +28,7 @@ nombres_castellano <- c(
 read_csv("abalone.data", col_types = tipos_columnas) %>%
   plyr::rename(nombres_castellano) %>%
   # ¿Qué se pierde cuando desarmas un abalone?
-  mutate(peso.dif = peso.total - peso.vaina - peso.viscera - peso.caparazon,
+  mutate(peso.dif = peso.total - peso.desenvainado - peso.viscera - peso.caparazon,
          adulto = sexo != "I") %>%
   select(adulto, anillos, long.largo:peso.dif) -> abalone
 

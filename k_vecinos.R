@@ -41,7 +41,7 @@ k_vecinos <- function(formula, train_df, k) {
       test_df_escalado[[var_x]] <- serie_escalada
     }
     test_df_escalado[[var_y]] <- NA
-
+21
     # Cruzamos cada nueva observación con cada dato de training
     obs_vs_train <-
       test_df_escalado %>%

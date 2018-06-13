@@ -1,19 +1,29 @@
-entrenar_k_vecinos <- function(formula, train_df) {
+entrenar_k_vecinos <- function(modelo, train_df) {
   #' Entrena un predictor de K-vecinos más cercanos a partir de todos los datos
   #' de `train_df`. Las variables predictoras y la variable a estimar son
-  #' tomadas de la `formula`.
+  #' tomadas del `modelo`, una formula de la forma:
+  #'
+  #'   var_y ~ var_x1 + var_x2 + ... + var_xn
   #'
   #' Todas las variables predictoras son escaladas, centrando cada una en su
   #' media y dividiendo por el desvío estándar. Las observaciones también
   #' son escaladas antes de la clasificación.
   #'
   #' Devuelve una lista con:
-  #'  - predictor (funcion): Función que dado un df de observaciones no
+  #'  - predecir (funcion): Función que dado un df de observaciones no
   #'      incluidas en el conjunto de entrenamiento, devuelve un vector
   #'      de predicciones.
+  #'
+  #' Ejemplo de uso:
+  #'   > modelo <- var_y ~ var_x1 + var_x2 + var_x3
+  #'   > knn <- entrenar_k_vecinos(modelo, train_df)
+  #'   > resultado <- knn$predecir(test_df = df, k = 5)
+  #'   > resultado$y_hat # predicciones
+  #'   > resultado$probs # probabilidades de las predicciones
+  #'   > resultado$df # test_df aumentado
 
-  # Extraemos los nombres de variables de la `formula`
-  vars_xy <- all.vars(formula)
+  # Extraemos los nombres de variables de la `modelo`
+  vars_xy <- all.vars(modelo)
   var_y <- vars_xy[1]
   vars_x <- vars_xy[-1]
 
@@ -53,9 +63,14 @@ entrenar_k_vecinos <- function(formula, train_df) {
     return (distancias)
   }
 
-  # Construimos la función que, dado un `test_df`, usa al
-  # `train_df` para clasificar cada observación:
   predecir <- function(test_df, k) {
+    # Dado un `test_df` y un valor de `k`, usa al `train_df` para clasificar
+    # cada observación según la categoría de los k vecinos más cercanos.
+    #
+    # Devuelve una lista con:
+    #  - df: el test set con las predicciones y sus probas
+    #  -
+
     # Escalamos cada nueva observación con media y sd de los datos de training
     test_df_escalado <-
       select(test_df, vars_x) %>%
@@ -69,12 +84,11 @@ entrenar_k_vecinos <- function(formula, train_df) {
       bind_rows(apply(test_df_escalado, 1, calcular_distancias)) %>%
       arrange(obs_id, distancia)
 
-    top_n <- function(df, n) { head(df, n) }
     vecinos_mas_cercanos <-
       distancias %>%
       group_by(obs_id) %>%
       arrange(distancia) %>%
-      do( top_n(., k) )
+      do( head(., k) )
 
     votos <-
       vecinos_mas_cercanos %>%
@@ -85,12 +99,12 @@ entrenar_k_vecinos <- function(formula, train_df) {
     predicciones <-
       votos %>%
       group_by(obs_id) %>%
-      do( top_n(., 1) ) # Si hay un empate, desambigua aleatoriamente
+      do( head(., 1) ) # Si hay un empate, desambigua aleatoriamente
 
     test_df_con_predicciones <- test_df
     # FIXME: mutate_ se rompía:
     test_df_con_predicciones[[var_y]] <- predicciones[[var_y]]
-    test_df_con_predicciones[["prob"]] <- predicciones[["prob"]]
+    test_df_con_predicciones[["probs"]] <- predicciones[["probs"]]
 
     return (list(
       k = k,
@@ -98,13 +112,10 @@ entrenar_k_vecinos <- function(formula, train_df) {
       votos = votos,
       predicciones = predicciones,
       df = test_df_con_predicciones,
-      probs = test_df_con_predicciones[["prob"]],
+      probs = test_df_con_predicciones[["probs"]],
       y_hat = test_df_con_predicciones[[var_y]]
     ))
   }
 
-  return(list(
-    predecir = predecir
-  ))
-  # TODO: Comparar con una versión enlatada de knn
+  return(list(predecir = predecir))
 }

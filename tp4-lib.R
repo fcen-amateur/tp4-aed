@@ -141,7 +141,7 @@ rlog <- function(formula, df, escalador = base::scale, ...) {
   beta0 <- vector("numeric", dim(X)[2])
   
   modelo <- dg(verosimilitud_en_beta, gradiente_en_beta, beta0, ...)
-  modelo$probs <- p(X, modelo$parametros)
+  modelo$prob <- p(X, modelo$parametros)
   modelo$predictor <- function(X) {
     X[,-c(1)] <- escalador(X[,-c(1)])
     p(X, modelo$parametros)
@@ -150,11 +150,11 @@ rlog <- function(formula, df, escalador = base::scale, ...) {
   return(modelo)
 }
 
-clasificar_pred <- function(y, pred) {
+clasificar_pred <- function(y, yhat) {
   #' Dado un vector de respuestas `y` y uno de predicciones `pred`,
   #' devuelve un vector de clasificación de resultados en TP, TN, FP, FN.
   
-  stopifnot(length(y) == length(pred))
+  stopifnot(length(y) == length(yhat))
   
   ifelse(y == pred,
          # La predicción es correcta

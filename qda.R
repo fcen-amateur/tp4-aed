@@ -1,14 +1,30 @@
 qda <- function(formula, df, muk = NA, pik = NA, sigmak = NA) {
   #' Análisis del discriminante cuadratico
   #' Dada una `formula` de términos únicamente aditivos, 
-  #' 
-
-  params <- estimar_parametros_qda(formula, df)
+  #' calcula el discriminante cuadrático según los datos de df
+  #' Devuelve una con:
+  #' - `df`: el `df` original aumentado con las predicciones, y
+  #' - `predecir`: la fórmula que predice una clase según el dsicriminante obtenido
   
+  params <- estimar_parametros_qda(formula, df)
+  n <- nrow(df)
   
   if (is.na(muk)) { muk <- params[["muk"]] }
   if (is.na(pik)) { pik <- params[["pik"]] }
   if (is.na(sigmak)) { sigmak <- params[["sigmak"]] }
+  
+  predecir <- generador_predecir_qda(muk, pik, sigmak)
+  
+  # X es la matriz de diseño, sin y
+  X <- model.matrix(formula, df)[,-c(1)]
+  
+  df$yhat <- map_dbl(seq_len(n), ~predecir(X[.,]))
+  
+  modelo <- list(
+    "df" = df,
+    "predecir" = predecir
+  )
+  return(modelo)
 }
 
 generador_delta_qda <- function(muk, pik, sigmak) {
@@ -23,10 +39,17 @@ generador_delta_qda <- function(muk, pik, sigmak) {
   # Cada elemento de muk debe tener p elementos
   stopifnot(all(map_dbl(muk, length) == p))
   # Cada elemento de sigmak debe tener dimensiones (p, p)
-  stopifnot(map(sigm, dim) %>% map_lgl(~ all(. == c(p, p))) %>% all)
+  stopifnot(map(sigmak, dim) %>% map_lgl(~ all(. == c(p, p))) %>% all)
     
   
-  # Armo la formula para un determinante
+  # Mapeo la formula para un discriminante a las k clases
+  function(cierto_x) { 
+    pmap_dbl(
+      .l = list("muk" = muk, "pik" = as.list(pik), "sigmak" = sigmak),
+      .f = delta_k_qda,
+      x = cierto_x
+    )
+  }
   
 }
 estimar_parametros_qda <- function(formula, df) {
@@ -44,7 +67,7 @@ estimar_parametros_qda <- function(formula, df) {
     select(-data) %>% as.list
 }
 
-delta_k <- function(x, muk, pik, sigmak) {
+delta_k_qda <- function(x, muk, pik, sigmak) {
   valor <- (
     #' Multiplicar una matrix por izquierda con un vector devuelve un vector fila,
     #' multiplicar por derecha devuelve un vector columna
@@ -55,46 +78,22 @@ delta_k <- function(x, muk, pik, sigmak) {
   return(valor)
 }
 
-generador_delta <- function(muk, pik, sigmak) {
-  function(cierto_x) { 
-    pmap_dbl(
-      .l = list("muk" = muk, "pik" = as.list(pik), "sigmak" = sigmak),
-      .f = delta_k,
-      x = cierto_x
-      )
-  }
-}
-
-generador_predecir <- function(muk, pik, sigmak, ...) {
-  delta <- generador_delta(muk, pik, sigmak, ...)
+generador_predecir_qda <- function(muk, pik, sigmak, ...) {
+  delta <- generador_delta_qda(muk, pik, sigmak, ...)
   function(x) { which.max( delta(x) ) }
 }
 
+#' Esto lo podrpiamos reemplazar por un objeto "abalone" que se importe con el .R, es
+#' la práctica más difundida de paquetes en R.
+source('leer_abalone.R')
+abalone <- leer_abalone("abalone.data")
+
+# Caso de uso encapsulado
 m1 <- adulto ~ anillos + peso.total + long.diametro + long.altura
+qda1 <- qda(m1, abalone)
+
+# Probando las funciones de a pedacitos
 params <- estimar_parametros_qda(m1, abalone)
-
-delta_m1 <- generador_delta(params$muk, params$pik, params$sigmak)
-predecir_m1 <- generador_predecir(params$muk, params$pik, params$sigmak)
-
-which.max(delta_m1(params$muk[[1]]))
-predecir_m1(rep(0, 4))
-
-delta_m1(params$muk[[2]])
-params
-params$muk
-delta_k(1:4, params$muk[[2]], params$pik[[2]], params$sigmak[[2]])
-
-detect_index(.x = dd(params$muk[[1]]))
-??index
-v <- params$muk[[1]]
-
-
-
-
-params$muk
-delta_qda_i <- function()
-1/2 * sum((xx - muca1) * solve(sigca1) * (xx -muca1)) - 1/2 * log(det(sigca1)) + log(pica1)
-
-
-m1 <- adulto ~ anillos + peso.total + long.diametro + long.altura
-estimar_parametros_qda(m1, abalone)
+predecir_m1 <- generador_predecir_qda(params$muk, params$pik, params$sigmak)
+predecir_m1(params$muk[[2]])
+            

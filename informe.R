@@ -1,38 +1,7 @@
-library(tidyverse)
-
-tipos_columnas <- cols(
-  Sex = col_character(),
-  Length = col_double(),
-  Diameter = col_double(),
-  Height = col_double(),
-  WholeWeight = col_double(),
-  SchuckedWeight = col_double(),
-  VisceraWeight = col_double(),
-  ShellWeight = col_double(),
-  Rings = col_integer()
-)
-
-nombres_castellano <- c(
-  "Sex" = "sexo",
-  "Length" = "long.largo",
-  "Diameter" = "long.diametro",
-  "Height" = "long.altura",
-  "WholeWeight" = "peso.total",
-  "SchuckedWeight" = "peso.desenvainado",
-  "VisceraWeight" = "peso.viscera",
-  "ShellWeight" = "peso.caparazon",
-  "Rings" = "anillos"
-)
-
-# Leo el CSV
-read_csv("abalone.data", col_types = tipos_columnas) %>%
-  plyr::rename(nombres_castellano) %>%
-  # ¿Qué se pierde cuando desarmas un abalone?
-  mutate(peso.dif = peso.total - peso.desenvainado - peso.viscera - peso.caparazon,
-         adulto = sexo != "I") %>%
-  select(adulto, anillos, long.largo:peso.dif) -> abalone
-
 source("tp4-lib.R")
+source("leer_abalone.R")
+
+abalone <- leer_abalone("abalone.data")
 
 rlog1 <- rlog(adulto ~ anillos + long.diametro, abalone,
               tasa_aprendizaje = 1e-5, min_delta = 1e-7, max_ciclos = 10000)

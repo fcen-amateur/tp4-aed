@@ -1,84 +1,121 @@
-k_vecinos <- function(formula, train_df, k) {
+entrenar_k_vecinos <- function(modelo, train_df) {
   #' Entrena un predictor de K-vecinos más cercanos a partir de todos los datos
   #' de `train_df`. Las variables predictoras y la variable a estimar son
-  #' tomadas de la `formula`.
+  #' tomadas del `modelo`, una formula de la forma:
+  #'
+  #'   var_y ~ var_x1 + var_x2 + ... + var_xn
   #'
   #' Todas las variables predictoras son escaladas, centrando cada una en su
   #' media y dividiendo por el desvío estándar. Las observaciones también
   #' son escaladas antes de la clasificación.
   #'
   #' Devuelve una lista con:
-  #'  - predictor (funcion): Función que dado un df de observaciones no
+  #'  - predecir (funcion): Función que dado un df de observaciones no
   #'      incluidas en el conjunto de entrenamiento, devuelve un vector
   #'      de predicciones.
+  #'
+  #' Ejemplo de uso:
+  #'   > modelo <- var_y ~ var_x1 + var_x2 + var_x3
+  #'   > knn <- entrenar_k_vecinos(modelo, train_df)
+  #'   > resultado <- knn$predecir(test_df = df, k = 5)
+  #'   > resultado$y_hat # predicciones
+  #'   > resultado$probs # probabilidades de las predicciones
+  #'   > resultado$df # test_df aumentado
 
-  # Extraemos los nombres de variables de la `formula`
-  agregar_sufijo <- function (s) { paste(s, "1", sep="") }
-  var_y <- all.vars(formula)[1]
-  vars_x <- all.vars(formula)[-1]
-  var_y_con_sufijo <- agregar_sufijo(var_y)
-  vars_x_con_sufijo <- sapply(vars_x, agregar_sufijo, USE.NAMES = F)
+  # Extraemos los nombres de variables de la `modelo`
+  vars_xy <- all.vars(modelo)
+  var_y <- vars_xy[1]
+  vars_x <- vars_xy[-1]
 
   # Escalamos el `train_df`. Guardamos las medias y desvíos para escalar también
   # las nuevas observaciones antes de clasificarlas:
-  medias <- list()
-  desvios <- list()
-  train_df_escalado <- select_(train_df, var_y)
-  for (var_x in vars_x) {
-    x <- train_df[[var_x]]
-    medias[[var_x]] <- mean(x)
-    desvios[[var_x]] <- sd(x)
-    train_df_escalado[[var_x]] <- ((x - medias[[var_x]]) / desvios[[var_x]])
+  escalado <- train_df[vars_x] %>% scale
+  train_df_escalado <- train_df %>% select(vars_xy)
+  train_df_escalado[, vars_x] <- escalado
+
+  medias <- attr(escalado, "scaled:center")
+  desvios <- attr(escalado, "scaled:scale")
+
+  calcular_distancias <- function(observacion) {
+    # Calcula la distancia euclidea entre una observación y todos los
+    # puntos del training set
+
+    # m: número de observaciones de training set
+    # n: número de covariables X
+
+    obs_id <- observacion["obs_id"]
+    train_matrix <- train_df_escalado[vars_x] %>% data.matrix # m x n
+    obs_vector <- observacion[vars_x] # n x 1
+    # Repetimos el vector de la observación en m filas, para comparar cada
+    # una de esas repeticiones con una fila del training set:
+    obs_matrix <- matrix(obs_vector, ncol = length(obs_vector),
+                         nrow = nrow(train_df_escalado), byrow = T) # m x n
+    diferencias_al_cuadrado <- (train_matrix - obs_matrix)^2 # m x n
+    vector_de_unos <- rep(1, length(vars_x))
+    vector_distancias <-
+      ((diferencias_al_cuadrado %*% vector_de_unos)^(1/2))[, 1] # m x 1
+    distancias <-
+      train_df_escalado %>%
+      mutate(distancia = vector_distancias, obs_id = as.integer(obs_id)) %>%
+      rowid_to_column("train_id")
+
+    # Distancias entre *una* observación y *todos* los puntos de training:
+    return (distancias)
   }
 
-  # Construimos la función `predictor`, que dado un `test_df` usa al
-  # `train_df` para clasificar cada observación.
-  predictor <- function(test_df) {
+  predecir <- function(test_df, k) {
+    # Dado un `test_df` y un valor de `k`, usa al `train_df` para clasificar
+    # cada observación según la categoría de los k vecinos más cercanos.
+    #
+    # Devuelve una lista con:
+    #  - df: el test set con las predicciones y sus probas
+    #  -
+
     # Escalamos cada nueva observación con media y sd de los datos de training
-    test_df_escalado <- select(test_df, vars_x)
-    for (var_x in vars_x) {
-      serie_escalada <- (test_df[[var_x]] - medias[[var_x]]) / desvios[[var_x]]
-      test_df_escalado[[var_x]] <- serie_escalada
-    }
-    test_df_escalado[[var_y]] <- NA
-
-    # Cruzamos cada nueva observación con cada dato de training
-    obs_vs_train <-
-      test_df_escalado %>%
+    test_df_escalado <-
+      select(test_df, vars_x) %>%
+      scale(center = medias, scale = desvios) %>%
+      as_tibble %>%
       rowid_to_column("obs_id") %>%
-      crossing(train_df_escalado)
+      mutate_(var_y = NA)
 
-    calcular_distancia <- function(obs_vs_dato) {
-      observacion <- obs_vs_dato[vars_x]
-      # Las columnas de training recibieron el sufijo "1":
-      dato_train <- obs_vs_dato[vars_x_con_sufijo]
-      dist(rbind(observacion, dato_train), method = "euclidean")[[1]]
-    }
+    # Distancias entre *todas* las observaciones y *todos* los puntos de training:
+    distancias <-
+      bind_rows(apply(test_df_escalado, 1, calcular_distancias)) %>%
+      arrange(obs_id, distancia)
 
-    obs_vs_train[["distancia"]] <- apply(obs_vs_train, 1, calcular_distancia)
-
-    top_n <- function(df, n) { head(df, n) }
     vecinos_mas_cercanos <-
-      obs_vs_train %>%
+      distancias %>%
       group_by(obs_id) %>%
       arrange(distancia) %>%
-      do( top_n(., k) )
-      # NOTE: top_n(-k, distancia) # No sirve porque incluye empates
+      do( head(., k) )
 
     votos <-
       vecinos_mas_cercanos %>%
-      group_by_("obs_id", var_y_con_sufijo) %>%
-      summarise(votes = n()) %>%
+      group_by_("obs_id", var_y) %>%
+      summarise(votes = n(), prob = n() / k) %>%
       arrange(obs_id, votes)
 
-    categorias <-
+    predicciones <-
       votos %>%
       group_by(obs_id) %>%
-      do( top_n(., 1) ) # Si hay un empate, desambigua aleatoriamente
+      do( head(., 1) ) # Si hay un empate, desambigua aleatoriamente
 
-    # TODO: Comparar con una versión enlatada de knn
-    return (categorias[[var_y_con_sufijo]])
+    test_df_con_predicciones <- test_df
+    # FIXME: mutate_ se rompía:
+    test_df_con_predicciones[[var_y]] <- predicciones[[var_y]]
+    test_df_con_predicciones[["probs"]] <- predicciones[["probs"]]
+
+    return (list(
+      k = k,
+      vecinos = vecinos_mas_cercanos,
+      votos = votos,
+      predicciones = predicciones,
+      df = test_df_con_predicciones,
+      probs = test_df_con_predicciones[["probs"]],
+      y_hat = test_df_con_predicciones[[var_y]]
+    ))
   }
 
-  return (list(predictor = predictor))
+  return(list(predecir = predecir))
 }

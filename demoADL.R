@@ -1,3 +1,42 @@
+library(tidyverse)
+
+tipos_columnas <- cols(
+  Sex = col_character(),
+  Length = col_double(),
+  Diameter = col_double(),
+  Height = col_double(),
+  WholeWeight = col_double(),
+  SchuckedWeight = col_double(),
+  VisceraWeight = col_double(),
+  ShellWeight = col_double(),
+  Rings = col_integer()
+)
+
+nombres_castellano <- c(
+  "Sex" = "sexo",
+  "Length" = "long.largo",
+  "Diameter" = "long.diametro",
+  "Height" = "long.altura",
+  "WholeWeight" = "peso.total",
+  "SchuckedWeight" = "peso.desenvainado",
+  "VisceraWeight" = "peso.viscera",
+  "ShellWeight" = "peso.caparazon",
+  "Rings" = "anillos"
+)
+
+# Leo el CSV
+read_csv("abalone.data", col_types = tipos_columnas) %>%
+  plyr::rename(nombres_castellano) %>%
+  # ¿Qué se pierde cuando desarmas un abalone?
+  mutate(peso.dif = peso.total - peso.desenvainado - peso.viscera - peso.caparazon,
+         adulto = sexo != "I") %>%
+  select(adulto, anillos, long.largo:peso.dif) -> abalone
+
+set.seed(42)
+rifa <- sample(seq(abalone[[var_y]]),1000,replace=F)
+X_c <- abalone[rifa,]
+y_c <- X_c[["adulto"]]
+
 #función para identificar las clases y obtener una lista de marcos de datos para cada una. 
 
 partir_en_clases <- function(X,y) {
@@ -11,6 +50,7 @@ partir_en_clases <- function(X,y) {
 	return(conjuntos)
 }
 
+clases_c <- partir_en_clases(X_c,y_c)
 
 #función para obtener las probabilidades apriori de pertenecer a una clase:
 
@@ -20,13 +60,16 @@ pi_k <- function(X,clases) {
   )   
 }
 
+aprioris_c <- pi_k(X_c,clases_c)
 
-#función para obtener las esperanzas por variable y clase es "colMeans". 
+#función para obtener las esperanzas por variable y clase es básicamente "colMeans". 
+# es quizás la que aporta más fealdad a este programa, su salida es una lista de dataframes y es bastante incómoda de usar. 
 
 mu_hat <- function(clases) {
 	map(clases,colMeans)
 }
 
+esperanza_c <- mu_hat(clases_c)
 
 #Para poder hallar los desvios necesito una función que le reste el mismo vector a todas las filas de una matriz.
 
@@ -34,6 +77,9 @@ restar_vector_a_filas <- function(X,v) {
 	sustraendo <-  rep(v,each=nrow(X))
 	return(X - sustraendo)
 }
+
+
+restada <- restar_vector_a_filas(clases_c[[1]],esperanza_c[[1]])
 
 #no me sabía el nombre de la función que hace esto, también la necesito para los desvíos...
 
@@ -55,6 +101,15 @@ sigmas_por_clase <- function(clases,esperanzas) {
 	return( esperanzas )
 }
 
+#acá la uso para ver la hipótesis
+
+sigmas_no_hat <- sigmas_por_clase(clases_c,esperanza_c)
+razones_desvios <- sigmas_no_hat[[1]] / sigmas_no_hat[[2]]
+
+# sólo long.diametro lo cumple bien, es la variable que hay que usar
+
+variable_c <- "long.diametro"
+
 # Esta función sirve para encontrar el vector con los desvíos estimados por clase. 
 
 sigma_hat <- function(clases,esperanzas) {
@@ -72,6 +127,8 @@ sigma_hat <- function(clases,esperanzas) {
 	names(desvios) <- names(clases[[1]]) 
 	return(desvios)
 }
+
+desvio_c <- sigma_hat(clases_c,esperanza_c)
 
 # esta es la función modelo de un discriminante. 
 
@@ -91,6 +148,9 @@ armar_discriminantes <- function(mu,sigma,apriori,variable) {
   return(deltas)
 }
 
+delta_c <- armar_discriminantes(esperanza_c,desvio_c,aprioris_c,variable_c)
+
+
 #esta función transforma la lista de discriminantes de una clase en una función que dado un dato nos da su clasificación de acuerdo a los discriminantes. 
 
 armar_asignadora_de_clases <- function(deltas) {
@@ -102,10 +162,9 @@ armar_asignadora_de_clases <- function(deltas) {
   return(asignar)
 }
 
+asignadora_c <- armar_asignadora_de_clases(delta_c)
 
 # integrando sin ninguna clase de elegancia o calidad lo antes programado llegamos a lo pactado: una función que dado un df y dos parámetros (dato a predecir, dato predictor) entrena una función predictora
-
-#la función "clasificadora_segun_variable" construye una función cuya salida es un vector compuesto por las categorías de "nombre.objetivo" a las cuales pertenece cada elemento de "nombre.predictor" del parámetro df. Esta puede mapearse sobre una columna de un df para tener una columna de predicciones.
 
 clasificadora_segun_variable <- function(df, nombre.predictor, nombre.objetivo) {
   nombre.predictor <- as.character(nombre.predictor)
@@ -120,3 +179,22 @@ clasificadora_segun_variable <- function(df, nombre.predictor, nombre.objetivo) 
   asignadora <- armar_asignadora_de_clases(discriminantes)
   return(asignadora)
 }
+
+
+#la función "clasificadora_segun_variable" construye una función cuya salida es un vector compuesto por las categorías de "nombre.objetivo" a las cuales pertenece cada elemento de "nombre.predictor" del parámetro df. Esta puede mapearse sobre una columna de un df para tener una columna de predicciones.
+
+
+X_a <- abalone[rifa,]
+clasificadora_ldiametro <- clasificadora_segun_variable( X_a, "long.diametro", "adulto" )
+
+
+abalone_val <- abalone[-rifa,]
+
+abalone2 <- mutate(abalone_val, predicc.ldiametr = map(long.diametro , clasificadora_ldiametro))
+
+# la tasa de acierto no es como para volverse loco, da un 22% de errores
+
+aciertos <- which(abalone2$predicc.ldiametr == abalone2$adulto)
+errores <- which(abalone2$predicc.ldiametr != abalone2$adulto)
+
+porcentaje_de_errores <- length(errores)/nrow(abalone2)

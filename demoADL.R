@@ -33,7 +33,7 @@ read_csv("abalone.data", col_types = tipos_columnas) %>%
   select(adulto, anillos, long.largo:peso.dif) -> abalone
 
 set.seed(42)
-rifa <- sample(seq(abalone[[var_y]]),1000,replace=F)
+rifa <- sample(seq(abalone[[var_y]]),2000,replace=F)
 X_c <- abalone[rifa,]
 y_c <- X_c[["adulto"]]
 
@@ -103,8 +103,12 @@ sigmas_por_clase <- function(clases,esperanzas) {
 
 #acá la uso para ver la hipótesis
 
+
+razones_entre_desvios_de_dos_clases <- function(sigmas_por_clase) {
+  sigmas_por_clase[[2]] / sigmas_por_clase[[1]]
+}
 sigmas_no_hat <- sigmas_por_clase(clases_c,esperanza_c)
-razones_desvios <- sigmas_no_hat[[1]] / sigmas_no_hat[[2]]
+razones_desvios <- razones_entre_desvios_de_dos_clases(sigmas_no_hat) 
 
 # sólo long.diametro lo cumple bien, es la variable que hay que usar
 
@@ -198,3 +202,39 @@ aciertos <- which(abalone2$predicc.ldiametr == abalone2$adulto)
 errores <- which(abalone2$predicc.ldiametr != abalone2$adulto)
 
 porcentaje_de_errores <- length(errores)/nrow(abalone2)
+
+
+# finalmente, agregué una con una forma más similar a lo que habíamos hablado
+# dada una formula que explica una variable segun un predictor, esta función entrena una clasificadora por discriminantes lineales. 
+
+adl <- function(df, formula) {
+  nombre.predictor <- as.character(formula[[3]])
+  nombre.objetivo <- as.character(formula[[2]])
+  x <- df[,which(colnames(abalone) != nombre.objetivo)]
+  y <- df[[nombre.objetivo]]
+  clases <- partir_en_clases(x,y)
+  mu_hat <- mu_hat(clases)
+  sigma_hat <- sigma_hat(clases,mu_hat)
+  aprioris <- pi_k(x,clases)
+  discriminantes <- armar_discriminantes(mu_hat,sigma_hat,aprioris,nombre.predictor)
+  asignadora <- armar_asignadora_de_clases(discriminantes)
+  return(asignadora)
+}
+
+adl_viscera <- adl(abalone,adulto ~ peso.viscera)
+abalone_cumbiero <- mutate(abalone_val, predicciones = map(abalone_val$peso.viscera,adl_visceras)) 
+
+#aprovechamos que las categorías son lógicas y usamos "as.logic" para que sea más inmediato comparar las columnas
+
+
+aplicar_adl <- function(df,adl,predictor) {
+  predictor_q <- enquo(predictor)
+  nombre_columna <- paste0( "predicciones.",quo_name( predictor_q ) ) 
+  df_preds <- mutate (
+	  df,
+	  !! nombre_columna := map_lgl(df[[predictor]],~ .x %>% adl %>% as.logical )
+	  )
+  return(df_preds)
+}
+
+abalone_aplicado <- aplicar_adl(abalone_val,adl_viscera,"peso.viscera")

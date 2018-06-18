@@ -55,7 +55,11 @@ sigmas_por_clase <- function(clases,esperanzas) {
 	return( esperanzas )
 }
 
-# Esta función sirve para encontrar el vector con los desvíos estimados por clase. 
+razones_entre_desvios_de_dos_clases <- function(sigmas_por_clase) {
+  sigmas_por_clase[[2]] / sigmas_por_clase[[1]]
+}
+
+# Esta función sirve para encontrar el vector con los desvíos estimados por clase, que es parte del proceso de hacer ADL. 
 
 sigma_hat <- function(clases,esperanzas) {
 	n <- reduce (
@@ -119,4 +123,30 @@ clasificadora_segun_variable <- function(df, nombre.predictor, nombre.objetivo) 
   discriminantes <- armar_discriminantes(mu_hat,sigma_hat,aprioris,nombre.predictor)
   asignadora <- armar_asignadora_de_clases(discriminantes)
   return(asignadora)
+}
+
+# dada una formula que explica una variable segun un predictor, esta función entrena una clasificadora por discriminantes lineales. 
+
+adl <- function(df, formula) {
+  nombre.predictor <- as.character(formula[[3]])
+  nombre.objetivo <- as.character(formula[[2]])
+  x <- df[,which(colnames(abalone) != nombre.objetivo)]
+  y <- df[[nombre.objetivo]]
+  clases <- partir_en_clases(x,y)
+  mu_hat <- mu_hat(clases)
+  sigma_hat <- sigma_hat(clases,mu_hat)
+  aprioris <- pi_k(x,clases)
+  discriminantes <- armar_discriminantes(mu_hat,sigma_hat,aprioris,nombre.predictor)
+  asignadora <- armar_asignadora_de_clases(discriminantes)
+  return(asignadora)
+}
+
+aplicar_adl <- function(df,adl,predictor) {
+  predictor_q <- enquo(predictor)
+  nombre_columna <- paste0( "predicciones.",quo_name( predictor_q ) ) 
+  df_preds <- mutate (
+	  df,
+	  !! nombre_columna := map_lgl(df[[predictor]],~ .x %>% adl %>% as.logical )
+	  )
+  return(df_preds)
 }

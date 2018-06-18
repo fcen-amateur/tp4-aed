@@ -83,17 +83,4 @@ generador_predecir_qda <- function(muk, pik, sigmak, ...) {
   function(x) { which.max( delta(x) ) }
 }
 
-#' Esto lo podrpiamos reemplazar por un objeto "abalone" que se importe con el .R, es
-#' la práctica más difundida de paquetes en R.
-source('leer_abalone.R')
-abalone <- leer_abalone("abalone.data")
-
-# Caso de uso encapsulado
-m1 <- adulto ~ anillos + peso.total + long.diametro + long.altura
-qda1 <- qda(m1, abalone)
-
-# Probando las funciones de a pedacitos
-params <- estimar_parametros_qda(m1, abalone)
-predecir_m1 <- generador_predecir_qda(params$muk, params$pik, params$sigmak)
-predecir_m1(params$muk[[2]])
             

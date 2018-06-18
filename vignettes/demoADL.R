@@ -32,10 +32,15 @@ read_csv("abalone.data", col_types = tipos_columnas) %>%
          adulto = sexo != "I") %>%
   select(adulto, anillos, long.largo:peso.dif) -> abalone
 
+formula_c <- adulto ~ peso.viscera 
+predictores_c <- all.vars ( formula_c[[3]]  )
 set.seed(42)
-rifa <- sample(seq(abalone[[var_y]]),1000,replace=F)
+var_y <- formula_c[[2]]
+rifa <- sample(seq(abalone[[var_y]]),10,replace=F)
 X_c <- abalone[rifa,]
 y_c <- X_c[["adulto"]]
+X_c <- X_c[ predictores_c  ]
+
 
 #función para identificar las clases y obtener una lista de marcos de datos para cada una. 
 
@@ -103,52 +108,68 @@ sigmas_por_clase <- function(clases,esperanzas) {
 
 #acá la uso para ver la hipótesis
 
+
+razones_entre_desvios_de_dos_clases <- function(sigmas_por_clase) {
+  sigmas_por_clase[[2]] / sigmas_por_clase[[1]]
+}
 sigmas_no_hat <- sigmas_por_clase(clases_c,esperanza_c)
-razones_desvios <- sigmas_no_hat[[1]] / sigmas_no_hat[[2]]
+razones_desvios <- razones_entre_desvios_de_dos_clases(sigmas_no_hat) 
 
 # sólo long.diametro lo cumple bien, es la variable que hay que usar
 
-variable_c <- "long.diametro"
 
 # Esta función sirve para encontrar el vector con los desvíos estimados por clase. 
 
-sigma_hat <- function(clases,esperanzas) {
-	n <- reduce (
-		  map(clases,nrow),
-		  sumar
-		  )
-	K <- length(clases)
-	diferencias_al_cuadrado <- map2_df(clases,esperanzas, 
-			 ~colSums(
-				 ( (restar_vector_a_filas(..1, ..2))^2)/(n - K)
-				 )
-			 )
-	desvios <- rowSums( as.data.frame (diferencias_al_cuadrado)) 
-	names(desvios) <- names(clases[[1]]) 
-	return(desvios)
+sigma_hat <- function(clases) {
+  covs_por_clase <- map(clases,~cov(.x)*nrow(.x))
+  cov_unica <- reduce(
+    covs_por_clase,
+    sumar
+    )
+  K <- length(clases)
+  n <-  map_dbl(clases,nrow) %>% sum
+  return(cov_unica / (n - K) ) 
 }
 
-desvio_c <- sigma_hat(clases_c,esperanza_c)
+
+desvio_c <- sigma_hat(clases_c)
 
 # esta es la función modelo de un discriminante. 
 
-discriminante <- function( mu, sigma , apriori ) {
-	delta_k <- function(x) { x * (mu / (sigma^2)) - (mu^2)/(2*(sigma^2))  + log(apriori) } 
+#discriminante_mono <- function( mu, sigma , apriori ) {
+#	delta_k <- function(x) { x * (mu / (sigma^2)) - (mu^2)/(2*(sigma^2))  + log(apriori) } 
+#}  
+
+discriminante_clase <- function( mu , sigma , apriori ) {
+  invSigma <- solve(sigma)
+	delta_k <- function(x) { (x %*% invSigma) %*% mu - (1/2)*(mu%*%invSigma)%*%mu  + log(apriori) } 
+  return(delta_k)
 }  
+
+discriminante <- function(mu_vector, sigma, apriori_vector) {
+  discriminantes <- map2(mu_vector,
+    apriori_vector,
+    ~ discriminante_clase(.x,sigma,.y)
+  )
+ names(discriminantes) <- names(mu_vector)
+ return(discriminantes)
+}
+
+discriminantes_c <- discriminante(esperanza_c,desvio_c,aprioris_c)  
 
 # Esta función toma los parámetros de una tabla y nos da los discriminantes para una variable elegida. Estos están en forma de lista, así que no se pueden evaluar directamente. 
 
-armar_discriminantes <- function(mu,sigma,apriori,variable) {
-  columna <- map(mu,~.x[variable])
-  columna  <- map(columna,unname)
-  deltas <- pmap(
-		 list(columna,apriori)
-		 ,~discriminante(..1,sigma[variable],..2)
-		 )
-  return(deltas)
-}
-
-delta_c <- armar_discriminantes(esperanza_c,desvio_c,aprioris_c,variable_c)
+#armar_discriminantes <- function(mu,sigma,apriori,variable) {
+#  columna <- map(mu,~.x[variable])
+#  columna  <- map(columna,unname)
+#  deltas <- pmap(
+#		 list(columna,apriori)
+#		 ,~discriminante(..1,sigma[variable],..2)
+#		 )
+#  return(deltas)
+#}
+#
+#delta_c <- armar_discriminantes(esperanza_c,desvio_c,aprioris_c,variable_c)
 
 
 #esta función transforma la lista de discriminantes de una clase en una función que dado un dato nos da su clasificación de acuerdo a los discriminantes. 
@@ -162,39 +183,31 @@ armar_asignadora_de_clases <- function(deltas) {
   return(asignar)
 }
 
-asignadora_c <- armar_asignadora_de_clases(delta_c)
+asignadora_c <- armar_asignadora_de_clases(discriminantes_c)
 
-# integrando sin ninguna clase de elegancia o calidad lo antes programado llegamos a lo pactado: una función que dado un df y dos parámetros (dato a predecir, dato predictor) entrena una función predictora
 
-clasificadora_segun_variable <- function(df, nombre.predictor, nombre.objetivo) {
-  nombre.predictor <- as.character(nombre.predictor)
-  nombre.objetivo <- as.character(nombre.objetivo)
-  x <- df[,which(colnames(abalone) != nombre.objetivo)]
+adl_para_dfs <- function( formula, df ) {
+  nombre.objetivo <- as.character(formula[[2]])
+  predictores <- all.vars(formula[[3]])
+  X <- df[predictores] 
   y <- df[[nombre.objetivo]]
-  clases <- partir_en_clases(x,y)
+  clases <- partir_en_clases(X,y)
   mu_hat <- mu_hat(clases)
-  sigma_hat <- sigma_hat(clases,mu_hat)
-  aprioris <- pi_k(x,clases)
-  discriminantes <- armar_discriminantes(mu_hat,sigma_hat,aprioris,nombre.predictor)
-  asignadora <- armar_asignadora_de_clases(discriminantes)
-  return(asignadora)
+  sigma_hat <- sigma_hat(clases)
+  aprioris <- pi_k(X,clases)
+  discriminante <- discriminante(mu_hat,sigma_hat,aprioris)
+  asignadora_escalar <- armar_asignadora_de_clases(discriminante)
+  predecir <- function(df_prueba) {
+    df_prueba <- df_prueba[predictores]
+    columna <- map_lgl( seq ( nrow(df_prueba)),
+      ~asignadora_escalar ( 
+        as.double ( df_prueba[.x,]) 
+      )
+      %>% as.logical
+    )
+    return(columna)
+  }
+  return(predecir)
 }
 
-
-#la función "clasificadora_segun_variable" construye una función cuya salida es un vector compuesto por las categorías de "nombre.objetivo" a las cuales pertenece cada elemento de "nombre.predictor" del parámetro df. Esta puede mapearse sobre una columna de un df para tener una columna de predicciones.
-
-
-X_a <- abalone[rifa,]
-clasificadora_ldiametro <- clasificadora_segun_variable( X_a, "long.diametro", "adulto" )
-
-
-abalone_val <- abalone[-rifa,]
-
-abalone2 <- mutate(abalone_val, predicc.ldiametr = map(long.diametro , clasificadora_ldiametro))
-
-# la tasa de acierto no es como para volverse loco, da un 22% de errores
-
-aciertos <- which(abalone2$predicc.ldiametr == abalone2$adulto)
-errores <- which(abalone2$predicc.ldiametr != abalone2$adulto)
-
-porcentaje_de_errores <- length(errores)/nrow(abalone2)
+predecir_c <- adl_para_dfs(formula_c,abalone)

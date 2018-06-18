@@ -158,19 +158,6 @@ rlog <- function(formula, df, ...) {
   return(modelo)
 }
 
-clasificar_pred <- function(y, yhat) {
-  #' Dado un vector de respuestas `y` y uno de predicciones `pred`,
-  #' devuelve un vector de clasificación de resultados en TP, TN, FP, FN.
-  
-  stopifnot(length(y) == length(yhat))
-  
-  ifelse(y == pred,
-         # La predicción es correcta
-         ifelse(pred == T, "TP", "TN"),
-         # La predicción es incorrecta
-         ifelse(pred == T, "FP", "FN"))
-}
-
 aucroc <- function(y, yhat, cotas = seq(0,1, 0.01)) {
   #' Dado un vector de respuesta `y` y uno de probabilidades `yhat`, 
   #' `aucroc` calcula una tabla resumen con varios estadísticos para cada una de
@@ -203,3 +190,4 @@ aucroc <- function(y, yhat, cotas = seq(0,1, 0.01)) {
       fpr = FP / (FP + TN),
       tasa_aciertos = (TP + TN) / (TP + TN + FP + FN))
 }
+

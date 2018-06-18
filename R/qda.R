@@ -1,4 +1,4 @@
-qda <- function(formula, df, muk = NA, pik = NA, sigmak = NA) {
+qda <- function(formula, df, clases = NA, muk = NA, pik = NA, sigmak = NA) {
   #' Análisis del discriminante cuadratico
   #' Dada una `formula` de términos únicamente aditivos, 
   #' calcula el discriminante cuadrático según los datos de df
@@ -8,23 +8,26 @@ qda <- function(formula, df, muk = NA, pik = NA, sigmak = NA) {
   
   params <- estimar_parametros_qda(formula, df)
   n <- nrow(df)
+  var_y <- as.character(formula[[2]])
   
+  if (is.na(clases)) { clases <- params[[var_y]] }
   if (is.na(muk)) { muk <- params[["muk"]] }
   if (is.na(pik)) { pik <- params[["pik"]] }
   if (is.na(sigmak)) { sigmak <- params[["sigmak"]] }
   
-  predecir <- generador_predecir_qda(muk, pik, sigmak)
+  predecir <- function(df) {
+    predictor_individual <- generador_predecir_qda(clases, muk, pik, sigmak)
+    # X es la matriz de diseño, sin y
+    X <- model.matrix(formula, df)[,-c(1)]
+    # Le aplico `predictor_individual` a cada fila de X
+    yhat <-  map(seq_len(nrow(df)), ~predictor_individual(X[.,])) %>% unlist()
+    
+    return(yhat)
+  }
   
-  # X es la matriz de diseño, sin y
-  X <- model.matrix(formula, df)[,-c(1)]
-  
-  df$yhat <- map_dbl(seq_len(n), ~predecir(X[.,]))
-  
-  modelo <- list(
-    "df" = df,
-    "predecir" = predecir
-  )
-  return(modelo)
+  return(list(
+    predecir = predecir,
+    parametros = params))
 }
 
 generador_delta_qda <- function(muk, pik, sigmak) {
@@ -59,12 +62,13 @@ estimar_parametros_qda <- function(formula, df) {
       all.vars(formula)) %>%
     nest(-var_y) %>%
     mutate(
+      clase = var_y,
       pik = map_dbl(data, nrow)/nrow(df),
       #' El primer map devuelve la media de cada columna en un tibble de 1 fila,
       #' el segundo convierte el tibble en un vector
       muk = map(data, summarise_all, .funs = mean) %>% map(unlist),
       sigmak = map(data, cov)) %>%
-    select(-data) %>% as.list
+    select(-data)
 }
 
 delta_k_qda <- function(x, muk, pik, sigmak) {
@@ -78,9 +82,7 @@ delta_k_qda <- function(x, muk, pik, sigmak) {
   return(valor)
 }
 
-generador_predecir_qda <- function(muk, pik, sigmak, ...) {
-  delta <- generador_delta_qda(muk, pik, sigmak, ...)
-  function(x) { which.max( delta(x) ) }
+generador_predecir_qda <- function(clases, muk, pik, sigmak) {
+  delta <- generador_delta_qda(muk, pik, sigmak)
+  function(x) { clases[[which.max( delta(x) )]] }
 }
-
-            

@@ -6,9 +6,12 @@ generar_k_vecinos_con_k_optimo <- function(modelo, df) {
   var_y <- vars_xy[1]
   vars_x <- vars_xy[-1]
 
+  nombre_modelo <- paste(vars_xy, collapse=" ")
+  print(glue("Generando predictor kNN con modelo:\n'{nombre_modelo}'"))
+
   # Elegimos 20 valores de k entre 1 y sqrt(n) con n = tamaño del dataset
   valores_k <- seq(from = 1, to = ceiling(sqrt(nrow(df))),
-                   length.out = min(20, nrow(df)))
+                   length.out = min(10, nrow(df)))
   valores_k <- map_dbl(valores_k, ceiling)
 
   test_status <- sample(c(T, F), prob = c(.2, .8), size = nrow(df), replace = T)
@@ -27,6 +30,7 @@ generar_k_vecinos_con_k_optimo <- function(modelo, df) {
   )
 
   k_optimo <- (crossval %>% arrange(desc(tasa_de_aciertos)) %>% head(1))[["k"]]
+  print(glue("K óptimo = {k_optimo}"))
   mejor_knn <- k_vecinos(train_df, vars_x, var_y, k_optimo)
   return (list(predecir = mejor_knn))
 }

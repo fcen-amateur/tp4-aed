@@ -4,9 +4,12 @@ for (archivo in file.path("R", dir("R"))) {
   source(archivo)
 }
 
+abalone <- leer_abalone("data/abalone.data")
+
 nombres_predictores <- abalone %>%
   select(anillos:peso.caparazon) %>%
   names
+
 max_p <- 2
 
 listado_formulas <- vector("list", max_p)
@@ -15,7 +18,7 @@ for (i in seq_len(max_p)) {
   nuevas_formulas <- paste(
     "adulto ~",
     combn(
-      x = predictores, m = i,
+      x = nombres_predictores, m = i,
       simplify = F, FUN = paste, collapse = " + "))
   
   listado_formulas[[i]] <- tibble (p = i, formula_chr = nuevas_formulas)
@@ -26,11 +29,13 @@ formulas <- bind_rows(listado_formulas) %>%
 
 
 algoritmos <- list(
-  "rlog" = rlog,
-  "qda" = qda
+#  "rlog" = rlog,
+#  "qda" = qda
+#  "kvmc" = generar_k_vecinos_con_k_optimo,
+  "adl" = generador_predictor_adl
 )
 
-pliegos <- 1
+pliegos <- 2
 
 abalone <- abalone %>%
   mutate(pliego = sample(pliegos, n(), replace = T))
@@ -38,20 +43,41 @@ abalone <- abalone %>%
 get_train <- function(k) { abalone %>% filter(pliego != k) }
 get_test <-  function(k) { abalone %>% filter(pliego == k) }
 
-abalone %>% group_by(pliego) %>% tally()
-
 asistente_modelado <- function(nombre_algo, formula, k) {
-  print(paste(nombre_algo, formula))
+  print(paste(nombre_algo, deparse(formula)))
   algoritmos[[nombre_algo]](formula, get_train(k))
+}
+
+asistente_prediccion <- function(predictor, k) {
+  predictor(get_test(k))
 }
 
 crossing(
   tibble(nombre_algo = names(algoritmos), algo = algoritmos),
   formulas,
   tibble(k = seq_len(pliegos))
-  ) %>% arrange(rnorm(nrow(.))) %>%
+  ) %>% 
+  sample_n(10) %>%
   mutate(
     call = pmap(
       list(nombre_algo, formula, k),
       asistente_modelado),
     predecir = map(call, "predecir")) -> df
+
+df %>%
+  mutate(
+    yhat = pmap(
+      list(predecir, k),
+      asistente_prediccion),
+    n_k = map_int(yhat, length),
+    tasa = map(k, get_test) %>%
+      map("adulto") %>%
+      map2_dbl(yhat, tasa_aciertos)) -> df
+
+df %>%
+  filter(row_number()<=4) %>%
+  mutate(
+    yhat = pmap(
+      list(predecir, k),
+      asistente_prediccion))
+

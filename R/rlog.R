@@ -30,7 +30,7 @@ p <- function(X, beta) {
   #' Computa las probabilidades asociadas a la matriz de diseño `X`
   #' y los coeficientes `beta` como la función logística del producto
   #' matricial `X %*% beta`
-  logistica(X %*% as.matrix(beta))
+  as.double(logistica(X %*% as.matrix(beta)))
 }
 
 verosimilitud <- function(y, X, beta, natural = FALSE) {

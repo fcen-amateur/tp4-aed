@@ -18,7 +18,7 @@ qda <- function(formula, df, clases = NA, muk = NA, pik = NA, sigmak = NA) {
   predecir <- function(df) {
     predictor_individual <- generador_predecir_qda(clases, muk, pik, sigmak)
     # X es la matriz de diseño, sin y
-    X <- model.matrix(formula, df)[,-c(1)]
+    X <- df[,all.vars(formula[[3]])]
     # Le aplico `predictor_individual` a cada fila de X
     yhat <-  map(seq_len(nrow(df)), ~predictor_individual(X[.,])) %>% unlist()
     

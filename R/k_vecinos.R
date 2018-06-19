@@ -1,8 +1,8 @@
 library(glue)
 
-generar_k_vecinos_con_k_optimo <- function(modelo, df) {
-  # Extraemos los nombres de variables del `modelo`
-  vars_xy <- all.vars(modelo)
+generar_k_vecinos_con_k_optimo <- function(formula, df) {
+  # Extraemos los nombres de variables del `formula`
+  vars_xy <- all.vars(formula)
   var_y <- vars_xy[1]
   vars_x <- vars_xy[-1]
 
@@ -58,7 +58,7 @@ k_vecinos <- function(train_df, vars_x, var_y, k) {
   # Escalamos el `train_df`. Guardamos las medias y desvíos para escalar también
   # las nuevas observaciones antes de clasificarlas:
   escalado <- train_df[vars_x] %>% scale
-  train_df_escalado <- train_df %>% select(vars_xy)
+  train_df_escalado <- train_df %>% select(var_y, vars_x)
   train_df_escalado[, vars_x] <- escalado
 
   medias <- attr(escalado, "scaled:center")

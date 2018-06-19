@@ -119,5 +119,5 @@ generador_predictor_adl <- function( formula, df ) {
     )
     return(columna)
   }
-  return(predecir)
+  return(list(predecir = predecir))
 }

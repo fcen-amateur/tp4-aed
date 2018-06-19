@@ -37,7 +37,7 @@ armar_asignadora_de_clases <- function(deltas) {
 
 
 
-generador_el_predictor_adc <- function( formula, df ) {
+generar_el_predictor_adc <- function( formula, df ) {
   nombre.objetivo <- as.character(formula[[2]])
   predictores <- all.vars(formula[[3]])
   X <- df[predictores] 

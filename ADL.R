@@ -30,7 +30,6 @@ restar_vector_a_filas <- function(X,v) {
 }
 
 
-restada <- restar_vector_a_filas(clases_c[[1]],esperanza_c[[1]])
 
 
 sumar <- function(a,b) {a+b}
@@ -55,8 +54,6 @@ sigmas_por_clase <- function(clases,esperanzas) {
 razones_entre_desvios_de_dos_clases <- function(sigmas_por_clase) {
   sigmas_por_clase[[2]] / sigmas_por_clase[[1]]
 }
-sigmas_no_hat <- sigmas_por_clase(clases_c,esperanza_c)
-razones_desvios <- razones_entre_desvios_de_dos_clases(sigmas_no_hat) 
 
 
 sigma_hat <- function(clases) {

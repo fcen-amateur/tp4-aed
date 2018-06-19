@@ -29,10 +29,11 @@ formulas <- bind_rows(listado_formulas) %>%
 
 
 algoritmos <- list(
-#  "rlog" = rlog,
-#  "qda" = qda
-#  "kvmc" = generar_k_vecinos_con_k_optimo,
-  "adl" = generador_predictor_adl
+  "rlog" = rlog,
+# "qda" = qda
+  "adc" = generar_el_predictor_adc,
+  "kvmc" = generar_k_vecinos_con_k_optimo,
+  "adl" = generar_el_predictor_adl
 )
 
 pliegos <- 2

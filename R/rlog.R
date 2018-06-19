@@ -115,52 +115,47 @@ dg <- function(fun_obj, gradiente_fun, beta0,
 }
 
 
-rlog <- function(formula, df, escalador = base::scale, ...) {
+rlog <- function(formula, df, ...) {
   #' Computa la regresión logística especificada por `formula` a partir de los
   #' datos de `df`. Acepta `...` argumentos adicionales que serán pasados a `dg`
   #' 
   #' Por defecto escala todas las columnas salvo la primera (la ordenada) de la
   #' matriz de diseño centrando cada una en su media y dividiendo por el desvío
-  #' estándar, pero se puede proveer una función `escalador` alternativa si se
-  #' desea.
+  #' estándar.
   #' 
   #' Devuelve `modelo`, una lista con el resultado de la llamada a `dg`, más:
-  #' - probs (vector): las probabilidades asociadas a cada observación, según la
-  #'     función logística evaluada en el beta0 hallado.
-  #' - predictor (funcion): Función que estima probabilidades para observaciones
+  #' - df (dataframe): el dataframe original, aumentado con las probabilidades
+  #'     asociadas a cada observación, según la función logística evaluada en el beta0 hallado.
+  #' - predecir (funcion): Función que estima probabilidades para observaciones
   #'     no incluidas en el conjunto de entrenamento.
 
   var_y <- as.character(formula[[2]])
   y <- df[[var_y]]
-  X <- model.matrix(formula, df)
+  
+  X <- scale(model.matrix(formula, df))
+  medias <- attr(X, "scaled:center")
+  desvios <- attr(X, "scaled:scale")
   # La primera columna debe ser siembre 'puros unos', sin escalar
-  X[,-c(1)] <- escalador(X[,-c(1)])
+  X[,1] <- 1
   
   verosimilitud_en_beta <- function(beta) { -verosimilitud(y, X, beta) }
   gradiente_en_beta <- function(beta) { -gradiente_logverosimilitud(y, X, beta) }
   beta0 <- vector("numeric", dim(X)[2])
   
   modelo <- dg(verosimilitud_en_beta, gradiente_en_beta, beta0, ...)
-  modelo$prob <- p(X, modelo$parametros)
-  modelo$predictor <- function(X) {
-    X[,-c(1)] <- escalador(X[,-c(1)])
-    p(X, modelo$parametros)
+  
+  predecir <- function(df) {
+    yhat <- vector("logical", nrow(df))
+    X <- model.matrix(formula, df)
+    X <- scale(X, center = medias, scale = desvios)
+    X[,1] <- 1
+    
+    return(p(X, modelo$parametros) > 0.5)
   }
+
+  modelo$predecir <- predecir
   
   return(modelo)
-}
-
-clasificar_pred <- function(y, yhat) {
-  #' Dado un vector de respuestas `y` y uno de predicciones `pred`,
-  #' devuelve un vector de clasificación de resultados en TP, TN, FP, FN.
-  
-  stopifnot(length(y) == length(yhat))
-  
-  ifelse(y == pred,
-         # La predicción es correcta
-         ifelse(pred == T, "TP", "TN"),
-         # La predicción es incorrecta
-         ifelse(pred == T, "FP", "FN"))
 }
 
 aucroc <- function(y, yhat, cotas = seq(0,1, 0.01)) {
@@ -195,3 +190,4 @@ aucroc <- function(y, yhat, cotas = seq(0,1, 0.01)) {
       fpr = FP / (FP + TN),
       tasa_aciertos = (TP + TN) / (TP + TN + FP + FN))
 }
+

@@ -1,13 +1,35 @@
-source("tp4-lib.R")
-source("leer_abalone.R")
+for (archivo in file.path("R", dir("R"))) {
+  source(archivo)
+}
 
-abalone <- leer_abalone("abalone.data")
+abalone <- leer_abalone("data/abalone.data")
+
+algoritmos <- list(
+  kvmc = entrenar_k_vecinos,
+  # lda no se lleva con formulas todavia
+  # lda = clasificadora_segun_variable,
+  rlog = rlog,
+  qda = qda
+)
+
+m1 <- adulto ~ anillos + peso.total + long.diametro + long.altura
+
+
+rlog1 <- algoritmos[["rlog"]](adulto ~ anillos, abalone)
+tasa_aciertos(abalone$adulto, rlog1$predecir(abalone))
+
+qda1 <- qda(m1, abalone)
+tasa_aciertos(abalone$adulto, qda1$predecir(abalone))
+# Probando las funciones de a pedacitos
+params <- estimar_parametros_qda(m1, abalone)
+predecir_m1 <- generador_predecir_qda(params$muk, params$pik, params$sigmak)
+predecir_m1(params$muk[[2]])
 
 rlog1 <- rlog(adulto ~ anillos + long.diametro, abalone,
               tasa_aprendizaje = 1e-5, min_delta = 1e-7, max_ciclos = 10000)
 
-rlog2 <- rlog(adulto ~ peso.total + long.largo + long.diametro + anillos, abalone,
-              tasa_aprendizaje = 1e-5, min_delta = 1e-7)
+rlog2 <- rlog(m1, abalone,
+              tasa_aprendizaje = 1e-5, min_delta = 1e-6)
 
 str(rlog1)
 str(rlog2)

@@ -1,4 +1,4 @@
-source("ADL.R")
+source("R/ADL.R")
 
 sigma_k <- function(clases) {
   covs_por_clase <- map( clases,~cov(.x) )

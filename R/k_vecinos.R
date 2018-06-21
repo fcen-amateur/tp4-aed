@@ -10,10 +10,11 @@ generar_k_vecinos_con_k_optimo <- function(formula, df) {
   print(glue("Generando predictor kNN con modelo:\n'{nombre_modelo}'"))
 
   # Elegimos 20 valores de k entre 1 y sqrt(n) con n = tamaño del dataset
-  valores_k <- seq(from = 1, to = ceiling(sqrt(nrow(df))),
-                   length.out = min(10, nrow(df)))
-  valores_k <- map_dbl(valores_k, ceiling)
-
+  # valores_k <- seq(from = 1, to = ceiling(sqrt(nrow(df))),
+  #                  length.out = min(10, nrow(df)))
+  # valores_k <- map_dbl(valores_k, ceiling)
+  valores_k <- 1
+  
   test_status <- sample(c(T, F), prob = c(.2, .8), size = nrow(df), replace = T)
   test_df <- df[test_status, vars_xy]
   train_df <- df[!test_status, vars_xy]

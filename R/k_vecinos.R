@@ -1,27 +1,33 @@
-library(glue)
-
-generar_k_vecinos_con_k_optimo <- function(formula, df) {
-  # Extraemos los nombres de variables del `formula`
+extraer_variables_de_formula <- function(formula) {
   vars_xy <- all.vars(formula)
-  var_y <- vars_xy[1]
-  vars_x <- vars_xy[-1]
+  return (list(
+    xy = vars_xy,
+    y = vars_xy[1],
+    X = vars_xy[-1]))
+}
 
-  nombre_modelo <- paste(vars_xy, collapse=" ")
-  print(glue("Generando predictor kNN con modelo:\n'{nombre_modelo}'"))
+nombre_de_formula <- function(formula) {
+  return (str_c(deparse(formula)))
+}
+
+buscar_k_optimo <- function(formula, df) {
+  variables <- extraer_variables_de_formula(formula)
+  print(str_c("Generando predictor kvmc con: ", deparse(formula)))
 
   # Elegimos 20 valores de k entre 1 y sqrt(n) con n = tamaño del dataset
-  # valores_k <- seq(from = 1, to = ceiling(sqrt(nrow(df))),
-  #                  length.out = min(10, nrow(df)))
-  # valores_k <- map_dbl(valores_k, ceiling)
-  valores_k <- 1
-  
-  test_status <- sample(c(T, F), prob = c(.2, .8), size = nrow(df), replace = T)
-  test_df <- df[test_status, vars_xy]
-  train_df <- df[!test_status, vars_xy]
+  valores_k <- seq(from = 1, to = ceiling(sqrt(nrow(df))),
+                   length.out = min(10, nrow(df)))
+  valores_k <- map_dbl(valores_k, ceiling)
 
-  crear_predictor_knn <- function(k) { k_vecinos(train_df, vars_x, var_y, k) }
+  test_status <- sample(c(T, F), prob = c(.2, .8), size = nrow(df), replace = T)
+  test_df <- df[test_status, variables$xy]
+  train_df <- df[!test_status, variables$xy]
+
+  crear_predictor_knn <- function(k) {
+    k_vecinos(train_df, variables$X, variables$y, k)
+  }
   calcular_tasa_de_aciertos <- function(predicciones) {
-    sum(test_df[[var_y]] == predicciones) / nrow(test_df)
+    sum(test_df[[variables$y]] == predicciones) / nrow(test_df)
   }
   crossval <- tibble(
     k = valores_k,
@@ -30,9 +36,27 @@ generar_k_vecinos_con_k_optimo <- function(formula, df) {
     tasa_de_aciertos = map_dbl(y_hat, calcular_tasa_de_aciertos)
   )
 
-  k_optimo <- (crossval %>% arrange(desc(tasa_de_aciertos)) %>% head(1))[["k"]]
-  print(glue("K óptimo = {k_optimo}"))
-  mejor_knn <- k_vecinos(train_df, vars_x, var_y, k_optimo)
+  k_optimo <-
+    (crossval %>%
+     arrange(desc(tasa_de_aciertos)) %>%
+     head(1))[["k"]]
+
+  return (k_optimo)
+}
+
+generar_k_vecinos_con_k_optimo <- function(formula, df, valores_k = 1) {
+  #' Generar un predictor de K-vecinos más cercanos a partir del modelo de
+  #' `formula` y entrenado sobre el `df`.
+  #' Si recibe una lista de `valores_k`, se limita a buscar el k óptimo entre
+  #' esos valores.
+  variables <- extraer_variables_de_formula(formula)
+  if (length(valores_k) == 1) {
+    k_optimo <- valores_k[[1]]
+  } else {
+    k_optimo <- buscar_k_optimo(formula, df, valores_k)
+    print(str_c("K óptimo = ", k_optimo))
+  }
+  mejor_knn <- k_vecinos(df, variables$X, variables$y, k_optimo)
   return (list(predecir = mejor_knn))
 }
 
@@ -111,7 +135,7 @@ k_vecinos <- function(train_df, vars_x, var_y, k) {
       rowid_to_column("obs_id")
     test_df_escalado[[var_y]] <- NA
 
-    print(glue("Prediciendo con k = {k}"))
+    print(str_c("Prediciendo con k", k))
     # Distancias entre *todas* las observaciones y *todos* los puntos de training:
     distancias <-
       bind_rows(apply(test_df_escalado, 1, calcular_distancias)) %>%

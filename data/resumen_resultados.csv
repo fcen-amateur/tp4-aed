@@ -1,0 +1,1091 @@
+p,algo,modelo_desc,tasa_pesada
+1,adc,adulto ~ anillos,0.7881254488867608
+1,adc,adulto ~ long.altura,0.7943500119703136
+1,adc,adulto ~ long.diametro,0.7866890112520948
+1,adc,adulto ~ long.largo,0.7830979171654298
+1,adc,adulto ~ peso.caparazon,0.7936317931529806
+1,adc,adulto ~ peso.desenvainado,0.7744792913574335
+1,adc,adulto ~ peso.total,0.7921953555183145
+1,adc,adulto ~ peso.viscera,0.7969834809672013
+1,adl,adulto ~ anillos,0.7881254488867608
+1,adl,adulto ~ long.altura,0.7895618865214269
+1,adl,adulto ~ long.diametro,0.7874072300694278
+1,adl,adulto ~ long.largo,0.7833373234378741
+1,adl,adulto ~ peso.caparazon,0.7962652621498684
+1,adl,adulto ~ peso.desenvainado,0.7778309791716543
+1,adl,adulto ~ peso.total,0.796744074694757
+1,adl,adulto ~ peso.viscera,0.8010533875987551
+1,kvmc,adulto ~ anillos,0.7581996648312186
+1,kvmc,adulto ~ long.altura,0.7321043811347857
+1,kvmc,adulto ~ long.diametro,0.7313861623174527
+1,kvmc,adulto ~ long.largo,0.7364136940387838
+1,kvmc,adulto ~ peso.caparazon,0.7596361024658846
+1,kvmc,adulto ~ peso.desenvainado,0.7005027531721331
+1,kvmc,adulto ~ peso.total,0.711036629159684
+1,kvmc,adulto ~ peso.viscera,0.7249221929614555
+1,qda,adulto ~ anillos,0.7881254488867608
+1,qda,adulto ~ long.altura,0.7943500119703136
+1,qda,adulto ~ long.diametro,0.7866890112520948
+1,qda,adulto ~ long.largo,0.7830979171654298
+1,qda,adulto ~ peso.caparazon,0.7936317931529806
+1,qda,adulto ~ peso.desenvainado,0.7744792913574335
+1,qda,adulto ~ peso.total,0.7921953555183145
+1,qda,adulto ~ peso.viscera,0.7969834809672013
+1,rlog,adulto ~ anillos,0.7881254488867608
+1,rlog,adulto ~ long.altura,0.7943500119703136
+1,rlog,adulto ~ long.diametro,0.7874072300694278
+1,rlog,adulto ~ long.largo,0.7833373234378741
+1,rlog,adulto ~ peso.caparazon,0.796744074694757
+1,rlog,adulto ~ peso.desenvainado,0.7785491979889874
+1,rlog,adulto ~ peso.total,0.7965046684223127
+1,rlog,adulto ~ peso.viscera,0.8020110126885325
+2,adc,adulto ~ anillos + long.altura,0.8108690447689729
+2,adc,adulto ~ anillos + long.diametro,0.8063203255925305
+2,adc,adulto ~ anillos + long.largo,0.8015322001436438
+2,adc,adulto ~ anillos + peso.caparazon,0.798898731146756
+2,adc,adulto ~ anillos + peso.desenvainado,0.8082355757720853
+2,adc,adulto ~ anillos + peso.total,0.8135025137658607
+2,adc,adulto ~ anillos + peso.viscera,0.8154177639454153
+2,adc,adulto ~ long.altura + peso.caparazon,0.7795068230787646
+2,adc,adulto ~ long.altura + peso.desenvainado,0.7809432607134307
+2,adc,adulto ~ long.altura + peso.total,0.7842949485276515
+2,adc,adulto ~ long.altura + peso.viscera,0.7909983241560928
+2,adc,adulto ~ long.diametro + long.altura,0.794589418242758
+2,adc,adulto ~ long.diametro + peso.caparazon,0.7859707924347618
+2,adc,adulto ~ long.diametro + peso.desenvainado,0.7898012927938712
+2,adc,adulto ~ long.diametro + peso.total,0.7830979171654298
+2,adc,adulto ~ long.diametro + peso.viscera,0.7902801053387599
+2,adc,adulto ~ long.largo + long.altura,0.7912377304285372
+2,adc,adulto ~ long.largo + long.diametro,0.7881254488867608
+2,adc,adulto ~ long.largo + peso.caparazon,0.781182666985875
+2,adc,adulto ~ long.largo + peso.desenvainado,0.779746229351209
+2,adc,adulto ~ long.largo + peso.total,0.7802250418960976
+2,adc,adulto ~ long.largo + peso.viscera,0.7744792913574335
+2,adc,adulto ~ peso.desenvainado + peso.caparazon,0.7799856356236533
+2,adc,adulto ~ peso.desenvainado + peso.viscera,0.7828585108929854
+2,adc,adulto ~ peso.total + peso.caparazon,0.7866890112520948
+2,adc,adulto ~ peso.total + peso.desenvainado,0.7869284175245391
+2,adc,adulto ~ peso.total + peso.viscera,0.7852525736174287
+2,adc,adulto ~ peso.viscera + peso.caparazon,0.7854919798898731
+2,adl,adulto ~ anillos + long.altura,0.8041656691405314
+2,adl,adulto ~ anillos + long.diametro,0.7979411060569787
+2,adl,adulto ~ anillos + long.largo,0.79746229351209
+2,adl,adulto ~ anillos + peso.caparazon,0.8020110126885325
+2,adl,adulto ~ anillos + peso.desenvainado,0.8067991381374192
+2,adl,adulto ~ anillos + peso.total,0.811587263586306
+2,adl,adulto ~ anillos + peso.viscera,0.8127842949485277
+2,adl,adulto ~ long.altura + peso.caparazon,0.7991381374192004
+2,adl,adulto ~ long.altura + peso.desenvainado,0.7921953555183145
+2,adl,adulto ~ long.altura + peso.total,0.7977016997845343
+2,adl,adulto ~ long.altura + peso.viscera,0.8015322001436438
+2,adl,adulto ~ long.diametro + long.altura,0.7921953555183145
+2,adl,adulto ~ long.diametro + peso.caparazon,0.7929135743356476
+2,adl,adulto ~ long.diametro + peso.desenvainado,0.7881254488867608
+2,adl,adulto ~ long.diametro + peso.total,0.7895618865214269
+2,adl,adulto ~ long.diametro + peso.viscera,0.7943500119703136
+2,adl,adulto ~ long.largo + long.altura,0.7883648551592052
+2,adl,adulto ~ long.largo + long.diametro,0.7888436677040939
+2,adl,adulto ~ long.largo + peso.caparazon,0.7900406990663156
+2,adl,adulto ~ long.largo + peso.desenvainado,0.781182666985875
+2,adl,adulto ~ long.largo + peso.total,0.7909983241560928
+2,adl,adulto ~ long.largo + peso.viscera,0.7948288245152023
+2,adl,adulto ~ peso.desenvainado + peso.caparazon,0.796744074694757
+2,adl,adulto ~ peso.desenvainado + peso.viscera,0.7998563562365334
+2,adl,adulto ~ peso.total + peso.caparazon,0.799616949964089
+2,adl,adulto ~ peso.total + peso.desenvainado,0.799616949964089
+2,adl,adulto ~ peso.total + peso.viscera,0.798180512329423
+2,adl,adulto ~ peso.viscera + peso.caparazon,0.7977016997845343
+2,kvmc,adulto ~ anillos + long.altura,0.7206128800574575
+2,kvmc,adulto ~ anillos + long.diametro,0.7359348814938952
+2,kvmc,adulto ~ anillos + long.largo,0.7435958822121139
+2,kvmc,adulto ~ anillos + peso.caparazon,0.7517356954752215
+2,kvmc,adulto ~ anillos + peso.desenvainado,0.7574814460138856
+2,kvmc,adulto ~ anillos + peso.total,0.7407230069427819
+2,kvmc,adulto ~ anillos + peso.viscera,0.7548479770169978
+2,kvmc,adulto ~ long.altura + peso.caparazon,0.7356954752214508
+2,kvmc,adulto ~ long.altura + peso.desenvainado,0.7311467560450083
+2,kvmc,adulto ~ long.altura + peso.total,0.7292315058654537
+2,kvmc,adulto ~ long.altura + peso.viscera,0.7359348814938952
+2,kvmc,adulto ~ long.diametro + long.altura,0.7292315058654537
+2,kvmc,adulto ~ long.diametro + peso.caparazon,0.7400047881254489
+2,kvmc,adulto ~ long.diametro + peso.desenvainado,0.7210916926023462
+2,kvmc,adulto ~ long.diametro + peso.total,0.7483840076610008
+2,kvmc,adulto ~ long.diametro + peso.viscera,0.7311467560450083
+2,kvmc,adulto ~ long.largo + long.altura,0.7459899449365573
+2,kvmc,adulto ~ long.largo + long.diametro,0.729470912137898
+2,kvmc,adulto ~ long.largo + peso.caparazon,0.7385683504907828
+2,kvmc,adulto ~ long.largo + peso.desenvainado,0.7057696911659086
+2,kvmc,adulto ~ long.largo + peso.total,0.7455111323916687
+2,kvmc,adulto ~ long.largo + peso.viscera,0.7361742877663395
+2,kvmc,adulto ~ peso.desenvainado + peso.caparazon,0.7206128800574575
+2,kvmc,adulto ~ peso.desenvainado + peso.viscera,0.7244433804165669
+2,kvmc,adulto ~ peso.total + peso.caparazon,0.7373713191285611
+2,kvmc,adulto ~ peso.total + peso.desenvainado,0.7395259755805602
+2,kvmc,adulto ~ peso.total + peso.viscera,0.73234378740723
+2,kvmc,adulto ~ peso.viscera + peso.caparazon,0.7249221929614555
+2,qda,adulto ~ anillos + long.altura,0.8108690447689729
+2,qda,adulto ~ anillos + long.diametro,0.8063203255925305
+2,qda,adulto ~ anillos + long.largo,0.8015322001436438
+2,qda,adulto ~ anillos + peso.caparazon,0.798898731146756
+2,qda,adulto ~ anillos + peso.desenvainado,0.8082355757720853
+2,qda,adulto ~ anillos + peso.total,0.8135025137658607
+2,qda,adulto ~ anillos + peso.viscera,0.8154177639454153
+2,qda,adulto ~ long.altura + peso.caparazon,0.7795068230787646
+2,qda,adulto ~ long.altura + peso.desenvainado,0.7809432607134307
+2,qda,adulto ~ long.altura + peso.total,0.7842949485276515
+2,qda,adulto ~ long.altura + peso.viscera,0.7909983241560928
+2,qda,adulto ~ long.diametro + long.altura,0.794589418242758
+2,qda,adulto ~ long.diametro + peso.caparazon,0.7859707924347618
+2,qda,adulto ~ long.diametro + peso.desenvainado,0.7898012927938712
+2,qda,adulto ~ long.diametro + peso.total,0.7830979171654298
+2,qda,adulto ~ long.diametro + peso.viscera,0.7902801053387599
+2,qda,adulto ~ long.largo + long.altura,0.7912377304285372
+2,qda,adulto ~ long.largo + long.diametro,0.7881254488867608
+2,qda,adulto ~ long.largo + peso.caparazon,0.781182666985875
+2,qda,adulto ~ long.largo + peso.desenvainado,0.779746229351209
+2,qda,adulto ~ long.largo + peso.total,0.7802250418960976
+2,qda,adulto ~ long.largo + peso.viscera,0.7744792913574335
+2,qda,adulto ~ peso.desenvainado + peso.caparazon,0.7799856356236533
+2,qda,adulto ~ peso.desenvainado + peso.viscera,0.7828585108929854
+2,qda,adulto ~ peso.total + peso.caparazon,0.7866890112520948
+2,qda,adulto ~ peso.total + peso.desenvainado,0.7869284175245391
+2,qda,adulto ~ peso.total + peso.viscera,0.7852525736174287
+2,qda,adulto ~ peso.viscera + peso.caparazon,0.7854919798898731
+2,rlog,adulto ~ anillos + long.altura,0.8036868565956428
+2,rlog,adulto ~ anillos + long.diametro,0.8017716064160881
+2,rlog,adulto ~ anillos + long.largo,0.8012927938711994
+2,rlog,adulto ~ anillos + peso.caparazon,0.8015322001436438
+2,rlog,adulto ~ anillos + peso.desenvainado,0.8056021067751975
+2,rlog,adulto ~ anillos + peso.total,0.808714388316974
+2,rlog,adulto ~ anillos + peso.viscera,0.8132631074934163
+2,rlog,adulto ~ long.altura + peso.caparazon,0.7986593248743117
+2,rlog,adulto ~ long.altura + peso.desenvainado,0.7929135743356476
+2,rlog,adulto ~ long.altura + peso.total,0.796025855877424
+2,rlog,adulto ~ long.altura + peso.viscera,0.8008139813263108
+2,rlog,adulto ~ long.diametro + long.altura,0.7931529806080919
+2,rlog,adulto ~ long.diametro + peso.caparazon,0.7957864496049797
+2,rlog,adulto ~ long.diametro + peso.desenvainado,0.7809432607134307
+2,rlog,adulto ~ long.diametro + peso.total,0.7972228872396456
+2,rlog,adulto ~ long.diametro + peso.viscera,0.8008139813263108
+2,rlog,adulto ~ long.largo + long.altura,0.793871199425425
+2,rlog,adulto ~ long.largo + long.diametro,0.7878860426143165
+2,rlog,adulto ~ long.largo + peso.caparazon,0.796025855877424
+2,rlog,adulto ~ long.largo + peso.desenvainado,0.7785491979889874
+2,rlog,adulto ~ long.largo + peso.total,0.8017716064160881
+2,rlog,adulto ~ long.largo + peso.viscera,0.8051232942303088
+2,rlog,adulto ~ peso.desenvainado + peso.caparazon,0.79746229351209
+2,rlog,adulto ~ peso.desenvainado + peso.viscera,0.8022504189609768
+2,rlog,adulto ~ peso.total + peso.caparazon,0.8003351687814221
+2,rlog,adulto ~ peso.total + peso.desenvainado,0.8010533875987551
+2,rlog,adulto ~ peso.total + peso.viscera,0.7977016997845343
+2,rlog,adulto ~ peso.viscera + peso.caparazon,0.8008139813263108
+3,adc,adulto ~ anillos + long.altura + peso.caparazon,0.7900406990663156
+3,adc,adulto ~ anillos + long.altura + peso.desenvainado,0.799616949964089
+3,adc,adulto ~ anillos + long.altura + peso.total,0.8020110126885325
+3,adc,adulto ~ anillos + long.altura + peso.viscera,0.7993775436916447
+3,adc,adulto ~ anillos + long.diametro + long.altura,0.8003351687814221
+3,adc,adulto ~ anillos + long.diametro + peso.caparazon,0.8005745750538664
+3,adc,adulto ~ anillos + long.diametro + peso.desenvainado,0.8027292315058655
+3,adc,adulto ~ anillos + long.diametro + peso.total,0.8101508259516399
+3,adc,adulto ~ anillos + long.diametro + peso.viscera,0.8034474503231984
+3,adc,adulto ~ anillos + long.largo + long.altura,0.7972228872396456
+3,adc,adulto ~ anillos + long.largo + long.diametro,0.8053627005027532
+3,adc,adulto ~ anillos + long.largo + peso.caparazon,0.798180512329423
+3,adc,adulto ~ anillos + long.largo + peso.desenvainado,0.8029686377783098
+3,adc,adulto ~ anillos + long.largo + peso.total,0.812305482403639
+3,adc,adulto ~ anillos + long.largo + peso.viscera,0.8041656691405314
+3,adc,adulto ~ anillos + peso.desenvainado + peso.caparazon,0.7948288245152023
+3,adc,adulto ~ anillos + peso.desenvainado + peso.viscera,0.7991381374192004
+3,adc,adulto ~ anillos + peso.total + peso.caparazon,0.8032080440507541
+3,adc,adulto ~ anillos + peso.total + peso.desenvainado,0.7998563562365334
+3,adc,adulto ~ anillos + peso.total + peso.viscera,0.7991381374192004
+3,adc,adulto ~ anillos + peso.viscera + peso.caparazon,0.79746229351209
+3,adc,adulto ~ long.altura + peso.desenvainado + peso.caparazon,0.7749581039023222
+3,adc,adulto ~ long.altura + peso.desenvainado + peso.viscera,0.7854919798898731
+3,adc,adulto ~ long.altura + peso.total + peso.caparazon,0.7778309791716543
+3,adc,adulto ~ long.altura + peso.total + peso.desenvainado,0.7816614795307637
+3,adc,adulto ~ long.altura + peso.total + peso.viscera,0.7766339478094326
+3,adc,adulto ~ long.altura + peso.viscera + peso.caparazon,0.7718458223605459
+3,adc,adulto ~ long.diametro + long.altura + peso.caparazon,0.7687335408187694
+3,adc,adulto ~ long.diametro + long.altura + peso.desenvainado,0.7751975101747666
+3,adc,adulto ~ long.diametro + long.altura + peso.total,0.7792674168063203
+3,adc,adulto ~ long.diametro + long.altura + peso.viscera,0.7761551352645439
+3,adc,adulto ~ long.diametro + peso.desenvainado + peso.caparazon,0.7756763227196553
+3,adc,adulto ~ long.diametro + peso.desenvainado + peso.viscera,0.7747186976298779
+3,adc,adulto ~ long.diametro + peso.total + peso.caparazon,0.779746229351209
+3,adc,adulto ~ long.diametro + peso.total + peso.desenvainado,0.7835767297103184
+3,adc,adulto ~ long.diametro + peso.total + peso.viscera,0.781900885803208
+3,adc,adulto ~ long.diametro + peso.viscera + peso.caparazon,0.7785491979889874
+3,adc,adulto ~ long.largo + long.altura + peso.caparazon,0.7692123533636581
+3,adc,adulto ~ long.largo + long.altura + peso.desenvainado,0.7740004788125449
+3,adc,adulto ~ long.largo + long.altura + peso.total,0.7857313861623174
+3,adc,adulto ~ long.largo + long.altura + peso.viscera,0.7735216662676562
+3,adc,adulto ~ long.largo + long.diametro + long.altura,0.7929135743356476
+3,adc,adulto ~ long.largo + long.diametro + peso.caparazon,0.7857313861623174
+3,adc,adulto ~ long.largo + long.diametro + peso.desenvainado,0.7890830739765382
+3,adc,adulto ~ long.largo + long.diametro + peso.total,0.7957864496049797
+3,adc,adulto ~ long.largo + long.diametro + peso.viscera,0.7898012927938712
+3,adc,adulto ~ long.largo + peso.desenvainado + peso.caparazon,0.7807038544409863
+3,adc,adulto ~ long.largo + peso.desenvainado + peso.viscera,0.7785491979889874
+3,adc,adulto ~ long.largo + peso.total + peso.caparazon,0.7854919798898731
+3,adc,adulto ~ long.largo + peso.total + peso.desenvainado,0.7895618865214269
+3,adc,adulto ~ long.largo + peso.total + peso.viscera,0.7821402920756524
+3,adc,adulto ~ long.largo + peso.viscera + peso.caparazon,0.7778309791716543
+3,adc,adulto ~ peso.desenvainado + peso.viscera + peso.caparazon,0.7821402920756524
+3,adc,adulto ~ peso.total + peso.desenvainado + peso.caparazon,0.7802250418960976
+3,adc,adulto ~ peso.total + peso.desenvainado + peso.viscera,0.7826191046205411
+3,adc,adulto ~ peso.total + peso.viscera + peso.caparazon,0.7823796983480967
+3,adl,adulto ~ anillos + long.altura + peso.caparazon,0.8063203255925305
+3,adl,adulto ~ anillos + long.altura + peso.desenvainado,0.8084749820445296
+3,adl,adulto ~ anillos + long.altura + peso.total,0.8103902322240842
+3,adl,adulto ~ anillos + long.altura + peso.viscera,0.8135025137658607
+3,adl,adulto ~ anillos + long.diametro + long.altura,0.8015322001436438
+3,adl,adulto ~ anillos + long.diametro + peso.caparazon,0.7993775436916447
+3,adl,adulto ~ anillos + long.diametro + peso.desenvainado,0.7998563562365334
+3,adl,adulto ~ anillos + long.diametro + peso.total,0.799616949964089
+3,adl,adulto ~ anillos + long.diametro + peso.viscera,0.8046444816854201
+3,adl,adulto ~ anillos + long.largo + long.altura,0.8012927938711994
+3,adl,adulto ~ anillos + long.largo + long.diametro,0.7984199186018673
+3,adl,adulto ~ anillos + long.largo + peso.caparazon,0.798898731146756
+3,adl,adulto ~ anillos + long.largo + peso.desenvainado,0.7979411060569787
+3,adl,adulto ~ anillos + long.largo + peso.total,0.8003351687814221
+3,adl,adulto ~ anillos + long.largo + peso.viscera,0.8039262628680871
+3,adl,adulto ~ anillos + peso.desenvainado + peso.caparazon,0.8077567632271966
+3,adl,adulto ~ anillos + peso.desenvainado + peso.viscera,0.8132631074934163
+3,adl,adulto ~ anillos + peso.total + peso.caparazon,0.813741920038305
+3,adl,adulto ~ anillos + peso.total + peso.desenvainado,0.8111084510414173
+3,adl,adulto ~ anillos + peso.total + peso.viscera,0.8125448886760833
+3,adl,adulto ~ anillos + peso.viscera + peso.caparazon,0.8113478573138616
+3,adl,adulto ~ long.altura + peso.desenvainado + peso.caparazon,0.7979411060569787
+3,adl,adulto ~ long.altura + peso.desenvainado + peso.viscera,0.8020110126885325
+3,adl,adulto ~ long.altura + peso.total + peso.caparazon,0.798180512329423
+3,adl,adulto ~ long.altura + peso.total + peso.desenvainado,0.8003351687814221
+3,adl,adulto ~ long.altura + peso.total + peso.viscera,0.7998563562365334
+3,adl,adulto ~ long.altura + peso.viscera + peso.caparazon,0.8010533875987551
+3,adl,adulto ~ long.diametro + long.altura + peso.caparazon,0.7921953555183145
+3,adl,adulto ~ long.diametro + long.altura + peso.desenvainado,0.7909983241560928
+3,adl,adulto ~ long.diametro + long.altura + peso.total,0.7929135743356476
+3,adl,adulto ~ long.diametro + long.altura + peso.viscera,0.7962652621498684
+3,adl,adulto ~ long.diametro + peso.desenvainado + peso.caparazon,0.7926741680632032
+3,adl,adulto ~ long.diametro + peso.desenvainado + peso.viscera,0.7972228872396456
+3,adl,adulto ~ long.diametro + peso.total + peso.caparazon,0.7931529806080919
+3,adl,adulto ~ long.diametro + peso.total + peso.desenvainado,0.7950682307876467
+3,adl,adulto ~ long.diametro + peso.total + peso.viscera,0.793871199425425
+3,adl,adulto ~ long.diametro + peso.viscera + peso.caparazon,0.7957864496049797
+3,adl,adulto ~ long.largo + long.altura + peso.caparazon,0.7914771367009815
+3,adl,adulto ~ long.largo + long.altura + peso.desenvainado,0.7888436677040939
+3,adl,adulto ~ long.largo + long.altura + peso.total,0.7933923868805363
+3,adl,adulto ~ long.largo + long.altura + peso.viscera,0.7972228872396456
+3,adl,adulto ~ long.largo + long.diametro + long.altura,0.7936317931529806
+3,adl,adulto ~ long.largo + long.diametro + peso.caparazon,0.7962652621498684
+3,adl,adulto ~ long.largo + long.diametro + peso.desenvainado,0.7893224802489825
+3,adl,adulto ~ long.largo + long.diametro + peso.total,0.795307637060091
+3,adl,adulto ~ long.largo + long.diametro + peso.viscera,0.79746229351209
+3,adl,adulto ~ long.largo + peso.desenvainado + peso.caparazon,0.7912377304285372
+3,adl,adulto ~ long.largo + peso.desenvainado + peso.viscera,0.7948288245152023
+3,adl,adulto ~ long.largo + peso.total + peso.caparazon,0.7907589178836486
+3,adl,adulto ~ long.largo + peso.total + peso.desenvainado,0.793871199425425
+3,adl,adulto ~ long.largo + peso.total + peso.viscera,0.7929135743356476
+3,adl,adulto ~ long.largo + peso.viscera + peso.caparazon,0.794589418242758
+3,adl,adulto ~ peso.desenvainado + peso.viscera + peso.caparazon,0.7986593248743117
+3,adl,adulto ~ peso.total + peso.desenvainado + peso.caparazon,0.8000957625089777
+3,adl,adulto ~ peso.total + peso.desenvainado + peso.viscera,0.8027292315058655
+3,adl,adulto ~ peso.total + peso.viscera + peso.caparazon,0.798898731146756
+3,kvmc,adulto ~ anillos + long.altura + peso.caparazon,0.7596361024658846
+3,kvmc,adulto ~ anillos + long.altura + peso.desenvainado,0.7553267895618865
+3,kvmc,adulto ~ anillos + long.altura + peso.total,0.7565238209241082
+3,kvmc,adulto ~ anillos + long.altura + peso.viscera,0.7538903519272205
+3,kvmc,adulto ~ anillos + long.diametro + long.altura,0.7593966961934403
+3,kvmc,adulto ~ anillos + long.diametro + peso.caparazon,0.7579602585587742
+3,kvmc,adulto ~ anillos + long.diametro + peso.desenvainado,0.7565238209241082
+3,kvmc,adulto ~ anillos + long.diametro + peso.total,0.7603543212832177
+3,kvmc,adulto ~ anillos + long.diametro + peso.viscera,0.7514962892027771
+3,kvmc,adulto ~ anillos + long.largo + long.altura,0.7584390711036629
+3,kvmc,adulto ~ anillos + long.largo + long.diametro,0.7412018194876706
+3,kvmc,adulto ~ anillos + long.largo + peso.caparazon,0.7572420397414412
+3,kvmc,adulto ~ anillos + long.largo + peso.desenvainado,0.74503231984678
+3,kvmc,adulto ~ anillos + long.largo + peso.total,0.7610725401005506
+3,kvmc,adulto ~ anillos + long.largo + peso.viscera,0.7589178836485516
+3,kvmc,adulto ~ anillos + peso.desenvainado + peso.caparazon,0.7440746947570026
+3,kvmc,adulto ~ anillos + peso.desenvainado + peso.viscera,0.7558056021067752
+3,kvmc,adulto ~ anillos + peso.total + peso.caparazon,0.75628441465166385
+3,kvmc,adulto ~ anillos + peso.total + peso.desenvainado,0.7589178836485516
+3,kvmc,adulto ~ anillos + peso.total + peso.viscera,0.7536509456547762
+3,kvmc,adulto ~ anillos + peso.viscera + peso.caparazon,0.7529327268374432
+3,kvmc,adulto ~ long.altura + peso.desenvainado + peso.caparazon,0.748623413933445
+3,kvmc,adulto ~ long.altura + peso.desenvainado + peso.viscera,0.7366531003112281
+3,kvmc,adulto ~ long.altura + peso.total + peso.caparazon,0.7361742877663395
+3,kvmc,adulto ~ long.altura + peso.total + peso.desenvainado,0.7455111323916687
+3,kvmc,adulto ~ long.altura + peso.total + peso.viscera,0.7354560689490065
+3,kvmc,adulto ~ long.altura + peso.viscera + peso.caparazon,0.7385683504907828
+3,kvmc,adulto ~ long.diametro + long.altura + peso.caparazon,0.7385683504907828
+3,kvmc,adulto ~ long.diametro + long.altura + peso.desenvainado,0.729470912137898
+3,kvmc,adulto ~ long.diametro + long.altura + peso.total,0.74503231984678
+3,kvmc,adulto ~ long.diametro + long.altura + peso.viscera,0.7297103184103424
+3,kvmc,adulto ~ long.diametro + peso.desenvainado + peso.caparazon,0.7529327268374432
+3,kvmc,adulto ~ long.diametro + peso.desenvainado + peso.viscera,0.729470912137898
+3,kvmc,adulto ~ long.diametro + peso.total + peso.caparazon,0.7467081637538904
+3,kvmc,adulto ~ long.diametro + peso.total + peso.desenvainado,0.7570026334689969
+3,kvmc,adulto ~ long.diametro + peso.total + peso.viscera,0.7438352884845583
+3,kvmc,adulto ~ long.diametro + peso.viscera + peso.caparazon,0.7455111323916687
+3,kvmc,adulto ~ long.largo + long.altura + peso.caparazon,0.7517356954752215
+3,kvmc,adulto ~ long.largo + long.altura + peso.desenvainado,0.7242039741441226
+3,kvmc,adulto ~ long.largo + long.altura + peso.total,0.7538903519272205
+3,kvmc,adulto ~ long.largo + long.altura + peso.viscera,0.7428776633947809
+3,kvmc,adulto ~ long.largo + long.diametro + long.altura,0.7344984438592291
+3,kvmc,adulto ~ long.largo + long.diametro + peso.caparazon,0.7435958822121139
+3,kvmc,adulto ~ long.largo + long.diametro + peso.desenvainado,0.7227675365094566
+3,kvmc,adulto ~ long.largo + long.diametro + peso.total,0.7419200383050036
+3,kvmc,adulto ~ long.largo + long.diametro + peso.viscera,0.7419200383050036
+3,kvmc,adulto ~ long.largo + peso.desenvainado + peso.caparazon,0.7534115393823319
+3,kvmc,adulto ~ long.largo + peso.desenvainado + peso.viscera,0.7459899449365573
+3,kvmc,adulto ~ long.largo + peso.total + peso.caparazon,0.7617907589178836
+3,kvmc,adulto ~ long.largo + peso.total + peso.desenvainado,0.7550873832894421
+3,kvmc,adulto ~ long.largo + peso.total + peso.viscera,0.7531721331098875
+3,kvmc,adulto ~ long.largo + peso.viscera + peso.caparazon,0.7593966961934403
+3,kvmc,adulto ~ peso.desenvainado + peso.viscera + peso.caparazon,0.7435958822121139
+3,kvmc,adulto ~ peso.total + peso.desenvainado + peso.caparazon,0.744314101029447
+3,kvmc,adulto ~ peso.total + peso.desenvainado + peso.viscera,0.7388077567632272
+3,kvmc,adulto ~ peso.total + peso.viscera + peso.caparazon,0.7318649748623414
+3,qda,adulto ~ anillos + long.altura + peso.caparazon,0.7900406990663156
+3,qda,adulto ~ anillos + long.altura + peso.desenvainado,0.799616949964089
+3,qda,adulto ~ anillos + long.altura + peso.total,0.8020110126885325
+3,qda,adulto ~ anillos + long.altura + peso.viscera,0.7993775436916447
+3,qda,adulto ~ anillos + long.diametro + long.altura,0.8003351687814221
+3,qda,adulto ~ anillos + long.diametro + peso.caparazon,0.8005745750538664
+3,qda,adulto ~ anillos + long.diametro + peso.desenvainado,0.8027292315058655
+3,qda,adulto ~ anillos + long.diametro + peso.total,0.8101508259516399
+3,qda,adulto ~ anillos + long.diametro + peso.viscera,0.8034474503231984
+3,qda,adulto ~ anillos + long.largo + long.altura,0.7972228872396456
+3,qda,adulto ~ anillos + long.largo + long.diametro,0.8053627005027532
+3,qda,adulto ~ anillos + long.largo + peso.caparazon,0.798180512329423
+3,qda,adulto ~ anillos + long.largo + peso.desenvainado,0.8029686377783098
+3,qda,adulto ~ anillos + long.largo + peso.total,0.812305482403639
+3,qda,adulto ~ anillos + long.largo + peso.viscera,0.8041656691405314
+3,qda,adulto ~ anillos + peso.desenvainado + peso.caparazon,0.7948288245152023
+3,qda,adulto ~ anillos + peso.desenvainado + peso.viscera,0.7991381374192004
+3,qda,adulto ~ anillos + peso.total + peso.caparazon,0.8032080440507541
+3,qda,adulto ~ anillos + peso.total + peso.desenvainado,0.7998563562365334
+3,qda,adulto ~ anillos + peso.total + peso.viscera,0.7991381374192004
+3,qda,adulto ~ anillos + peso.viscera + peso.caparazon,0.79746229351209
+3,qda,adulto ~ long.altura + peso.desenvainado + peso.caparazon,0.7749581039023222
+3,qda,adulto ~ long.altura + peso.desenvainado + peso.viscera,0.7854919798898731
+3,qda,adulto ~ long.altura + peso.total + peso.caparazon,0.7778309791716543
+3,qda,adulto ~ long.altura + peso.total + peso.desenvainado,0.7816614795307637
+3,qda,adulto ~ long.altura + peso.total + peso.viscera,0.7766339478094326
+3,qda,adulto ~ long.altura + peso.viscera + peso.caparazon,0.7718458223605459
+3,qda,adulto ~ long.diametro + long.altura + peso.caparazon,0.7687335408187694
+3,qda,adulto ~ long.diametro + long.altura + peso.desenvainado,0.7751975101747666
+3,qda,adulto ~ long.diametro + long.altura + peso.total,0.7792674168063203
+3,qda,adulto ~ long.diametro + long.altura + peso.viscera,0.7761551352645439
+3,qda,adulto ~ long.diametro + peso.desenvainado + peso.caparazon,0.7756763227196553
+3,qda,adulto ~ long.diametro + peso.desenvainado + peso.viscera,0.7747186976298779
+3,qda,adulto ~ long.diametro + peso.total + peso.caparazon,0.779746229351209
+3,qda,adulto ~ long.diametro + peso.total + peso.desenvainado,0.7835767297103184
+3,qda,adulto ~ long.diametro + peso.total + peso.viscera,0.781900885803208
+3,qda,adulto ~ long.diametro + peso.viscera + peso.caparazon,0.7785491979889874
+3,qda,adulto ~ long.largo + long.altura + peso.caparazon,0.7692123533636581
+3,qda,adulto ~ long.largo + long.altura + peso.desenvainado,0.7740004788125449
+3,qda,adulto ~ long.largo + long.altura + peso.total,0.7857313861623174
+3,qda,adulto ~ long.largo + long.altura + peso.viscera,0.7735216662676562
+3,qda,adulto ~ long.largo + long.diametro + long.altura,0.7929135743356476
+3,qda,adulto ~ long.largo + long.diametro + peso.caparazon,0.7857313861623174
+3,qda,adulto ~ long.largo + long.diametro + peso.desenvainado,0.7890830739765382
+3,qda,adulto ~ long.largo + long.diametro + peso.total,0.7957864496049797
+3,qda,adulto ~ long.largo + long.diametro + peso.viscera,0.7898012927938712
+3,qda,adulto ~ long.largo + peso.desenvainado + peso.caparazon,0.7807038544409863
+3,qda,adulto ~ long.largo + peso.desenvainado + peso.viscera,0.7785491979889874
+3,qda,adulto ~ long.largo + peso.total + peso.caparazon,0.7854919798898731
+3,qda,adulto ~ long.largo + peso.total + peso.desenvainado,0.7895618865214269
+3,qda,adulto ~ long.largo + peso.total + peso.viscera,0.7821402920756524
+3,qda,adulto ~ long.largo + peso.viscera + peso.caparazon,0.7778309791716543
+3,qda,adulto ~ peso.desenvainado + peso.viscera + peso.caparazon,0.7821402920756524
+3,qda,adulto ~ peso.total + peso.desenvainado + peso.caparazon,0.7802250418960976
+3,qda,adulto ~ peso.total + peso.desenvainado + peso.viscera,0.7826191046205411
+3,qda,adulto ~ peso.total + peso.viscera + peso.caparazon,0.7823796983480967
+3,rlog,adulto ~ anillos + long.altura + peso.caparazon,0.8048838879578645
+3,rlog,adulto ~ anillos + long.altura + peso.desenvainado,0.8075173569547522
+3,rlog,adulto ~ anillos + long.altura + peso.total,0.8082355757720853
+3,rlog,adulto ~ anillos + long.altura + peso.viscera,0.8127842949485277
+3,rlog,adulto ~ anillos + long.diametro + long.altura,0.8034474503231984
+3,rlog,adulto ~ anillos + long.diametro + peso.caparazon,0.8022504189609768
+3,rlog,adulto ~ anillos + long.diametro + peso.desenvainado,0.8070385444098636
+3,rlog,adulto ~ anillos + long.diametro + peso.total,0.8168542015800814
+3,rlog,adulto ~ anillos + long.diametro + peso.viscera,0.8180512329423031
+3,rlog,adulto ~ anillos + long.largo + long.altura,0.8017716064160881
+3,rlog,adulto ~ anillos + long.largo + long.diametro,0.8032080440507541
+3,rlog,adulto ~ anillos + long.largo + peso.caparazon,0.8039262628680871
+3,rlog,adulto ~ anillos + long.largo + peso.desenvainado,0.8099114196791956
+3,rlog,adulto ~ anillos + long.largo + peso.total,0.8230787646636342
+3,rlog,adulto ~ anillos + long.largo + peso.viscera,0.8223605458463011
+3,rlog,adulto ~ anillos + peso.desenvainado + peso.caparazon,0.8067991381374192
+3,rlog,adulto ~ anillos + peso.desenvainado + peso.viscera,0.8127842949485277
+3,rlog,adulto ~ anillos + peso.total + peso.caparazon,0.8106296384965286
+3,rlog,adulto ~ anillos + peso.total + peso.desenvainado,0.8106296384965286
+3,rlog,adulto ~ anillos + peso.total + peso.viscera,0.811587263586306
+3,rlog,adulto ~ anillos + peso.viscera + peso.caparazon,0.8127842949485277
+3,rlog,adulto ~ long.altura + peso.desenvainado + peso.caparazon,0.7986593248743117
+3,rlog,adulto ~ long.altura + peso.desenvainado + peso.viscera,0.8053627005027532
+3,rlog,adulto ~ long.altura + peso.total + peso.caparazon,0.7977016997845343
+3,rlog,adulto ~ long.altura + peso.total + peso.desenvainado,0.8020110126885325
+3,rlog,adulto ~ long.altura + peso.total + peso.viscera,0.8000957625089777
+3,rlog,adulto ~ long.altura + peso.viscera + peso.caparazon,0.8036868565956428
+3,rlog,adulto ~ long.diametro + long.altura + peso.caparazon,0.798898731146756
+3,rlog,adulto ~ long.diametro + long.altura + peso.desenvainado,0.7919559492458702
+3,rlog,adulto ~ long.diametro + long.altura + peso.total,0.7993775436916447
+3,rlog,adulto ~ long.diametro + long.altura + peso.viscera,0.8051232942303088
+3,rlog,adulto ~ long.diametro + peso.desenvainado + peso.caparazon,0.7943500119703136
+3,rlog,adulto ~ long.diametro + peso.desenvainado + peso.viscera,0.8024898252334212
+3,rlog,adulto ~ long.diametro + peso.total + peso.caparazon,0.7986593248743117
+3,rlog,adulto ~ long.diametro + peso.total + peso.desenvainado,0.8079961694996409
+3,rlog,adulto ~ long.diametro + peso.total + peso.viscera,0.8020110126885325
+3,rlog,adulto ~ long.diametro + peso.viscera + peso.caparazon,0.8029686377783098
+3,rlog,adulto ~ long.largo + long.altura + peso.caparazon,0.8010533875987551
+3,rlog,adulto ~ long.largo + long.altura + peso.desenvainado,0.794589418242758
+3,rlog,adulto ~ long.largo + long.altura + peso.total,0.8079961694996409
+3,rlog,adulto ~ long.largo + long.altura + peso.viscera,0.8108690447689729
+3,rlog,adulto ~ long.largo + long.diametro + long.altura,0.795307637060091
+3,rlog,adulto ~ long.largo + long.diametro + peso.caparazon,0.7965046684223127
+3,rlog,adulto ~ long.largo + long.diametro + peso.desenvainado,0.7866890112520948
+3,rlog,adulto ~ long.largo + long.diametro + peso.total,0.8046444816854201
+3,rlog,adulto ~ long.largo + long.diametro + peso.viscera,0.8082355757720853
+3,rlog,adulto ~ long.largo + peso.desenvainado + peso.caparazon,0.7969834809672013
+3,rlog,adulto ~ long.largo + peso.desenvainado + peso.viscera,0.8051232942303088
+3,rlog,adulto ~ long.largo + peso.total + peso.caparazon,0.8034474503231984
+3,rlog,adulto ~ long.largo + peso.total + peso.desenvainado,0.8111084510414173
+3,rlog,adulto ~ long.largo + peso.total + peso.viscera,0.8094326071343069
+3,rlog,adulto ~ long.largo + peso.viscera + peso.caparazon,0.8111084510414173
+3,rlog,adulto ~ peso.desenvainado + peso.viscera + peso.caparazon,0.8017716064160881
+3,rlog,adulto ~ peso.total + peso.desenvainado + peso.caparazon,0.8032080440507541
+3,rlog,adulto ~ peso.total + peso.desenvainado + peso.viscera,0.8039262628680871
+3,rlog,adulto ~ peso.total + peso.viscera + peso.caparazon,0.8003351687814221
+4,adc,adulto ~ anillos + long.altura + peso.desenvainado + peso.caparazon,0.7826191046205411
+4,adc,adulto ~ anillos + long.altura + peso.desenvainado + peso.viscera,0.7888436677040939
+4,adc,adulto ~ anillos + long.altura + peso.total + peso.caparazon,0.7826191046205411
+4,adc,adulto ~ anillos + long.altura + peso.total + peso.desenvainado,0.7866890112520948
+4,adc,adulto ~ anillos + long.altura + peso.total + peso.viscera,0.7833373234378741
+4,adc,adulto ~ anillos + long.altura + peso.viscera + peso.caparazon,0.7814220732583194
+4,adc,adulto ~ anillos + long.diametro + long.altura + peso.caparazon,0.779746229351209
+4,adc,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado,0.7854919798898731
+4,adc,adulto ~ anillos + long.diametro + long.altura + peso.total,0.7919559492458702
+4,adc,adulto ~ anillos + long.diametro + long.altura + peso.viscera,0.781182666985875
+4,adc,adulto ~ anillos + long.diametro + peso.desenvainado + peso.caparazon,0.7886042614316495
+4,adc,adulto ~ anillos + long.diametro + peso.desenvainado + peso.viscera,0.7917165429734259
+4,adc,adulto ~ anillos + long.diametro + peso.total + peso.caparazon,0.7933923868805363
+4,adc,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado,0.7941106056978693
+4,adc,adulto ~ anillos + long.diametro + peso.total + peso.viscera,0.7924347617907589
+4,adc,adulto ~ anillos + long.diametro + peso.viscera + peso.caparazon,0.7898012927938712
+4,adc,adulto ~ anillos + long.largo + long.altura + peso.caparazon,0.7787886042614316
+4,adc,adulto ~ anillos + long.largo + long.altura + peso.desenvainado,0.7881254488867608
+4,adc,adulto ~ anillos + long.largo + long.altura + peso.total,0.7969834809672013
+4,adc,adulto ~ anillos + long.largo + long.altura + peso.viscera,0.7866890112520948
+4,adc,adulto ~ anillos + long.largo + long.diametro + long.altura,0.799616949964089
+4,adc,adulto ~ anillos + long.largo + long.diametro + peso.caparazon,0.795307637060091
+4,adc,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado,0.8065597318649749
+4,adc,adulto ~ anillos + long.largo + long.diametro + peso.total,0.8113478573138616
+4,adc,adulto ~ anillos + long.largo + long.diametro + peso.viscera,0.8046444816854201
+4,adc,adulto ~ anillos + long.largo + peso.desenvainado + peso.caparazon,0.7890830739765382
+4,adc,adulto ~ anillos + long.largo + peso.desenvainado + peso.viscera,0.7950682307876467
+4,adc,adulto ~ anillos + long.largo + peso.total + peso.caparazon,0.8012927938711994
+4,adc,adulto ~ anillos + long.largo + peso.total + peso.desenvainado,0.79746229351209
+4,adc,adulto ~ anillos + long.largo + peso.total + peso.viscera,0.796744074694757
+4,adc,adulto ~ anillos + long.largo + peso.viscera + peso.caparazon,0.7907589178836486
+4,adc,adulto ~ anillos + peso.desenvainado + peso.viscera + peso.caparazon,0.7907589178836486
+4,adc,adulto ~ anillos + peso.total + peso.desenvainado + peso.caparazon,0.7878860426143165
+4,adc,adulto ~ anillos + peso.total + peso.desenvainado + peso.viscera,0.7912377304285372
+4,adc,adulto ~ anillos + peso.total + peso.viscera + peso.caparazon,0.7878860426143165
+4,adc,adulto ~ long.altura + peso.desenvainado + peso.viscera + peso.caparazon,0.7696911659085468
+4,adc,adulto ~ long.altura + peso.total + peso.desenvainado + peso.caparazon,0.7651424467321044
+4,adc,adulto ~ long.altura + peso.total + peso.desenvainado + peso.viscera,0.7696911659085468
+4,adc,adulto ~ long.altura + peso.total + peso.viscera + peso.caparazon,0.7646636341872157
+4,adc,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.caparazon,0.7646636341872157
+4,adc,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.viscera,0.7728034474503231
+4,adc,adulto ~ long.diametro + long.altura + peso.total + peso.caparazon,0.7711276035432129
+4,adc,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado,0.7728034474503231
+4,adc,adulto ~ long.diametro + long.altura + peso.total + peso.viscera,0.7696911659085468
+4,adc,adulto ~ long.diametro + long.altura + peso.viscera + peso.caparazon,0.7625089777352166
+4,adc,adulto ~ long.diametro + peso.desenvainado + peso.viscera + peso.caparazon,0.7763945415369883
+4,adc,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.caparazon,0.7728034474503231
+4,adc,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.viscera,0.7742398850849892
+4,adc,adulto ~ long.diametro + peso.total + peso.viscera + peso.caparazon,0.7735216662676562
+4,adc,adulto ~ long.largo + long.altura + peso.desenvainado + peso.caparazon,0.7711276035432129
+4,adc,adulto ~ long.largo + long.altura + peso.desenvainado + peso.viscera,0.7790280105338759
+4,adc,adulto ~ long.largo + long.altura + peso.total + peso.caparazon,0.7799856356236533
+4,adc,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado,0.7785491979889874
+4,adc,adulto ~ long.largo + long.altura + peso.total + peso.viscera,0.7747186976298779
+4,adc,adulto ~ long.largo + long.altura + peso.viscera + peso.caparazon,0.7716064160881015
+4,adc,adulto ~ long.largo + long.diametro + long.altura + peso.caparazon,0.7704093847258798
+4,adc,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado,0.7790280105338759
+4,adc,adulto ~ long.largo + long.diametro + long.altura + peso.total,0.7878860426143165
+4,adc,adulto ~ long.largo + long.diametro + long.altura + peso.viscera,0.780464448168542
+4,adc,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.caparazon,0.7790280105338759
+4,adc,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.viscera,0.7893224802489825
+4,adc,adulto ~ long.largo + long.diametro + peso.total + peso.caparazon,0.7842949485276515
+4,adc,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado,0.7902801053387599
+4,adc,adulto ~ long.largo + long.diametro + peso.total + peso.viscera,0.7895618865214269
+4,adc,adulto ~ long.largo + long.diametro + peso.viscera + peso.caparazon,0.7799856356236533
+4,adc,adulto ~ long.largo + peso.desenvainado + peso.viscera + peso.caparazon,0.7792674168063203
+4,adc,adulto ~ long.largo + peso.total + peso.desenvainado + peso.caparazon,0.7773521666267657
+4,adc,adulto ~ long.largo + peso.total + peso.desenvainado + peso.viscera,0.7780703854440987
+4,adc,adulto ~ long.largo + peso.total + peso.viscera + peso.caparazon,0.7756763227196553
+4,adc,adulto ~ peso.total + peso.desenvainado + peso.viscera + peso.caparazon,0.7730428537227675
+4,adl,adulto ~ anillos + long.altura + peso.desenvainado + peso.caparazon,0.8077567632271966
+4,adl,adulto ~ anillos + long.altura + peso.desenvainado + peso.viscera,0.8125448886760833
+4,adl,adulto ~ anillos + long.altura + peso.total + peso.caparazon,0.8094326071343069
+4,adl,adulto ~ anillos + long.altura + peso.total + peso.desenvainado,0.8096720134067512
+4,adl,adulto ~ anillos + long.altura + peso.total + peso.viscera,0.811587263586306
+4,adl,adulto ~ anillos + long.altura + peso.viscera + peso.caparazon,0.8135025137658607
+4,adl,adulto ~ anillos + long.diametro + long.altura + peso.caparazon,0.8024898252334212
+4,adl,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado,0.8000957625089777
+4,adl,adulto ~ anillos + long.diametro + long.altura + peso.total,0.8012927938711994
+4,adl,adulto ~ anillos + long.diametro + long.altura + peso.viscera,0.8051232942303088
+4,adl,adulto ~ anillos + long.diametro + peso.desenvainado + peso.caparazon,0.799616949964089
+4,adl,adulto ~ anillos + long.diametro + peso.desenvainado + peso.viscera,0.8041656691405314
+4,adl,adulto ~ anillos + long.diametro + peso.total + peso.caparazon,0.8020110126885325
+4,adl,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado,0.8000957625089777
+4,adl,adulto ~ anillos + long.diametro + peso.total + peso.viscera,0.8041656691405314
+4,adl,adulto ~ anillos + long.diametro + peso.viscera + peso.caparazon,0.8039262628680871
+4,adl,adulto ~ anillos + long.largo + long.altura + peso.caparazon,0.8003351687814221
+4,adl,adulto ~ anillos + long.largo + long.altura + peso.desenvainado,0.8010533875987551
+4,adl,adulto ~ anillos + long.largo + long.altura + peso.total,0.8010533875987551
+4,adl,adulto ~ anillos + long.largo + long.altura + peso.viscera,0.8058415130476418
+4,adl,adulto ~ anillos + long.largo + long.diametro + long.altura,0.8010533875987551
+4,adl,adulto ~ anillos + long.largo + long.diametro + peso.caparazon,0.8015322001436438
+4,adl,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado,0.8044050754129758
+4,adl,adulto ~ anillos + long.largo + long.diametro + peso.total,0.8060809193200862
+4,adl,adulto ~ anillos + long.largo + long.diametro + peso.viscera,0.8082355757720853
+4,adl,adulto ~ anillos + long.largo + peso.desenvainado + peso.caparazon,0.7986593248743117
+4,adl,adulto ~ anillos + long.largo + peso.desenvainado + peso.viscera,0.8046444816854201
+4,adl,adulto ~ anillos + long.largo + peso.total + peso.caparazon,0.8024898252334212
+4,adl,adulto ~ anillos + long.largo + peso.total + peso.desenvainado,0.8000957625089777
+4,adl,adulto ~ anillos + long.largo + peso.total + peso.viscera,0.8046444816854201
+4,adl,adulto ~ anillos + long.largo + peso.viscera + peso.caparazon,0.8039262628680871
+4,adl,adulto ~ anillos + peso.desenvainado + peso.viscera + peso.caparazon,0.813741920038305
+4,adl,adulto ~ anillos + peso.total + peso.desenvainado + peso.caparazon,0.8135025137658607
+4,adl,adulto ~ anillos + peso.total + peso.desenvainado + peso.viscera,0.813741920038305
+4,adl,adulto ~ anillos + peso.total + peso.viscera + peso.caparazon,0.8142207325831937
+4,adl,adulto ~ long.altura + peso.desenvainado + peso.viscera + peso.caparazon,0.8027292315058655
+4,adl,adulto ~ long.altura + peso.total + peso.desenvainado + peso.caparazon,0.8005745750538664
+4,adl,adulto ~ long.altura + peso.total + peso.desenvainado + peso.viscera,0.8046444816854201
+4,adl,adulto ~ long.altura + peso.total + peso.viscera + peso.caparazon,0.8012927938711994
+4,adl,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.caparazon,0.7924347617907589
+4,adl,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.viscera,0.7969834809672013
+4,adl,adulto ~ long.diametro + long.altura + peso.total + peso.caparazon,0.7926741680632032
+4,adl,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado,0.794589418242758
+4,adl,adulto ~ long.diametro + long.altura + peso.total + peso.viscera,0.7965046684223127
+4,adl,adulto ~ long.diametro + long.altura + peso.viscera + peso.caparazon,0.79746229351209
+4,adl,adulto ~ long.diametro + peso.desenvainado + peso.viscera + peso.caparazon,0.7962652621498684
+4,adl,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.caparazon,0.7948288245152023
+4,adl,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.viscera,0.796025855877424
+4,adl,adulto ~ long.diametro + peso.total + peso.viscera + peso.caparazon,0.7950682307876467
+4,adl,adulto ~ long.largo + long.altura + peso.desenvainado + peso.caparazon,0.7914771367009815
+4,adl,adulto ~ long.largo + long.altura + peso.desenvainado + peso.viscera,0.7991381374192004
+4,adl,adulto ~ long.largo + long.altura + peso.total + peso.caparazon,0.7933923868805363
+4,adl,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado,0.7955470433325353
+4,adl,adulto ~ long.largo + long.altura + peso.total + peso.viscera,0.7969834809672013
+4,adl,adulto ~ long.largo + long.altura + peso.viscera + peso.caparazon,0.7972228872396456
+4,adl,adulto ~ long.largo + long.diametro + long.altura + peso.caparazon,0.7962652621498684
+4,adl,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado,0.7948288245152023
+4,adl,adulto ~ long.largo + long.diametro + long.altura + peso.total,0.7957864496049797
+4,adl,adulto ~ long.largo + long.diametro + long.altura + peso.viscera,0.8012927938711994
+4,adl,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.caparazon,0.796744074694757
+4,adl,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.viscera,0.798898731146756
+4,adl,adulto ~ long.largo + long.diametro + peso.total + peso.caparazon,0.7962652621498684
+4,adl,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado,0.7979411060569787
+4,adl,adulto ~ long.largo + long.diametro + peso.total + peso.viscera,0.7984199186018673
+4,adl,adulto ~ long.largo + long.diametro + peso.viscera + peso.caparazon,0.7991381374192004
+4,adl,adulto ~ long.largo + peso.desenvainado + peso.viscera + peso.caparazon,0.793871199425425
+4,adl,adulto ~ long.largo + peso.total + peso.desenvainado + peso.caparazon,0.7933923868805363
+4,adl,adulto ~ long.largo + peso.total + peso.desenvainado + peso.viscera,0.795307637060091
+4,adl,adulto ~ long.largo + peso.total + peso.viscera + peso.caparazon,0.793871199425425
+4,adl,adulto ~ peso.total + peso.desenvainado + peso.viscera + peso.caparazon,0.8003351687814221
+4,kvmc,adulto ~ anillos + long.altura + peso.desenvainado + peso.caparazon,0.75628441465166385
+4,kvmc,adulto ~ anillos + long.altura + peso.desenvainado + peso.viscera,0.7706487909983242
+4,kvmc,adulto ~ anillos + long.altura + peso.total + peso.caparazon,0.7672971031841034
+4,kvmc,adulto ~ anillos + long.altura + peso.total + peso.desenvainado,0.7584390711036629
+4,kvmc,adulto ~ anillos + long.altura + peso.total + peso.viscera,0.7574814460138856
+4,kvmc,adulto ~ anillos + long.altura + peso.viscera + peso.caparazon,0.7603543212832177
+4,kvmc,adulto ~ anillos + long.diametro + long.altura + peso.caparazon,0.7543691644721092
+4,kvmc,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado,0.7574814460138856
+4,kvmc,adulto ~ anillos + long.diametro + long.altura + peso.total,0.7661000718218818
+4,kvmc,adulto ~ anillos + long.diametro + long.altura + peso.viscera,0.7665788843667705
+4,kvmc,adulto ~ anillos + long.diametro + peso.desenvainado + peso.caparazon,0.7558056021067752
+4,kvmc,adulto ~ anillos + long.diametro + peso.desenvainado + peso.viscera,0.7550873832894421
+4,kvmc,adulto ~ anillos + long.diametro + peso.total + peso.caparazon,0.7586784773761073
+4,kvmc,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado,0.7672971031841034
+4,kvmc,adulto ~ anillos + long.diametro + peso.total + peso.viscera,0.7699305721809911
+4,kvmc,adulto ~ anillos + long.diametro + peso.viscera + peso.caparazon,0.7589178836485516
+4,kvmc,adulto ~ anillos + long.largo + long.altura + peso.caparazon,0.75628441465166385
+4,kvmc,adulto ~ anillos + long.largo + long.altura + peso.desenvainado,0.7613119463729949
+4,kvmc,adulto ~ anillos + long.largo + long.altura + peso.total,0.7704093847258798
+4,kvmc,adulto ~ anillos + long.largo + long.altura + peso.viscera,0.7663394780943261
+4,kvmc,adulto ~ anillos + long.largo + long.diametro + long.altura,0.7550873832894421
+4,kvmc,adulto ~ anillos + long.largo + long.diametro + peso.caparazon,0.759875508738329
+4,kvmc,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado,0.75628441465166385
+4,kvmc,adulto ~ anillos + long.largo + long.diametro + peso.total,0.7632271965525497
+4,kvmc,adulto ~ anillos + long.largo + long.diametro + peso.viscera,0.7644242279147714
+4,kvmc,adulto ~ anillos + long.largo + peso.desenvainado + peso.caparazon,0.760593727555662
+4,kvmc,adulto ~ anillos + long.largo + peso.desenvainado + peso.viscera,0.7687335408187694
+4,kvmc,adulto ~ anillos + long.largo + peso.total + peso.caparazon,0.7668182906392147
+4,kvmc,adulto ~ anillos + long.largo + peso.total + peso.desenvainado,0.7699305721809911
+4,kvmc,adulto ~ anillos + long.largo + peso.total + peso.viscera,0.7689729470912138
+4,kvmc,adulto ~ anillos + long.largo + peso.viscera + peso.caparazon,0.7672971031841034
+4,kvmc,adulto ~ anillos + peso.desenvainado + peso.viscera + peso.caparazon,0.75628441465166385
+4,kvmc,adulto ~ anillos + peso.total + peso.desenvainado + peso.caparazon,0.7577208522863299
+4,kvmc,adulto ~ anillos + peso.total + peso.desenvainado + peso.viscera,0.7538903519272205
+4,kvmc,adulto ~ anillos + peso.total + peso.viscera + peso.caparazon,0.7593966961934403
+4,kvmc,adulto ~ long.altura + peso.desenvainado + peso.viscera + peso.caparazon,0.7440746947570026
+4,kvmc,adulto ~ long.altura + peso.total + peso.desenvainado + peso.caparazon,0.741441225760115
+4,kvmc,adulto ~ long.altura + peso.total + peso.desenvainado + peso.viscera,0.745750538664113
+4,kvmc,adulto ~ long.altura + peso.total + peso.viscera + peso.caparazon,0.7344984438592291
+4,kvmc,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.caparazon,0.7337802250418961
+4,kvmc,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.viscera,0.7428776633947809
+4,kvmc,adulto ~ long.diametro + long.altura + peso.total + peso.caparazon,0.7431170696672252
+4,kvmc,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado,0.7445535073018913
+4,kvmc,adulto ~ long.diametro + long.altura + peso.total + peso.viscera,0.7471869762987791
+4,kvmc,adulto ~ long.diametro + long.altura + peso.viscera + peso.caparazon,0.7416806320325593
+4,kvmc,adulto ~ long.diametro + peso.desenvainado + peso.viscera + peso.caparazon,0.7560450083792195
+4,kvmc,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.caparazon,0.7553267895618865
+4,kvmc,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.viscera,0.7462293512090017
+4,kvmc,adulto ~ long.diametro + peso.total + peso.viscera + peso.caparazon,0.7514962892027771
+4,kvmc,adulto ~ long.largo + long.altura + peso.desenvainado + peso.caparazon,0.7474263825712234
+4,kvmc,adulto ~ long.largo + long.altura + peso.desenvainado + peso.viscera,0.7347378501316735
+4,kvmc,adulto ~ long.largo + long.altura + peso.total + peso.caparazon,0.7649030404596601
+4,kvmc,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado,0.7565238209241082
+4,kvmc,adulto ~ long.largo + long.altura + peso.total + peso.viscera,0.7500598515681111
+4,kvmc,adulto ~ long.largo + long.altura + peso.viscera + peso.caparazon,0.7572420397414412
+4,kvmc,adulto ~ long.largo + long.diametro + long.altura + peso.caparazon,0.7531721331098875
+4,kvmc,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado,0.7385683504907828
+4,kvmc,adulto ~ long.largo + long.diametro + long.altura + peso.total,0.7546085707445535
+4,kvmc,adulto ~ long.largo + long.diametro + long.altura + peso.viscera,0.7507780703854441
+4,kvmc,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.caparazon,0.7510174766578884
+4,kvmc,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.viscera,0.7431170696672252
+4,kvmc,adulto ~ long.largo + long.diametro + peso.total + peso.caparazon,0.7579602585587742
+4,kvmc,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado,0.7510174766578884
+4,kvmc,adulto ~ long.largo + long.diametro + peso.total + peso.viscera,0.759875508738329
+4,kvmc,adulto ~ long.largo + long.diametro + peso.viscera + peso.caparazon,0.7586784773761073
+4,kvmc,adulto ~ long.largo + peso.desenvainado + peso.viscera + peso.caparazon,0.7574814460138856
+4,kvmc,adulto ~ long.largo + peso.total + peso.desenvainado + peso.caparazon,0.7622695714627723
+4,kvmc,adulto ~ long.largo + peso.total + peso.desenvainado + peso.viscera,0.7593966961934403
+4,kvmc,adulto ~ long.largo + peso.total + peso.viscera + peso.caparazon,0.764184821642327
+4,kvmc,adulto ~ peso.total + peso.desenvainado + peso.viscera + peso.caparazon,0.744314101029447
+4,qda,adulto ~ anillos + long.altura + peso.desenvainado + peso.caparazon,0.7826191046205411
+4,qda,adulto ~ anillos + long.altura + peso.desenvainado + peso.viscera,0.7888436677040939
+4,qda,adulto ~ anillos + long.altura + peso.total + peso.caparazon,0.7826191046205411
+4,qda,adulto ~ anillos + long.altura + peso.total + peso.desenvainado,0.7866890112520948
+4,qda,adulto ~ anillos + long.altura + peso.total + peso.viscera,0.7833373234378741
+4,qda,adulto ~ anillos + long.altura + peso.viscera + peso.caparazon,0.7814220732583194
+4,qda,adulto ~ anillos + long.diametro + long.altura + peso.caparazon,0.779746229351209
+4,qda,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado,0.7854919798898731
+4,qda,adulto ~ anillos + long.diametro + long.altura + peso.total,0.7919559492458702
+4,qda,adulto ~ anillos + long.diametro + long.altura + peso.viscera,0.781182666985875
+4,qda,adulto ~ anillos + long.diametro + peso.desenvainado + peso.caparazon,0.7886042614316495
+4,qda,adulto ~ anillos + long.diametro + peso.desenvainado + peso.viscera,0.7917165429734259
+4,qda,adulto ~ anillos + long.diametro + peso.total + peso.caparazon,0.7933923868805363
+4,qda,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado,0.7941106056978693
+4,qda,adulto ~ anillos + long.diametro + peso.total + peso.viscera,0.7924347617907589
+4,qda,adulto ~ anillos + long.diametro + peso.viscera + peso.caparazon,0.7898012927938712
+4,qda,adulto ~ anillos + long.largo + long.altura + peso.caparazon,0.7787886042614316
+4,qda,adulto ~ anillos + long.largo + long.altura + peso.desenvainado,0.7881254488867608
+4,qda,adulto ~ anillos + long.largo + long.altura + peso.total,0.7969834809672013
+4,qda,adulto ~ anillos + long.largo + long.altura + peso.viscera,0.7866890112520948
+4,qda,adulto ~ anillos + long.largo + long.diametro + long.altura,0.799616949964089
+4,qda,adulto ~ anillos + long.largo + long.diametro + peso.caparazon,0.795307637060091
+4,qda,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado,0.8065597318649749
+4,qda,adulto ~ anillos + long.largo + long.diametro + peso.total,0.8113478573138616
+4,qda,adulto ~ anillos + long.largo + long.diametro + peso.viscera,0.8046444816854201
+4,qda,adulto ~ anillos + long.largo + peso.desenvainado + peso.caparazon,0.7890830739765382
+4,qda,adulto ~ anillos + long.largo + peso.desenvainado + peso.viscera,0.7950682307876467
+4,qda,adulto ~ anillos + long.largo + peso.total + peso.caparazon,0.8012927938711994
+4,qda,adulto ~ anillos + long.largo + peso.total + peso.desenvainado,0.79746229351209
+4,qda,adulto ~ anillos + long.largo + peso.total + peso.viscera,0.796744074694757
+4,qda,adulto ~ anillos + long.largo + peso.viscera + peso.caparazon,0.7907589178836486
+4,qda,adulto ~ anillos + peso.desenvainado + peso.viscera + peso.caparazon,0.7907589178836486
+4,qda,adulto ~ anillos + peso.total + peso.desenvainado + peso.caparazon,0.7878860426143165
+4,qda,adulto ~ anillos + peso.total + peso.desenvainado + peso.viscera,0.7912377304285372
+4,qda,adulto ~ anillos + peso.total + peso.viscera + peso.caparazon,0.7878860426143165
+4,qda,adulto ~ long.altura + peso.desenvainado + peso.viscera + peso.caparazon,0.7696911659085468
+4,qda,adulto ~ long.altura + peso.total + peso.desenvainado + peso.caparazon,0.7651424467321044
+4,qda,adulto ~ long.altura + peso.total + peso.desenvainado + peso.viscera,0.7696911659085468
+4,qda,adulto ~ long.altura + peso.total + peso.viscera + peso.caparazon,0.7646636341872157
+4,qda,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.caparazon,0.7646636341872157
+4,qda,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.viscera,0.7728034474503231
+4,qda,adulto ~ long.diametro + long.altura + peso.total + peso.caparazon,0.7711276035432129
+4,qda,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado,0.7728034474503231
+4,qda,adulto ~ long.diametro + long.altura + peso.total + peso.viscera,0.7696911659085468
+4,qda,adulto ~ long.diametro + long.altura + peso.viscera + peso.caparazon,0.7625089777352166
+4,qda,adulto ~ long.diametro + peso.desenvainado + peso.viscera + peso.caparazon,0.7763945415369883
+4,qda,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.caparazon,0.7728034474503231
+4,qda,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.viscera,0.7742398850849892
+4,qda,adulto ~ long.diametro + peso.total + peso.viscera + peso.caparazon,0.7735216662676562
+4,qda,adulto ~ long.largo + long.altura + peso.desenvainado + peso.caparazon,0.7711276035432129
+4,qda,adulto ~ long.largo + long.altura + peso.desenvainado + peso.viscera,0.7790280105338759
+4,qda,adulto ~ long.largo + long.altura + peso.total + peso.caparazon,0.7799856356236533
+4,qda,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado,0.7785491979889874
+4,qda,adulto ~ long.largo + long.altura + peso.total + peso.viscera,0.7747186976298779
+4,qda,adulto ~ long.largo + long.altura + peso.viscera + peso.caparazon,0.7716064160881015
+4,qda,adulto ~ long.largo + long.diametro + long.altura + peso.caparazon,0.7704093847258798
+4,qda,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado,0.7790280105338759
+4,qda,adulto ~ long.largo + long.diametro + long.altura + peso.total,0.7878860426143165
+4,qda,adulto ~ long.largo + long.diametro + long.altura + peso.viscera,0.780464448168542
+4,qda,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.caparazon,0.7790280105338759
+4,qda,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.viscera,0.7893224802489825
+4,qda,adulto ~ long.largo + long.diametro + peso.total + peso.caparazon,0.7842949485276515
+4,qda,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado,0.7902801053387599
+4,qda,adulto ~ long.largo + long.diametro + peso.total + peso.viscera,0.7895618865214269
+4,qda,adulto ~ long.largo + long.diametro + peso.viscera + peso.caparazon,0.7799856356236533
+4,qda,adulto ~ long.largo + peso.desenvainado + peso.viscera + peso.caparazon,0.7792674168063203
+4,qda,adulto ~ long.largo + peso.total + peso.desenvainado + peso.caparazon,0.7773521666267657
+4,qda,adulto ~ long.largo + peso.total + peso.desenvainado + peso.viscera,0.7780703854440987
+4,qda,adulto ~ long.largo + peso.total + peso.viscera + peso.caparazon,0.7756763227196553
+4,qda,adulto ~ peso.total + peso.desenvainado + peso.viscera + peso.caparazon,0.7730428537227675
+4,rlog,adulto ~ anillos + long.altura + peso.desenvainado + peso.caparazon,0.8075173569547522
+4,rlog,adulto ~ anillos + long.altura + peso.desenvainado + peso.viscera,0.812305482403639
+4,rlog,adulto ~ anillos + long.altura + peso.total + peso.caparazon,0.8111084510414173
+4,rlog,adulto ~ anillos + long.altura + peso.total + peso.desenvainado,0.8108690447689729
+4,rlog,adulto ~ anillos + long.altura + peso.total + peso.viscera,0.8118266698587503
+4,rlog,adulto ~ anillos + long.altura + peso.viscera + peso.caparazon,0.8125448886760833
+4,rlog,adulto ~ anillos + long.diametro + long.altura + peso.caparazon,0.8044050754129758
+4,rlog,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado,0.8094326071343069
+4,rlog,adulto ~ anillos + long.diametro + long.altura + peso.total,0.8156571702178597
+4,rlog,adulto ~ anillos + long.diametro + long.altura + peso.viscera,0.8180512329423031
+4,rlog,adulto ~ anillos + long.diametro + peso.desenvainado + peso.caparazon,0.8077567632271966
+4,rlog,adulto ~ anillos + long.diametro + peso.desenvainado + peso.viscera,0.8202058893943022
+4,rlog,adulto ~ anillos + long.diametro + peso.total + peso.caparazon,0.816614795307637
+4,rlog,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado,0.8175724203974144
+4,rlog,adulto ~ anillos + long.diametro + peso.total + peso.viscera,0.8214029207565238
+4,rlog,adulto ~ anillos + long.diametro + peso.viscera + peso.caparazon,0.815896576490304
+4,rlog,adulto ~ anillos + long.largo + long.altura + peso.caparazon,0.8077567632271966
+4,rlog,adulto ~ anillos + long.largo + long.altura + peso.desenvainado,0.813023701220972
+4,rlog,adulto ~ anillos + long.largo + long.altura + peso.total,0.8225999521187455
+4,rlog,adulto ~ anillos + long.largo + long.altura + peso.viscera,0.8230787646636342
+4,rlog,adulto ~ anillos + long.largo + long.diametro + long.altura,0.8067991381374192
+4,rlog,adulto ~ anillos + long.largo + long.diametro + peso.caparazon,0.8056021067751975
+4,rlog,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado,0.8113478573138616
+4,rlog,adulto ~ anillos + long.largo + long.diametro + peso.total,0.8245152022983002
+4,rlog,adulto ~ anillos + long.largo + long.diametro + peso.viscera,0.8235575772085229
+4,rlog,adulto ~ anillos + long.largo + peso.desenvainado + peso.caparazon,0.812305482403639
+4,rlog,adulto ~ anillos + long.largo + peso.desenvainado + peso.viscera,0.8247546085707446
+4,rlog,adulto ~ anillos + long.largo + peso.total + peso.caparazon,0.8225999521187455
+4,rlog,adulto ~ anillos + long.largo + peso.total + peso.desenvainado,0.8206847019391909
+4,rlog,adulto ~ anillos + long.largo + peso.total + peso.viscera,0.8257122336605219
+4,rlog,adulto ~ anillos + long.largo + peso.viscera + peso.caparazon,0.8230787646636342
+4,rlog,adulto ~ anillos + peso.desenvainado + peso.viscera + peso.caparazon,0.813023701220972
+4,rlog,adulto ~ anillos + peso.total + peso.desenvainado + peso.caparazon,0.8135025137658607
+4,rlog,adulto ~ anillos + peso.total + peso.desenvainado + peso.viscera,0.8120660761311946
+4,rlog,adulto ~ anillos + peso.total + peso.viscera + peso.caparazon,0.812305482403639
+4,rlog,adulto ~ long.altura + peso.desenvainado + peso.viscera + peso.caparazon,0.8029686377783098
+4,rlog,adulto ~ long.altura + peso.total + peso.desenvainado + peso.caparazon,0.8027292315058655
+4,rlog,adulto ~ long.altura + peso.total + peso.desenvainado + peso.viscera,0.8044050754129758
+4,rlog,adulto ~ long.altura + peso.total + peso.viscera + peso.caparazon,0.8034474503231984
+4,rlog,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.caparazon,0.7962652621498684
+4,rlog,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.viscera,0.8053627005027532
+4,rlog,adulto ~ long.diametro + long.altura + peso.total + peso.caparazon,0.8015322001436438
+4,rlog,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado,0.8063203255925305
+4,rlog,adulto ~ long.diametro + long.altura + peso.total + peso.viscera,0.8046444816854201
+4,rlog,adulto ~ long.diametro + long.altura + peso.viscera + peso.caparazon,0.8036868565956428
+4,rlog,adulto ~ long.diametro + peso.desenvainado + peso.viscera + peso.caparazon,0.8048838879578645
+4,rlog,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.caparazon,0.8070385444098636
+4,rlog,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.viscera,0.8096720134067512
+4,rlog,adulto ~ long.diametro + peso.total + peso.viscera + peso.caparazon,0.8032080440507541
+4,rlog,adulto ~ long.largo + long.altura + peso.desenvainado + peso.caparazon,0.7969834809672013
+4,rlog,adulto ~ long.largo + long.altura + peso.desenvainado + peso.viscera,0.811587263586306
+4,rlog,adulto ~ long.largo + long.altura + peso.total + peso.caparazon,0.8070385444098636
+4,rlog,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado,0.8135025137658607
+4,rlog,adulto ~ long.largo + long.altura + peso.total + peso.viscera,0.8108690447689729
+4,rlog,adulto ~ long.largo + long.altura + peso.viscera + peso.caparazon,0.8118266698587503
+4,rlog,adulto ~ long.largo + long.diametro + long.altura + peso.caparazon,0.799616949964089
+4,rlog,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado,0.7962652621498684
+4,rlog,adulto ~ long.largo + long.diametro + long.altura + peso.total,0.8058415130476418
+4,rlog,adulto ~ long.largo + long.diametro + long.altura + peso.viscera,0.8132631074934163
+4,rlog,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.caparazon,0.7984199186018673
+4,rlog,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.viscera,0.8079961694996409
+4,rlog,adulto ~ long.largo + long.diametro + peso.total + peso.caparazon,0.8070385444098636
+4,rlog,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado,0.813023701220972
+4,rlog,adulto ~ long.largo + long.diametro + peso.total + peso.viscera,0.8084749820445296
+4,rlog,adulto ~ long.largo + long.diametro + peso.viscera + peso.caparazon,0.8108690447689729
+4,rlog,adulto ~ long.largo + peso.desenvainado + peso.viscera + peso.caparazon,0.8113478573138616
+4,rlog,adulto ~ long.largo + peso.total + peso.desenvainado + peso.caparazon,0.811587263586306
+4,rlog,adulto ~ long.largo + peso.total + peso.desenvainado + peso.viscera,0.8125448886760833
+4,rlog,adulto ~ long.largo + peso.total + peso.viscera + peso.caparazon,0.8099114196791956
+4,rlog,adulto ~ peso.total + peso.desenvainado + peso.viscera + peso.caparazon,0.8048838879578645
+5,adc,adulto ~ anillos + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.7756763227196553
+5,adc,adulto ~ anillos + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.7708881972707685
+5,adc,adulto ~ anillos + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.77759157289921
+5,adc,adulto ~ anillos + long.altura + peso.total + peso.viscera +     peso.caparazon,0.7754369164472109
+5,adc,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado +     peso.caparazon,0.7713670098156572
+5,adc,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado +     peso.viscera,0.7771127603543213
+5,adc,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.caparazon,0.7708881972707685
+5,adc,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.desenvainado,0.77759157289921
+5,adc,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.viscera,0.7802250418960976
+5,adc,adulto ~ anillos + long.diametro + long.altura + peso.viscera +     peso.caparazon,0.7720852286329902
+5,adc,adulto ~ anillos + long.diametro + peso.desenvainado + peso.viscera +     peso.caparazon,0.7807038544409863
+5,adc,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado +     peso.caparazon,0.7790280105338759
+5,adc,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado +     peso.viscera,0.7840555422552071
+5,adc,adulto ~ anillos + long.diametro + peso.total + peso.viscera +     peso.caparazon,0.7795068230787646
+5,adc,adulto ~ anillos + long.largo + long.altura + peso.desenvainado +     peso.caparazon,0.7761551352645439
+5,adc,adulto ~ anillos + long.largo + long.altura + peso.desenvainado +     peso.viscera,0.7809432607134307
+5,adc,adulto ~ anillos + long.largo + long.altura + peso.total + peso.caparazon,0.7763945415369883
+5,adc,adulto ~ anillos + long.largo + long.altura + peso.total + peso.desenvainado,0.7809432607134307
+5,adc,adulto ~ anillos + long.largo + long.altura + peso.total + peso.viscera,0.7838161359827628
+5,adc,adulto ~ anillos + long.largo + long.altura + peso.viscera +     peso.caparazon,0.7756763227196553
+5,adc,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.caparazon,0.779746229351209
+5,adc,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.desenvainado,0.7893224802489825
+5,adc,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.total,0.793871199425425
+5,adc,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.viscera,0.7840555422552071
+5,adc,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado +     peso.caparazon,0.7917165429734259
+5,adc,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado +     peso.viscera,0.7931529806080919
+5,adc,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.caparazon,0.799616949964089
+5,adc,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.desenvainado,0.7972228872396456
+5,adc,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.viscera,0.7977016997845343
+5,adc,adulto ~ anillos + long.largo + long.diametro + peso.viscera +     peso.caparazon,0.7921953555183145
+5,adc,adulto ~ anillos + long.largo + peso.desenvainado + peso.viscera +     peso.caparazon,0.7833373234378741
+5,adc,adulto ~ anillos + long.largo + peso.total + peso.desenvainado +     peso.caparazon,0.7835767297103184
+5,adc,adulto ~ anillos + long.largo + peso.total + peso.desenvainado +     peso.viscera,0.7852525736174287
+5,adc,adulto ~ anillos + long.largo + peso.total + peso.viscera + peso.caparazon,0.7816614795307637
+5,adc,adulto ~ anillos + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.77759157289921
+5,adc,adulto ~ long.altura + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7610725401005506
+5,adc,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.7651424467321044
+5,adc,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.7586784773761073
+5,adc,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.7658606655494374
+5,adc,adulto ~ long.diametro + long.altura + peso.total + peso.viscera +     peso.caparazon,0.7646636341872157
+5,adc,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7661000718218818
+5,adc,adulto ~ long.largo + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.7701699784534355
+5,adc,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.7675365094565477
+5,adc,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.7682547282738807
+5,adc,adulto ~ long.largo + long.altura + peso.total + peso.viscera +     peso.caparazon,0.7675365094565477
+5,adc,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado +     peso.caparazon,0.7699305721809911
+5,adc,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado +     peso.viscera,0.7761551352645439
+5,adc,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.caparazon,0.7771127603543213
+5,adc,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.desenvainado,0.77759157289921
+5,adc,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.viscera,0.7754369164472109
+5,adc,adulto ~ long.largo + long.diametro + long.altura + peso.viscera +     peso.caparazon,0.7704093847258798
+5,adc,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.viscera +     peso.caparazon,0.7780703854440987
+5,adc,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado +     peso.caparazon,0.7771127603543213
+5,adc,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado +     peso.viscera,0.779746229351209
+5,adc,adulto ~ long.largo + long.diametro + peso.total + peso.viscera +     peso.caparazon,0.776873354081877
+5,adc,adulto ~ long.largo + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7684941345463251
+5,adl,adulto ~ anillos + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.8135025137658607
+5,adl,adulto ~ anillos + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.8108690447689729
+5,adl,adulto ~ anillos + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.8125448886760833
+5,adl,adulto ~ anillos + long.altura + peso.total + peso.viscera +     peso.caparazon,0.813741920038305
+5,adl,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado +     peso.caparazon,0.8000957625089777
+5,adl,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado +     peso.viscera,0.8048838879578645
+5,adl,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.caparazon,0.8029686377783098
+5,adl,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.desenvainado,0.8015322001436438
+5,adl,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.viscera,0.8044050754129758
+5,adl,adulto ~ anillos + long.diametro + long.altura + peso.viscera +     peso.caparazon,0.8060809193200862
+5,adl,adulto ~ anillos + long.diametro + peso.desenvainado + peso.viscera +     peso.caparazon,0.8039262628680871
+5,adl,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado +     peso.caparazon,0.8027292315058655
+5,adl,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado +     peso.viscera,0.8046444816854201
+5,adl,adulto ~ anillos + long.diametro + peso.total + peso.viscera +     peso.caparazon,0.8034474503231984
+5,adl,adulto ~ anillos + long.largo + long.altura + peso.desenvainado +     peso.caparazon,0.8005745750538664
+5,adl,adulto ~ anillos + long.largo + long.altura + peso.desenvainado +     peso.viscera,0.8060809193200862
+5,adl,adulto ~ anillos + long.largo + long.altura + peso.total + peso.caparazon,0.8034474503231984
+5,adl,adulto ~ anillos + long.largo + long.altura + peso.total + peso.desenvainado,0.8015322001436438
+5,adl,adulto ~ anillos + long.largo + long.altura + peso.total + peso.viscera,0.8058415130476418
+5,adl,adulto ~ anillos + long.largo + long.altura + peso.viscera +     peso.caparazon,0.8067991381374192
+5,adl,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.caparazon,0.8027292315058655
+5,adl,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.desenvainado,0.8048838879578645
+5,adl,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.total,0.8077567632271966
+5,adl,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.viscera,0.8079961694996409
+5,adl,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado +     peso.caparazon,0.8048838879578645
+5,adl,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado +     peso.viscera,0.8082355757720853
+5,adl,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.caparazon,0.8070385444098636
+5,adl,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.desenvainado,0.8056021067751975
+5,adl,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.viscera,0.8067991381374192
+5,adl,adulto ~ anillos + long.largo + long.diametro + peso.viscera +     peso.caparazon,0.8075173569547522
+5,adl,adulto ~ anillos + long.largo + peso.desenvainado + peso.viscera +     peso.caparazon,0.8039262628680871
+5,adl,adulto ~ anillos + long.largo + peso.total + peso.desenvainado +     peso.caparazon,0.8034474503231984
+5,adl,adulto ~ anillos + long.largo + peso.total + peso.desenvainado +     peso.viscera,0.8044050754129758
+5,adl,adulto ~ anillos + long.largo + peso.total + peso.viscera + peso.caparazon,0.8036868565956428
+5,adl,adulto ~ anillos + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.8139813263107494
+5,adl,adulto ~ long.altura + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.8044050754129758
+5,adl,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.7986593248743117
+5,adl,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.794589418242758
+5,adl,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.7972228872396456
+5,adl,adulto ~ long.diametro + long.altura + peso.total + peso.viscera +     peso.caparazon,0.7977016997845343
+5,adl,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7962652621498684
+5,adl,adulto ~ long.largo + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.7979411060569787
+5,adl,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.7948288245152023
+5,adl,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.7991381374192004
+5,adl,adulto ~ long.largo + long.altura + peso.total + peso.viscera +     peso.caparazon,0.7969834809672013
+5,adl,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado +     peso.caparazon,0.796025855877424
+5,adl,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado +     peso.viscera,0.8034474503231984
+5,adl,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.caparazon,0.7948288245152023
+5,adl,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.desenvainado,0.7979411060569787
+5,adl,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.viscera,0.8005745750538664
+5,adl,adulto ~ long.largo + long.diametro + long.altura + peso.viscera +     peso.caparazon,0.8008139813263108
+5,adl,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.viscera +     peso.caparazon,0.8003351687814221
+5,adl,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado +     peso.caparazon,0.79746229351209
+5,adl,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado +     peso.viscera,0.8015322001436438
+5,adl,adulto ~ long.largo + long.diametro + peso.total + peso.viscera +     peso.caparazon,0.798898731146756
+5,adl,adulto ~ long.largo + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7941106056978693
+5,kvmc,adulto ~ anillos + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.7531721331098875
+5,kvmc,adulto ~ anillos + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.7550873832894421
+5,kvmc,adulto ~ anillos + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.7565238209241082
+5,kvmc,adulto ~ anillos + long.altura + peso.total + peso.viscera +     peso.caparazon,0.759875508738329
+5,kvmc,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado +     peso.caparazon,0.7653818530045488
+5,kvmc,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado +     peso.viscera,0.7538903519272205
+5,kvmc,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.caparazon,0.7649030404596601
+5,kvmc,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.desenvainado,0.764184821642327
+5,kvmc,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.viscera,0.7684941345463251
+5,kvmc,adulto ~ anillos + long.diametro + long.altura + peso.viscera +     peso.caparazon,0.7644242279147714
+5,kvmc,adulto ~ anillos + long.diametro + peso.desenvainado + peso.viscera +     peso.caparazon,0.7665788843667705
+5,kvmc,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado +     peso.caparazon,0.767057696911659
+5,kvmc,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado +     peso.viscera,0.7689729470912138
+5,kvmc,adulto ~ anillos + long.diametro + peso.total + peso.viscera +     peso.caparazon,0.7632271965525497
+5,kvmc,adulto ~ anillos + long.largo + long.altura + peso.desenvainado +     peso.caparazon,0.7668182906392147
+5,kvmc,adulto ~ anillos + long.largo + long.altura + peso.desenvainado +     peso.viscera,0.7663394780943261
+5,kvmc,adulto ~ anillos + long.largo + long.altura + peso.total + peso.caparazon,0.7725640411778789
+5,kvmc,adulto ~ anillos + long.largo + long.altura + peso.total + peso.desenvainado,0.7713670098156572
+5,kvmc,adulto ~ anillos + long.largo + long.altura + peso.total + peso.viscera,0.7780703854440987
+5,kvmc,adulto ~ anillos + long.largo + long.altura + peso.viscera +     peso.caparazon,0.7651424467321044
+5,kvmc,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.caparazon,0.7543691644721092
+5,kvmc,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.desenvainado,0.7644242279147714
+5,kvmc,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.total,0.7672971031841034
+5,kvmc,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.viscera,0.7699305721809911
+5,kvmc,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado +     peso.caparazon,0.7646636341872157
+5,kvmc,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado +     peso.viscera,0.7701699784534355
+5,kvmc,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.caparazon,0.778309791716543
+5,kvmc,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.desenvainado,0.7802250418960976
+5,kvmc,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.viscera,0.7754369164472109
+5,kvmc,adulto ~ anillos + long.largo + long.diametro + peso.viscera +     peso.caparazon,0.7644242279147714
+5,kvmc,adulto ~ anillos + long.largo + peso.desenvainado + peso.viscera +     peso.caparazon,0.7730428537227675
+5,kvmc,adulto ~ anillos + long.largo + peso.total + peso.desenvainado +     peso.caparazon,0.7675365094565477
+5,kvmc,adulto ~ anillos + long.largo + peso.total + peso.desenvainado +     peso.viscera,0.7780703854440987
+5,kvmc,adulto ~ anillos + long.largo + peso.total + peso.viscera + peso.caparazon,0.7692123533636581
+5,kvmc,adulto ~ anillos + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7558056021067752
+5,kvmc,adulto ~ long.altura + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7342590375867848
+5,kvmc,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.7524539142925545
+5,kvmc,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.7445535073018913
+5,kvmc,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.7502992578405554
+5,kvmc,adulto ~ long.diametro + long.altura + peso.total + peso.viscera +     peso.caparazon,0.7517356954752215
+5,kvmc,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7502992578405554
+5,kvmc,adulto ~ long.largo + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.7526933205649988
+5,kvmc,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.7546085707445535
+5,kvmc,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.7560450083792195
+5,kvmc,adulto ~ long.largo + long.altura + peso.total + peso.viscera +     peso.caparazon,0.7615513526454393
+5,kvmc,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado +     peso.caparazon,0.749341632750778
+5,kvmc,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado +     peso.viscera,0.7596361024658846
+5,kvmc,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.caparazon,0.7565238209241082
+5,kvmc,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.desenvainado,0.7555661958343308
+5,kvmc,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.viscera,0.7517356954752215
+5,kvmc,adulto ~ long.largo + long.diametro + long.altura + peso.viscera +     peso.caparazon,0.7541297581996649
+5,kvmc,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.viscera +     peso.caparazon,0.7593966961934403
+5,kvmc,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado +     peso.caparazon,0.7610725401005506
+5,kvmc,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado +     peso.viscera,0.7661000718218818
+5,kvmc,adulto ~ long.largo + long.diametro + peso.total + peso.viscera +     peso.caparazon,0.7596361024658846
+5,kvmc,adulto ~ long.largo + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7696911659085468
+5,qda,adulto ~ anillos + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.7756763227196553
+5,qda,adulto ~ anillos + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.7708881972707685
+5,qda,adulto ~ anillos + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.77759157289921
+5,qda,adulto ~ anillos + long.altura + peso.total + peso.viscera +     peso.caparazon,0.7754369164472109
+5,qda,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado +     peso.caparazon,0.7713670098156572
+5,qda,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado +     peso.viscera,0.7771127603543213
+5,qda,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.caparazon,0.7708881972707685
+5,qda,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.desenvainado,0.77759157289921
+5,qda,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.viscera,0.7802250418960976
+5,qda,adulto ~ anillos + long.diametro + long.altura + peso.viscera +     peso.caparazon,0.7720852286329902
+5,qda,adulto ~ anillos + long.diametro + peso.desenvainado + peso.viscera +     peso.caparazon,0.7807038544409863
+5,qda,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado +     peso.caparazon,0.7790280105338759
+5,qda,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado +     peso.viscera,0.7840555422552071
+5,qda,adulto ~ anillos + long.diametro + peso.total + peso.viscera +     peso.caparazon,0.7795068230787646
+5,qda,adulto ~ anillos + long.largo + long.altura + peso.desenvainado +     peso.caparazon,0.7761551352645439
+5,qda,adulto ~ anillos + long.largo + long.altura + peso.desenvainado +     peso.viscera,0.7809432607134307
+5,qda,adulto ~ anillos + long.largo + long.altura + peso.total + peso.caparazon,0.7763945415369883
+5,qda,adulto ~ anillos + long.largo + long.altura + peso.total + peso.desenvainado,0.7809432607134307
+5,qda,adulto ~ anillos + long.largo + long.altura + peso.total + peso.viscera,0.7838161359827628
+5,qda,adulto ~ anillos + long.largo + long.altura + peso.viscera +     peso.caparazon,0.7756763227196553
+5,qda,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.caparazon,0.779746229351209
+5,qda,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.desenvainado,0.7893224802489825
+5,qda,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.total,0.793871199425425
+5,qda,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.viscera,0.7840555422552071
+5,qda,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado +     peso.caparazon,0.7917165429734259
+5,qda,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado +     peso.viscera,0.7931529806080919
+5,qda,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.caparazon,0.799616949964089
+5,qda,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.desenvainado,0.7972228872396456
+5,qda,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.viscera,0.7977016997845343
+5,qda,adulto ~ anillos + long.largo + long.diametro + peso.viscera +     peso.caparazon,0.7921953555183145
+5,qda,adulto ~ anillos + long.largo + peso.desenvainado + peso.viscera +     peso.caparazon,0.7833373234378741
+5,qda,adulto ~ anillos + long.largo + peso.total + peso.desenvainado +     peso.caparazon,0.7835767297103184
+5,qda,adulto ~ anillos + long.largo + peso.total + peso.desenvainado +     peso.viscera,0.7852525736174287
+5,qda,adulto ~ anillos + long.largo + peso.total + peso.viscera + peso.caparazon,0.7816614795307637
+5,qda,adulto ~ anillos + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.77759157289921
+5,qda,adulto ~ long.altura + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7610725401005506
+5,qda,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.7651424467321044
+5,qda,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.7586784773761073
+5,qda,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.7658606655494374
+5,qda,adulto ~ long.diametro + long.altura + peso.total + peso.viscera +     peso.caparazon,0.7646636341872157
+5,qda,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7661000718218818
+5,qda,adulto ~ long.largo + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.7701699784534355
+5,qda,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.7675365094565477
+5,qda,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.7682547282738807
+5,qda,adulto ~ long.largo + long.altura + peso.total + peso.viscera +     peso.caparazon,0.7675365094565477
+5,qda,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado +     peso.caparazon,0.7699305721809911
+5,qda,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado +     peso.viscera,0.7761551352645439
+5,qda,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.caparazon,0.7771127603543213
+5,qda,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.desenvainado,0.77759157289921
+5,qda,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.viscera,0.7754369164472109
+5,qda,adulto ~ long.largo + long.diametro + long.altura + peso.viscera +     peso.caparazon,0.7704093847258798
+5,qda,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.viscera +     peso.caparazon,0.7780703854440987
+5,qda,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado +     peso.caparazon,0.7771127603543213
+5,qda,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado +     peso.viscera,0.779746229351209
+5,qda,adulto ~ long.largo + long.diametro + peso.total + peso.viscera +     peso.caparazon,0.776873354081877
+5,qda,adulto ~ long.largo + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.7684941345463251
+5,rlog,adulto ~ anillos + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.8125448886760833
+5,rlog,adulto ~ anillos + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.8139813263107494
+5,rlog,adulto ~ anillos + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.8120660761311946
+5,rlog,adulto ~ anillos + long.altura + peso.total + peso.viscera +     peso.caparazon,0.8120660761311946
+5,rlog,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado +     peso.caparazon,0.8084749820445296
+5,rlog,adulto ~ anillos + long.diametro + long.altura + peso.desenvainado +     peso.viscera,0.8194876705769691
+5,rlog,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.caparazon,0.8154177639454153
+5,rlog,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.desenvainado,0.8168542015800814
+5,rlog,adulto ~ anillos + long.diametro + long.altura + peso.total +     peso.viscera,0.8194876705769691
+5,rlog,adulto ~ anillos + long.diametro + long.altura + peso.viscera +     peso.caparazon,0.816614795307637
+5,rlog,adulto ~ anillos + long.diametro + peso.desenvainado + peso.viscera +     peso.caparazon,0.8192482643045248
+5,rlog,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado +     peso.caparazon,0.8211635144840795
+5,rlog,adulto ~ anillos + long.diametro + peso.total + peso.desenvainado +     peso.viscera,0.8190088580320805
+5,rlog,adulto ~ anillos + long.diametro + peso.total + peso.viscera +     peso.caparazon,0.8206847019391909
+5,rlog,adulto ~ anillos + long.largo + long.altura + peso.desenvainado +     peso.caparazon,0.8139813263107494
+5,rlog,adulto ~ anillos + long.largo + long.altura + peso.desenvainado +     peso.viscera,0.8233181709360785
+5,rlog,adulto ~ anillos + long.largo + long.altura + peso.total + peso.caparazon,0.8245152022983002
+5,rlog,adulto ~ anillos + long.largo + long.altura + peso.total + peso.desenvainado,0.8209241082116352
+5,rlog,adulto ~ anillos + long.largo + long.altura + peso.total + peso.viscera,0.8259516399329663
+5,rlog,adulto ~ anillos + long.largo + long.altura + peso.viscera +     peso.caparazon,0.8228393583911898
+5,rlog,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.caparazon,0.8079961694996409
+5,rlog,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.desenvainado,0.8154177639454153
+5,rlog,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.total,0.8247546085707446
+5,rlog,adulto ~ anillos + long.largo + long.diametro + long.altura +     peso.viscera,0.8225999521187455
+5,rlog,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado +     peso.caparazon,0.8154177639454153
+5,rlog,adulto ~ anillos + long.largo + long.diametro + peso.desenvainado +     peso.viscera,0.8206847019391909
+5,rlog,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.caparazon,0.8242757960258559
+5,rlog,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.desenvainado,0.8225999521187455
+5,rlog,adulto ~ anillos + long.largo + long.diametro + peso.total +     peso.viscera,0.8240363897534115
+5,rlog,adulto ~ anillos + long.largo + long.diametro + peso.viscera +     peso.caparazon,0.8223605458463011
+5,rlog,adulto ~ anillos + long.largo + peso.desenvainado + peso.viscera +     peso.caparazon,0.8218817333014125
+5,rlog,adulto ~ anillos + long.largo + peso.total + peso.desenvainado +     peso.caparazon,0.8261910462054106
+5,rlog,adulto ~ anillos + long.largo + peso.total + peso.desenvainado +     peso.viscera,0.8252334211156332
+5,rlog,adulto ~ anillos + long.largo + peso.total + peso.viscera + peso.caparazon,0.8254728273880776
+5,rlog,adulto ~ anillos + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.8144601388556381
+5,rlog,adulto ~ long.altura + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.8053627005027532
+5,rlog,adulto ~ long.diametro + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.8048838879578645
+5,rlog,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.8067991381374192
+5,rlog,adulto ~ long.diametro + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.8084749820445296
+5,rlog,adulto ~ long.diametro + long.altura + peso.total + peso.viscera +     peso.caparazon,0.8053627005027532
+5,rlog,adulto ~ long.diametro + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.8103902322240842
+5,rlog,adulto ~ long.largo + long.altura + peso.desenvainado + peso.viscera +     peso.caparazon,0.811587263586306
+5,rlog,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado +     peso.caparazon,0.8127842949485277
+5,rlog,adulto ~ long.largo + long.altura + peso.total + peso.desenvainado +     peso.viscera,0.8142207325831937
+5,rlog,adulto ~ long.largo + long.altura + peso.total + peso.viscera +     peso.caparazon,0.8118266698587503
+5,rlog,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado +     peso.caparazon,0.7972228872396456
+5,rlog,adulto ~ long.largo + long.diametro + long.altura + peso.desenvainado +     peso.viscera,0.8127842949485277
+5,rlog,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.caparazon,0.8070385444098636
+5,rlog,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.desenvainado,0.8135025137658607
+5,rlog,adulto ~ long.largo + long.diametro + long.altura + peso.total +     peso.viscera,0.8135025137658607
+5,rlog,adulto ~ long.largo + long.diametro + long.altura + peso.viscera +     peso.caparazon,0.8120660761311946
+5,rlog,adulto ~ long.largo + long.diametro + peso.desenvainado + peso.viscera +     peso.caparazon,0.8106296384965286
+5,rlog,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado +     peso.caparazon,0.8139813263107494
+5,rlog,adulto ~ long.largo + long.diametro + peso.total + peso.desenvainado +     peso.viscera,0.8144601388556381
+5,rlog,adulto ~ long.largo + long.diametro + peso.total + peso.viscera +     peso.caparazon,0.8091932008618625
+5,rlog,adulto ~ long.largo + peso.total + peso.desenvainado + peso.viscera +     peso.caparazon,0.8125448886760833

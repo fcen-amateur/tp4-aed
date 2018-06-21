@@ -1,4 +1,4 @@
-qda <- function(formula, df, clases = NA, muk = NA, pik = NA, sigmak = NA) {
+qda <- function(modelo, df, clases = NA, muk = NA, pik = NA, sigmak = NA) {
   #' Análisis del discriminante cuadratico
   #' Dada una `formula` de términos únicamente aditivos, 
   #' calcula el discriminante cuadrático según los datos de df
@@ -6,9 +6,9 @@ qda <- function(formula, df, clases = NA, muk = NA, pik = NA, sigmak = NA) {
   #' - `df`: el `df` original aumentado con las predicciones, y
   #' - `predecir`: la fórmula que predice una clase según el dsicriminante obtenido
   
-  params <- estimar_parametros_qda(formula, df)
+  params <- estimar_parametros_qda(modelo, df)
   n <- nrow(df)
-  var_y <- as.character(formula[[2]])
+  var_y <- as.character(modelo[[2]])
   
   if (is.na(clases)) { clases <- params[[var_y]] }
   if (is.na(muk)) { muk <- params[["muk"]] }
@@ -17,10 +17,10 @@ qda <- function(formula, df, clases = NA, muk = NA, pik = NA, sigmak = NA) {
   
   predecir <- function(df) {
     predictor_individual <- generador_predecir_qda(clases, muk, pik, sigmak)
-    # X es la matriz de diseño, sin y
-    X <- df[,all.vars(formula[[3]])]
-    # Le aplico `predictor_individual` a cada fila de X
-    yhat <-  map(seq_len(nrow(df)), ~predictor_individual(X[.,])) %>% unlist()
+    # X es la matriz de diseño, sin y, que está en la primer columna
+    X <- model.matrix(modelo, df)[,-1]
+    # Le aplico `predictor_individual` a cada fila (MARGIN == 1) de `X`
+    yhat <-  apply(as.matrix(X), MARGIN = 1, FUN = predictor_individual)
     
     return(yhat)
   }
@@ -72,6 +72,11 @@ estimar_parametros_qda <- function(formula, df) {
 }
 
 delta_k_qda <- function(x, muk, pik, sigmak) {
+  
+  stopifnot(length(muk) == length(x))
+  stopifnot(length(pik) == 1)
+  stopifnot(all(dim(sigmak) == length(muk)))
+  
   valor <- (
     #' Multiplicar una matrix por izquierda con un vector devuelve un vector fila,
     #' multiplicar por derecha devuelve un vector columna
@@ -79,10 +84,11 @@ delta_k_qda <- function(x, muk, pik, sigmak) {
     - 1/2 * log(det(sigmak))
     + log(pik))
   
-  return(valor)
+  return(as.numeric(valor))
 }
 
 generador_predecir_qda <- function(clases, muk, pik, sigmak) {
   delta <- generador_delta_qda(muk, pik, sigmak)
   function(x) { clases[[which.max( delta(x) )]] }
 }
+

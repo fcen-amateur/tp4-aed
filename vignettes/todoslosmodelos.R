@@ -6,79 +6,100 @@ for (archivo in file.path("R", dir("R"))) {
 
 abalone <- leer_abalone("data/abalone.data")
 
+generar_formulas <- function(p, y_nombre, X_nombre) {
+  lados_derechos <- unlist(
+      combn(x = X_nombre, m = p,
+            simplify = F, FUN = paste, collapse = " + "))
+  
+  map(str_c(y_nombre, "~", lados_derechos, sep = " "), as.formula)
+}
+
 nombres_predictores <- abalone %>%
   select(anillos:peso.caparazon) %>%
   names
 
-max_p <- 2
+max_p <- 5
 
-listado_formulas <- vector("list", max_p)
-
-for (i in seq_len(max_p)) {
-  nuevas_formulas <- paste(
-    "adulto ~",
-    combn(
-      x = nombres_predictores, m = i,
-      simplify = F, FUN = paste, collapse = " + "))
-  
-  listado_formulas[[i]] <- tibble (p = i, formula_chr = nuevas_formulas)
-}
-
-formulas <- bind_rows(listado_formulas) %>%
-  mutate(formula = map(formula_chr, as.formula))
+formulas <- map(seq_len(max_p), generar_formulas,
+    y_nombre = "adulto", X_nombre = nombres_predictores) %>%
+  imap(~ tibble("p" = .y, "formula" = .x)) %>%
+  bind_rows
 
 
 algoritmos <- list(
+  "qda" = qda,
   "rlog" = rlog,
-# "qda" = qda
   "adc" = generar_el_predictor_adc,
   "kvmc" = generar_k_vecinos_con_k_optimo,
   "adl" = generar_el_predictor_adl
 )
 
-pliegos <- 2
+pliegos <-  10
 
 abalone <- abalone %>%
+#  sample_n(100) %>%
   mutate(pliego = sample(pliegos, n(), replace = T))
 
-get_train <- function(k) { abalone %>% filter(pliego != k) }
-get_test <-  function(k) { abalone %>% filter(pliego == k) }
 
-asistente_modelado <- function(nombre_algo, formula, k) {
-  print(paste(nombre_algo, deparse(formula)))
-  algoritmos[[nombre_algo]](formula, get_train(k))
+get_train <- function(k, df) { df %>% filter(pliego != k) }
+get_test <-  function(k, df) { df %>% filter(pliego == k) }
+
+asistente_modelado_pliego <- function(algo, modelo, k, df, verbose = F) {
+    #' Entrena el `modelo` usando el algoritmo `algo` sobre el pliego `k`, 
+    #' aprendiendo sobre k-1 pliegos de df, y prediciendo sobre el pliego `k`.
+  if (verbose) {
+    print(str_c(algo, deparse(modelo), k, sep = " | "))
+    cat("Entrenando... ")
+  }
+  
+  t0 <- Sys.time()
+  llamada <- algoritmos[[algo]](modelo, get_train(k, df))
+  t1 <- Sys.time()
+  t_entrenar <- t1 - t0
+  
+  predictora <- llamada$predecir
+  
+  if (verbose) {
+    print(t_entrenar)
+    cat("Prediciendo... ")
+  }
+  
+  t0 <- Sys.time()
+  yhat <- predictora(get_test(k, df))
+  t1 <- Sys.time()
+  t_predecir <- t1 - t0
+  
+  if (verbose) {
+    print(t_predecir)
+  }
+  
+  tasa_acierto <- tasa_aciertos(
+    get_test(k, df)[[y_nombre]], yhat)
+  
+  return(lst(llamada, predictora, yhat, tasa_acierto,
+             t_entrenar, t_predecir))
 }
 
-asistente_prediccion <- function(predictor, k) {
-  predictor(get_test(k))
-}
+y_nombre <- "adulto"
+X_nombre <- names(
+  abalone %>% select(anillos:peso.caparazon))
 
-crossing(
-  tibble(nombre_algo = names(algoritmos), algo = algoritmos),
-  formulas,
-  tibble(k = seq_len(pliegos))
-  ) %>% 
-  sample_n(10) %>%
+espacio_modelos <- tibble(
+  p = 1:max_p,
+  modelo = map(p, generar_formulas, y_nombre, X_nombre))
+
+cross_df(
+  list(
+    k = seq_len(pliegos),
+    algo = names(algoritmos))) %>%
+  crossing(espacio_modelos) %>%
+  unnest(modelo) %>%
+#  mutate(orden = runif(n())) %>%
+#  arrange(orden) %>%
   mutate(
-    call = pmap(
-      list(nombre_algo, formula, k),
-      asistente_modelado),
-    predecir = map(call, "predecir")) -> df
+    resultados = pmap(
+      list(algo, modelo, k),
+      safely(asistente_modelado_pliego),
+      df = abalone, verbose = T)) -> df
 
-df %>%
-  mutate(
-    yhat = pmap(
-      list(predecir, k),
-      asistente_prediccion),
-    n_k = map_int(yhat, length),
-    tasa = map(k, get_test) %>%
-      map("adulto") %>%
-      map2_dbl(yhat, tasa_aciertos)) -> df
-
-df %>%
-  filter(row_number()<=4) %>%
-  mutate(
-    yhat = pmap(
-      list(predecir, k),
-      asistente_prediccion))
-
+save.image("resultados.RData")

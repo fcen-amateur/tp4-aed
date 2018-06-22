@@ -1,7 +1,7 @@
 generar_k_vecinos_con_k_optimo <- function(formula, df) {
   #' Generar un predictor de K-vecinos más cercanos a partir del modelo de
   #' `formula` y entrenado sobre el `df`.
-  K_OPTIMO <- 1 # Testeado por separado
+  K_OPTIMO <- 45 # Testeado por separado
   return (list(predecir = k_vecinos(df, formula, K_OPTIMO)))
 }
 

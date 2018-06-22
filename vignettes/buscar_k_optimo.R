@@ -39,7 +39,7 @@ modelos <- list(
   adulto ~ anillos + peso.viscera + long.diametro,
   adulto ~ anillos + peso.viscera + long.diametro + long.largo + long.altura
 )
-valores_k <- seq(1, 199, 2)
+valores_k <- seq(1, 99, 2)
 crossval <- cross_validar_k_y_modelos(modelos, valores_k, df)
 tasa_por_k <-
   crossval %>%
@@ -49,7 +49,7 @@ tasa_por_k <-
   arrange(desc(tasa_media))
 
 k_optimo <- head(tasa_por_k, 1)$k
-mejor_tasa_media <- round(head(tasa_por_k, 1)$tasa_media, 2)
+mejor_tasa_media <- round(head(tasa_por_k, 1)$tasa_media, 3)
 
 tasa_por_k %>%
   ggplot() +
@@ -60,6 +60,12 @@ tasa_por_k %>%
   geom_vline(xintercept = k_optimo, linetype = "dotted") +
   annotate("text", x = k_optimo, y = mejor_tasa_media + .01,
            label = (str_c("Tasa media = ", as.character(mejor_tasa_media)))) +
-  ggtitle(str_c("Mejor K para K-vecinos = ", k_optimo))
+  scale_x_continuous(breaks = c(seq(0, 45, 5), c(50, 200, 25))) +
+  theme_minimal() +
+  ggtitle(str_c("Mejor K para K-vecinos = ", k_optimo)) -> fig
+
+print(fig)
+
+ggsave("busqueda_k_optimo.png", fig)
 
 save.image("busqueda_k_optimo.RData")

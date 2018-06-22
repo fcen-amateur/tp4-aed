@@ -1,3 +1,10 @@
+generar_k_vecinos_con_k_optimo <- function(formula, df) {
+  #' Generar un predictor de K-vecinos más cercanos a partir del modelo de
+  #' `formula` y entrenado sobre el `df`.
+  K_OPTIMO <- 1 # Testeado por separado
+  return (list(predecir = k_vecinos(df, formula, K_OPTIMO)))
+}
+
 extraer_variables_de_formula <- function(formula) {
   vars_xy <- all.vars(formula)
   return (list(
@@ -6,64 +13,9 @@ extraer_variables_de_formula <- function(formula) {
     X = vars_xy[-1]))
 }
 
-nombre_de_formula <- function(formula) {
-  return (str_c(deparse(formula)))
-}
-
-buscar_k_optimo <- function(formula, df) {
-  variables <- extraer_variables_de_formula(formula)
-  print(str_c("Generando predictor kvmc con: ", deparse(formula)))
-
-  # Elegimos 20 valores de k entre 1 y sqrt(n) con n = tamaño del dataset
-  valores_k <- seq(from = 1, to = ceiling(sqrt(nrow(df))),
-                   length.out = min(10, nrow(df)))
-  valores_k <- map_dbl(valores_k, ceiling)
-
-  test_status <- sample(c(T, F), prob = c(.2, .8), size = nrow(df), replace = T)
-  test_df <- df[test_status, variables$xy]
-  train_df <- df[!test_status, variables$xy]
-
-  crear_predictor_knn <- function(k) {
-    k_vecinos(train_df, variables$X, variables$y, k)
-  }
-  calcular_tasa_de_aciertos <- function(predicciones) {
-    sum(test_df[[variables$y]] == predicciones) / nrow(test_df)
-  }
-  crossval <- tibble(
-    k = valores_k,
-    predictor = map(k, crear_predictor_knn),
-    y_hat = map(predictor, function(predictor) { predictor(test_df) }),
-    tasa_de_aciertos = map_dbl(y_hat, calcular_tasa_de_aciertos)
-  )
-
-  k_optimo <-
-    (crossval %>%
-     arrange(desc(tasa_de_aciertos)) %>%
-     head(1))[["k"]]
-
-  return (k_optimo)
-}
-
-generar_k_vecinos_con_k_optimo <- function(formula, df, valores_k = 1) {
-  #' Generar un predictor de K-vecinos más cercanos a partir del modelo de
-  #' `formula` y entrenado sobre el `df`.
-  #' Si recibe una lista de `valores_k`, se limita a buscar el k óptimo entre
-  #' esos valores.
-  variables <- extraer_variables_de_formula(formula)
-  if (length(valores_k) == 1) {
-    k_optimo <- valores_k[[1]]
-  } else {
-    k_optimo <- buscar_k_optimo(formula, df, valores_k)
-    print(str_c("K óptimo = ", k_optimo))
-  }
-  mejor_knn <- k_vecinos(df, variables$X, variables$y, k_optimo)
-  return (list(predecir = mejor_knn))
-}
-
-k_vecinos <- function(train_df, vars_x, var_y, k) {
+k_vecinos <- function(train_df, formula, k) {
   #' Entrena un predictor de `k`-vecinos más cercanos a partir de los datos
-  #' de `df`. Las variables predictoras son `vars_x` y la variable a estimar
-  #' es `var_y`.
+  #' de `df`. Las variables predictoras son tomadas de la `formula`.
   #'
   #' Todas las variables predictoras son escaladas, centrando cada una en su
   #' media y dividiendo por el desvío estándar. Las observaciones también
@@ -82,9 +34,10 @@ k_vecinos <- function(train_df, vars_x, var_y, k) {
 
   # Escalamos el `train_df`. Guardamos las medias y desvíos para escalar también
   # las nuevas observaciones antes de clasificarlas:
-  escalado <- train_df[vars_x] %>% scale
-  train_df_escalado <- train_df %>% select(var_y, vars_x)
-  train_df_escalado[, vars_x] <- escalado
+  variables <- extraer_variables_de_formula(formula)
+  escalado <- train_df[variables$X] %>% scale
+  train_df_escalado <- train_df %>% select(variables$y, variables$X)
+  train_df_escalado[, variables$X] <- escalado
 
   medias <- attr(escalado, "scaled:center")
   desvios <- attr(escalado, "scaled:scale")
@@ -93,20 +46,19 @@ k_vecinos <- function(train_df, vars_x, var_y, k) {
     # Calcula la distancia euclidea entre una observación y todos los
     # puntos del train_df_escalado OJO: Espera una observaión *ya escalada* !
     # Las distancias serán calculadas en un espacio que sólo considera
-    # las variables X (vars_x).
+    # las variables X.
 
     # m: número de observaciones en el df
     # n: número de covariables X
-
     obs_id <- observacion_escalada["obs_id"]
-    train_matrix <- train_df_escalado[vars_x] %>% data.matrix # m x n
-    obs_vector <- observacion_escalada[vars_x] # n x 1
+    train_matrix <- train_df_escalado[variables$X] %>% data.matrix # m x n
+    obs_vector <- observacion_escalada[variables$X] # n x 1
     # Repetimos el vector de la observación en m filas, para comparar cada
     # una de esas repeticiones con una fila del training set:
     obs_matrix <- matrix(obs_vector, ncol = length(obs_vector),
                          nrow = nrow(train_df_escalado), byrow = T) # m x n
     diferencias_al_cuadrado <- (train_matrix - obs_matrix)^2 # m x n
-    vector_de_unos <- rep(1, length(vars_x))
+    vector_de_unos <- rep(1, length(variables$X))
     vector_distancias <-
       ((diferencias_al_cuadrado %*% vector_de_unos)^(1/2))[, 1] # m x 1
     distancias <-
@@ -119,47 +71,57 @@ k_vecinos <- function(train_df, vars_x, var_y, k) {
   }
 
   predecir <- function(test_df) {
-    # Esta función presupone definidos: k, medias, desvios, vars_x, var_y
-    # y una función calcular_distancias que usa un train_df.
-    #
-    # Dado un `test_df`, cada observación es clasificada según la categoría
-    # de los k vecinos más cercanos.
-    #
-    # Devuelve un vector de valores para la var_y (estimaciones).
+    #' Dado un `test_df`, cada observación es clasificada según la categoría
+    #' de los k vecinos más cercanos. Devuelve un vector de estimaciones.
 
     # Escalamos cada nueva observación con media y sd de los datos de training
     test_df_escalado <-
-      select(test_df, vars_x) %>%
+      select(test_df, variables$X) %>%
       scale(center = medias, scale = desvios) %>%
       as_tibble %>%
       rowid_to_column("obs_id")
-    test_df_escalado[[var_y]] <- NA
 
-    print(str_c("Prediciendo con k", k))
-    # Distancias entre *todas* las observaciones y *todos* los puntos de training:
-    distancias <-
-      bind_rows(apply(test_df_escalado, 1, calcular_distancias)) %>%
-      arrange(obs_id, distancia)
-
-    vecinos_mas_cercanos <-
+    vecinos_mas_cercanos <- function(distancias) {
       distancias %>%
-      group_by(obs_id) %>%
-      arrange(distancia) %>%
-      do( head(., k) )
+        group_by(obs_id) %>%
+        arrange(distancia) %>%
+        do( head(., k) )
+    }
 
-    votos_por_categoria <-
-      vecinos_mas_cercanos %>%
-      group_by_("obs_id", var_y) %>%
-      summarise(votes = n(), prob = n() / k) %>%
-      arrange(obs_id, votes)
+    votos_por_categoria <- function(vecinos) {
+      vecinos %>%
+        group_by_("obs_id", variables$y) %>%
+        summarise(conteo_votos = n(), prob = n() / k)
+    }
 
-    predicciones <-
-      votos_por_categoria %>%
-      group_by(obs_id) %>%
-      do( head(., 1) ) # Si hay un empate, elige categoría aleatoriamente
+    elegir_categoria_mas_votada <- function(votos) {
+      categoria_mas_votada <-
+        votos %>%
+        group_by(obs_id) %>%
+        arrange(desc(conteo_votos)) %>%
+        do( head(., 1) )
+      
+      categoria_mas_votada[[variables$y]]
+    }
+    
+    # mini_test_df_escalado <- test_df_escalado[1:10, ]
+    print(str_c("KVCM trabajando con K = ", k))
+    test_df_escalado <-
+      test_df_escalado %>%
+      mutate(
+        distancias = pmap(., ~calcular_distancias(c(...))),
+        k_vecinos = map(distancias, vecinos_mas_cercanos),
+        votos = map(k_vecinos, votos_por_categoria),
+        predicciones = map_lgl(votos, elegir_categoria_mas_votada)
+      )
 
-    return (predicciones[[var_y]])
+    return (test_df_escalado$predicciones)
   }
 
   return (predecir)
 }
+
+nombre_de_formula <- function(formula) {
+  return (paste(deparse(formula), collapse = ""))
+}
+

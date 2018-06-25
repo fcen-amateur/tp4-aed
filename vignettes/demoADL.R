@@ -1,40 +1,13 @@
 library(tidyverse)
 
-tipos_columnas <- cols(
-  Sex = col_character(),
-  Length = col_double(),
-  Diameter = col_double(),
-  Height = col_double(),
-  WholeWeight = col_double(),
-  SchuckedWeight = col_double(),
-  VisceraWeight = col_double(),
-  ShellWeight = col_double(),
-  Rings = col_integer()
-)
+source("R/leer_abalone.R")
 
-nombres_castellano <- c(
-  "Sex" = "sexo",
-  "Length" = "long.largo",
-  "Diameter" = "long.diametro",
-  "Height" = "long.altura",
-  "WholeWeight" = "peso.total",
-  "SchuckedWeight" = "peso.desenvainado",
-  "VisceraWeight" = "peso.viscera",
-  "ShellWeight" = "peso.caparazon",
-  "Rings" = "anillos"
-)
+formula_c <- adulto ~ peso.viscera + anillos 
 
-# Leo el CSV
-read_csv("abalone.data", col_types = tipos_columnas) %>%
-  plyr::rename(nombres_castellano) %>%
-  # ¿Qué se pierde cuando desarmas un abalone?
-  mutate(peso.dif = peso.total - peso.desenvainado - peso.viscera - peso.caparazon,
-         adulto = sexo != "I") %>%
-  select(adulto, anillos, long.largo:peso.dif) -> abalone
-
-formula_c <- adulto ~ peso.viscera 
 predictores_c <- all.vars ( formula_c[[3]]  )
+
 set.seed(42)
+
 var_y <- formula_c[[2]]
 rifa <- sample(seq(abalone[[var_y]]),10,replace=F)
 X_c <- abalone[rifa,]

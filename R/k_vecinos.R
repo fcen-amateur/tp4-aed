@@ -124,4 +124,3 @@ k_vecinos <- function(train_df, formula, k) {
 nombre_de_formula <- function(formula) {
   return (paste(deparse(formula), collapse = ""))
 }
-

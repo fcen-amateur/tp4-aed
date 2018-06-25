@@ -1,5 +1,7 @@
 library(tidyverse)
 
+set.seed(42)
+
 for (archivo in file.path("R", dir("R"))) {
   source(archivo)
 }
@@ -18,7 +20,7 @@ nombres_predictores <- abalone %>%
   select(anillos:peso.caparazon) %>%
   names
 
-max_p <- 5
+max_p <- 8
 
 formulas <- map(seq_len(max_p), generar_formulas,
     y_nombre = "adulto", X_nombre = nombres_predictores) %>%
@@ -27,7 +29,7 @@ formulas <- map(seq_len(max_p), generar_formulas,
 
 
 algoritmos <- list(
-  "qda" = qda,
+  #"qda" = qda,
   "rlog" = rlog,
   "adc" = generar_el_predictor_adc,
   "kvmc" = generar_k_vecinos_con_k_optimo,
@@ -102,4 +104,4 @@ cross_df(
       safely(asistente_modelado_pliego),
       df = abalone, verbose = T)) -> df
 
-save.image("resultados.RData")
+save.image("resultados-p8.RData")

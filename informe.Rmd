@@ -1,0 +1,309 @@
+---
+title: "TP4 Análisis Exploratorio de Datos"
+author: "Juan Manuel Berros, Octavio M. Duarte y Gonzalo Barrera Borla"
+date: "16 de Mayo de 2018"
+output:
+#  pdf_document: default
+  html_document: default
+---
+
+```{r, previos, echo=F}
+library("tidyverse")
+library("knitr")
+set.seed(42)
+source("R/leer_abalone.R")
+source("R/graficarareas.R")
+source("R/ADL.R")
+source("R/OD-ADC.R")
+source("R/rlog.R")
+source("R/k_vecinos.R")
+```
+
+```{r, tablas particulares, cache=T, echo=F}
+abalone  <-  leer_abalone("data/abalone.data")
+
+tabla_resultados  <- read.csv("data/resumen_resultados-p8.csv") %>% as.tibble() %>% arrange(-tasa_pesada)
+
+tabla_rlog  <- filter(tabla_resultados, algo == "rlog") %>% arrange(-tasa_pesada)    
+
+tabla_adl  <- filter(tabla_resultados, algo == "adl") %>% arrange(-tasa_pesada)    
+
+tabla_adc  <- filter(tabla_resultados, algo == "adc") %>% arrange(-tasa_pesada)    
+
+tabla_kvmc  <- filter(tabla_resultados, algo == "kvmc") %>% arrange(-tasa_pesada)    
+
+estimador_trivial  <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
+
+```
+
+
+
+
+# Motivo y Estructura del Informe
+
+  En esta ocasión, nuestro objetivo es fundamentalmente lograr familiaridad con una serie de algoritmos de clasificación. Estos son de naturaleza y metodología bastante dispar y por lo tanto su comparación es difícil y quizás requeriría para llevarse a cabo correctamente la aplicación sobre varios conjuntos de datos. 
+  La entrega que estamos llevando a cabo no sólo incluye programas que implementan cada uno de los algoritmos en cuestión si no que procuramos implementar un pequeño entorno de clasificación. Las funciones comparten una interface común que permite llamarlas en forma automatizada, cosa que aprovechamos para hacer una prueba extensiva e intensiva. Pudimnos probar el rendimiento sobre todas las formulas concebibles sobre los datos disponibles con objeto de realizar comparaciones entre algoritmos similares y de distintas familias. 
+
+# Algoritmos Implementados: Detalles de la Implementación y Algunos Comentarios Teóricos
+
+## Metodología General
+
+  Para poder aplicar masivamente los algoritmos, pretendimos lograr un esquema similar al que propone *R* con la función `lm`.
+  Todos los modelos disponen de una función que, más allá de los vericuetos específicos a cada método, es capaz de tomar una tabla de datos adecuada y una formula (similar a la llamada `lm(y~x_1,x_2 ... , datos)` ), y entrenar una función de clasificación capaz de tomar como argumento una nueva tabla con más datos. 
+  Por ser significativa la cantidad de código requerida por cada función, esta vez organizamos todo el TP como un proyecto de mayor envergadura y separamos el código puro en una carpeta `R`. En la carpeta `vignettes` hay tres archivos importantes: un guión de lectura y organización de la tabla de datos, otro que realiza y tabula las clasificaciones según todos los modelos y este archivo de informe.  
+  Todas las funciones están diseñadas para tomar formulas multivariadas, con las predicciones sobre una sola variable como caso particular.
+  El indicador de eficiencia que elegimos en esta ocasión es la tasa de acierto promedio durante la evaluación en k pliegues (trabajamos con $k=10$), que en la tabla se llama **tasa pesada**.
+  Decidimos que dado que no se va a llevar ningún proceso de decisión posterior con los modelos entrenados y seleccionados, no necesitamos reevaluar el rendimiento de los mismos con una tercera partición de validación y en lugar de eso volcamos la mayor cantidad posible de datos al entrenamiento de las funciones. Lo que nos interesa es el rendimiento relativo. 
+  Presentamos la tabla con la salida de la evaluación general, ordenada según la tasa de acierto promedio por pliegue antes de reflexionar sobre cada algoritmo por separado. 
+
+
+```{r}
+kable( head ( tabla_resultados )  )
+```
+
+  Dado que el algoritmo k vecinos más cercanos (*kvmc*) acapara la tabla, la reelaboramos para mostrar los dos mejores resultados en cada algoritmo:
+
+
+## El Conjunto de Datos
+
+  Disponemos de casi 4.200 observaciones de abulones sobre 10 variables, de las cuales una es la clasificación entre adulto o no adulto y nueve son potenciales predictores. 
+
+  Si bien la tabla tiene 10 dimensiones, elegimos dos variables como ejes para mostrar una representación gráfica del conjunto a estudiar. Más tarde, vamos a ir sobreimponiendo las diversas "caligrafías" de las funciones de clasificación de dos variables para ver cómo cada algoritmo interpreta la frontera. 
+
+
+```{r primer gráfico del conjunto, cache=T, echo=F}
+
+abalone %>%
+  ggplot() +
+  aes(x=anillos, y=long.largo, color = adulto) +
+  geom_jitter()
+
+```
+
+  Como se puede ver (más adelante vamos a proyectar sobre más pares de ejes) los datos están profundamente imbricados y además los que podríamos considerar atípicos (puntos de un color, escondidos profundamente en la nube de la categoría opuesta) no forman cúmulos si no que están dispersos. Esto ya nos indica que ninguno de los métodos que vamos a considerar va a tener una eficiencia cercana al 100%, pero vamos a ver cuánto se alejan del predictor trivial. 
+
+
+### Predictor Trivial: Probabilidad a Priori de que el Abulón sea Adulto
+
+```{r}
+pi_adulto  <-  nrow (abalone %>% filter(adulto==T) ) / nrow(abalone)
+``` 
+
+
+  Para pesar realmente la eficacia del trabajo realizado, es importante conocer el rendimiento de un predictor trivial. En este caso, la probabilidad de pertenecer a la clase $adulto=TRUE$ es de `r pi_adulto`.
+
+## Regresión Logística:
+  
+ Para implementar este algoritmo, fue necesario resolver varios problemas:
+
+* Para parametrizar el modelo se requiere una función de descenso por el gradiente (`dg`, en el archivo `rlog.R`). 
+
+* La función de penalización (maximización) asociada es la logverosimilitud, que también fue implementada junto a su gradiente para poder aplicar el proceso de maximización. 
+
+* Dado que esta función nos devuelve en realidad las probabilidades de pertenecer a la clase asociada con el valor 1, es posible implementar también la curva ROC.
+
+  Si bien el manual no hace énfasis en la posibilidad de emplear la regresión logística sobre modelos con más de un predictor, en clase vimos el caso general para n predictores y por esta razón decidimos implementarlo con este grado de generalidad.
+  Debido a la necesidad de parametrizar con un descenso por el gradiente, este modelo es computacionalmente costoso de entrenar. La función predictora obtenida, sin embargo, es eficiente. 
+  
+### Resultados de Este Algoritmo
+
+```{r}
+kable(head(tabla_rlog))
+```
+
+### Algunos patrones notables:
+
+1. Añadir variables no siempre mejoró el rendimiento. 
+2. Es notable la presencia de la variable $anillos$ en todos los modelos ganadores excepto curiosamente el unidimensional.
+
+  En general, parece ser que el mayor efecto sobre la tasa de acierto está en elegir la variable adecuada, mientras que añadir variables nos da un beneficio pero lo hace con alta marginalidad. 
+  El modelo con la mejor tasa está un sólido 14,4% por encima de la eficacia del predictor trivial. Un modelo de una variable, `adulto ~ peso.viscera` ya disfruta de una ventaja del 12,2% sobre la misma referencia. 
+
+#### Rendimiento Contra Predictores 
+
+```{r p vs tasa logi, echo=F, cache=T}
+p_rlog  <- 
+  tabla_rlog %>%
+  group_by(p) %>%
+  summarise(tasa_media = mean(tasa_pesada),
+            tasa_mediana = median(tasa_pesada)) %>%
+  arrange(-tasa_media)
+
+
+p_rlog %>%
+  ggplot() +
+  aes(x=p, y=tasa_media, color=tasa_mediana ) +
+  geom_line() +
+  geom_point()
+```
+
+
+#### Interpretación Gráfica: *Caligrafía* del Algoritmo
+
+  Elaboramos una pequeña utilidad que pretende copiar los gráficos observados en la bibliografía aunqnue por métodos algo brutales. Clasificamos una matriz de puntos, buscamos los puntos que son cambio de clase y trazamos una poligonal sobre ellos. No es sencillo extender este método más allá de dos dimensiones, así que vamos a ver el tipo de frontera entre clases que dibuja cada algoritmo para su fórmula de dos predictores más rendidora. 
+
+ En este caso, las variables `anillos` y `long.largo` son las más frecuentes entre los mejores modelos, así que las elegimos para trazar sobre ellas la frontera con su modelo asociado.
+
+```{r caligra log, cache=T}
+grilla_log <- rlog_area(adulto~anillos+peso.viscera, abalone, rlog) 
+
+abalone %>%
+  ggplot(data = abalone, mapping = aes(x=anillos, y=peso.viscera, color = adulto)) +
+  geom_jitter() +
+  geom_smooth(data = grilla_log, mapping = aes(x=anillos, y=peso.viscera), inherit.aes = F)   
+```
+
+  Como cabe esperar, el aspecto de la frontera es rectilíneo. Esto se condice con la idea de que la función logística es prácticamente una recta antes de entrar a su comportamiento asintótico (que es el que le da la ventaja de no introducir probabilidades fuera del rango $\left[0,1\right]$)
+
+## Análisis por Discriminantes
+
+  La implementación de estas funciones es bastante más sencilla.
+  Dado que estos algoritmos dependen de las diferentes medias y (en el caso cuadrático) desvios propios de cada categoría, no es necesario ni posible realizar un escalado y por lo tanto llamar un descenso por el gradiente para parametrizar sobre la fórmula empleada no es trivial. Por esta razón, no introdujimos coeficientes para optimizar con un descenso por el gradiente  como en la regresión logística. Este trabajo tampoco hubiera sido muy útil porque es mejor emplear componentes principales para lograr un efecto similar (tomar predictores que nos den el mayor efecto posible sobre la precisión del modelo).
+  Para ambos modelos de la familia se obtuvo una eficiencia muy alta a nivel computacional, tanto en el entrenamiento como en la clasificación. 
+  Para ver el comportamiento, elegimos las dos variables que definieron el modelo más explicativo. Tanto en este algoritmo como en el siguiente (*análisis por discriminante cuadrático*) esta fórmula es `adulto ~ anillos + peso.viscera`:
+
+```{r gráfico base discriminantes, cache=T, echo=F}
+
+abalone %>%
+  ggplot() +
+  aes(x=anillos, y=peso.viscera, color = adulto) +
+  geom_jitter()
+
+```
+
+### Discriminantes Lineales
+
+
+
+
+
+```{r}
+kable(head(tabla_adl))
+```
+
+#### Rendimiento Contra Predictores 
+
+```{r p vs tasa lineal, echo=F, cache=T}
+
+p_adl  <- 
+  tabla_adc %>%
+  group_by(p) %>%
+  summarise(tasa_media = mean(tasa_pesada),
+            tasa_mediana = median(tasa_pesada)) %>%
+  arrange(-tasa_media)
+
+
+p_adl %>%
+  ggplot() +
+  aes(x=p, y=tasa_media, color=tasa_mediana ) +
+  geom_line() +
+  geom_point()
+
+```
+
+### Interpetación Gráfica
+
+
+```{r caligra adl, cache=T}
+grilla_adl <- trazar_area(adulto~peso.viscera+anillos, abalone, generar_el_predictor_adl) 
+
+abalone %>%
+  ggplot(data = abalone, mapping = aes(x=anillos, y=peso.viscera, color = adulto)) +
+  geom_jitter() +
+  geom_smooth(data = grilla_adl, mapping = aes(x=anillos, y=peso.viscera), inherit.aes = F)   
+```
+
+### Discriminantes Cuadráticos
+
+```{r}
+kable(head(tabla_adc))
+```
+ 
+#### Rendimiento Contra Predictores 
+
+```{r p vs tasa cuadrático, echo=F, cache=T}
+p_adc  <- 
+  tabla_adc %>%
+  group_by(p) %>%
+  summarise(tasa_media = mean(tasa_pesada),
+            tasa_mediana = median(tasa_pesada)) %>%
+  arrange(-tasa_media)
+
+
+p_adc %>%
+  ggplot() +
+  aes(x=p, y=tasa_media, color=tasa_mediana ) +
+  geom_line() +
+  geom_point()
+```
+
+### Interpetación Gráfica
+
+
+```{r caligra adc, cache=T}
+grilla_adc <- trazar_area(adulto~peso.viscera+anillos, abalone, generar_el_predictor_adc) 
+
+abalone %>%
+  ggplot(data = abalone, mapping = aes(x=anillos, y=peso.viscera, color = adulto)) +
+  geom_jitter() +
+  geom_smooth(data = grilla_adc, mapping = aes(x=anillos, y=peso.viscera), inherit.aes = F)   
+```
+
+## Análisis por los K Vecinos Más Cercanos
+
+### Consideraciones
+
+
+  En este caso, primero investigamos el efecto del parámetro k y encomtramos que para una importante variedad de modelos se imponía un valor alto, a través del proceso detallado en el vignette ./vignettes/buscar_k_optimo.R determinamos que K=45 aplica como mejor valor generalmente y es seguro emplearlo en todos los modelos. En la llamada que usamos para evaluar todas las fórmulas posibles, este valor ya está fijo.
+  Para casos más generales que este, dejamos definida una función que dadas la fórmula y los datos, selecciona su propia K antes de entrenar una función clasificadora (no la usamos porque en este caso era seguro asumir k=45 y porque era muy costoso computacionalmente).
+ 
+  Tal y como se dijo en clase, optamos por sistematizar el cálculo de las distancias en forma matricial para aprovechar optimizaciones de los motores numéricos de R, usando el producto de la matriz de datos por su traspuesta para obtener los cuadrados de todas las coordenadas y el producto por un vector de unos para sumar las filas obteniendo los cuadrados de las distancias: $\vec{v}\times\vec{v}^{T}\cdot\boldsymbol{1}=\lVert\vec{v}\rVert$.
+  Este algoritmo fue el más costoso de entrenar y aplicar, pero su eficacia fue la más alta de todas. 
+### Resultados de Este Algoritmo
+
+```{r}
+kable(head(tabla_kvmc))
+```
+
+Otra vez, observamos que el mayor valor de p no garantizó la mayor tasa de acierto. En cambio, no sólo tenemos como ganadora una fórmula de 4 variables si no que un modelo de sólo tres variables presenta con el modelo ganador una diferencia de sólo 2 centésimas en su tasa. 
+
+### Rendimiento Contra Predictores 
+
+```{r p vs tasa kvmc, echo=F, cache=T}
+p_kvmc  <- 
+  tabla_kvmc %>%
+  group_by(p) %>%
+  summarise(tasa_media = mean(tasa_pesada),
+            tasa_mediana = median(tasa_pesada)) %>%
+  arrange(-tasa_media)
+
+
+p_kvmc %>%
+  ggplot() +
+  aes(x=p, y=tasa_media, color=tasa_mediana ) +
+  geom_line() +
+  geom_point()
+```
+
+### Interpetación Gráfica
+
+Primero buscamos el mejor modelo de dos predictores. `r filter(tabla_kvmc, p==2)`
+
+```{r caligra kvmc, cache=T}
+grilla_kvmc <- trazar_area(adulto~peso.desenvainado+anillos, abalone, generar_k_vecinos_con_k_optimo) 
+
+abalone %>%
+  ggplot(data = abalone, mapping = aes(x=anillos, y=peso.desenvainado, color= adulto)) +
+  geom_jitter() +
+  geom_smooth(data = grilla_kvmc, mapping = aes( x = anillos, y = peso.desenvainado), inherit.aes = F)   
+```
+
+
+# Conclusiones
+
+  Por lo menos en el caso de estos datos, parece ser evidente que para todos los métodos la fuente principal de precisión es elegir las variables más adecuadas más que añadirlas indiscriminadamente. Las mismas variables tuvieron presencia en las fórmulas ganadoras para todos los algoritmos, sobre todo "anillos". Esto muestra que los algoritmos tienen un comportamiento similar por lo menos en este caso. 
+  
+  Se observó una clara ventaja en la precisión del Análisis por K Vecinos más Cercanos. Este es también el algoritmo más costoso y en general se observó que los algoritmos más pesados fueron más precisos. 
+  Dicho esto, el análisis por discriminantes también evidenció una capacidad de predicción sensiblemente superior al predictor trivial y por lo tanto su interés puede radicar en conservar cierta efectividad siendo drásticamente menos costoso de calcular.
+
+  Aunque el algoritmo de búsqueda de fronteras es algo primitivo y se desdibuja en los extremos, pudimos observar con claridad cómo diversos algoritmos trazan las fronteras con patrones diferentes, mostrando que más allá de  

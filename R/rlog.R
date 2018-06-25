@@ -37,7 +37,7 @@ verosimilitud <- function(y, X, beta, natural = FALSE) {
   #' Computa la función de log-verosimilitud asociada al vector de respuesta `y`,
   #' la matriz de diseño `X` y los coeficientes `beta`.
   #' Si natural = TRUE, devuelve la función de verosimilitud 'natural'
-  #' Predicciones de Pr(Y = 1 | X) para cara observacion
+  #' Predicciones de Pr(Y = 1 | X) para cada observacion
   yhat <- p(X, beta)
   # Las verosimilitudes individuales son las Pr(Y = i | X)
   verosimilitudes <- ifelse(y == 1, yhat, 1 - yhat)
@@ -135,7 +135,7 @@ rlog <- function(formula, df, ...) {
   X <- scale(model.matrix(formula, df))
   medias <- attr(X, "scaled:center")
   desvios <- attr(X, "scaled:scale")
-  # La primera columna debe ser siembre 'puros unos', sin escalar
+  # La primera columna debe ser siempre 'puros unos', sin escalar
   X[,1] <- 1
   
   verosimilitud_en_beta <- function(beta) { -verosimilitud(y, X, beta) }

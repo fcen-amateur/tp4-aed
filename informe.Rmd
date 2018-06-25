@@ -67,9 +67,10 @@ kable( head ( tabla_resultados )  )
 ## El Conjunto de Datos
 
   Disponemos de casi 4.200 observaciones de abulones sobre 10 variables, de las cuales una es la clasificación entre adulto o no adulto y nueve son potenciales predictores. 
-
-  Si bien la tabla tiene 10 dimensiones, elegimos dos variables como ejes para mostrar una representación gráfica del conjunto a estudiar. Más tarde, vamos a ir sobreimponiendo las diversas "caligrafías" de las funciones de clasificación de dos variables para ver cómo cada algoritmo interpreta la frontera. 
-
+  
+  Si bien la tabla tiene 10 dimensiones, elegimos dos variables por modelo como ejes para mostrar una representación gráfica del conjunto a estudiar según cada fórmula. Más tarde, vamos a ir sobreimponiendo las diversas "caligrafías" de las funciones de clasificación de dos variables para ver cómo cada algoritmo interpreta la frontera. 
+ 
+![]("ggpairs.png")
 
 ```{r primer gráfico del conjunto, cache=T, echo=F}
 

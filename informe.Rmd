@@ -36,7 +36,7 @@ estimador_trivial  <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
 
 ```
 
-![](abulon.jpg)
+![](imagenes/abulon.jpg)
 
 
 # Motivo y Estructura del Informe
@@ -319,4 +319,4 @@ abalone %>%
 
   Aunque el algoritmo de búsqueda de fronteras es algo primitivo y se desdibuja en los extremos, pudimos observar con claridad cómo diversos algoritmos trazan las fronteras con patrones diferentes, mostrando que más allá de  
 
-![](ramsay-abulones.gif)
+![](imagenes/ramsay-abulones.gif)

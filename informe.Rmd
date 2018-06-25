@@ -36,23 +36,32 @@ estimador_trivial  <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
 
 ```
 
-
+![](abulon.jpg)
 
 
 # Motivo y Estructura del Informe
 
   En esta ocasión, nuestro objetivo es fundamentalmente lograr familiaridad con una serie de algoritmos de clasificación. Estos son de naturaleza y metodología bastante dispar y por lo tanto su comparación es difícil y quizás requeriría para llevarse a cabo correctamente la aplicación sobre varios conjuntos de datos. 
+
   La entrega que estamos llevando a cabo no sólo incluye programas que implementan cada uno de los algoritmos en cuestión si no que procuramos implementar un pequeño entorno de clasificación. Las funciones comparten una interface común que permite llamarlas en forma automatizada, cosa que aprovechamos para hacer una prueba extensiva e intensiva. Pudimnos probar el rendimiento sobre todas las formulas concebibles sobre los datos disponibles con objeto de realizar comparaciones entre algoritmos similares y de distintas familias. 
+
+
+
 
 # Algoritmos Implementados: Detalles de la Implementación y Algunos Comentarios Teóricos
 
 ## Metodología General
 
   Para poder aplicar masivamente los algoritmos, pretendimos lograr un esquema similar al que propone *R* con la función `lm`.
+
   Todos los modelos disponen de una función que, más allá de los vericuetos específicos a cada método, es capaz de tomar una tabla de datos adecuada y una formula (similar a la llamada `lm(y~x_1,x_2 ... , datos)` ), y entrenar una función de clasificación capaz de tomar como argumento una nueva tabla con más datos. 
+
   Por ser significativa la cantidad de código requerida por cada función, esta vez organizamos todo el TP como un proyecto de mayor envergadura y separamos el código puro en una carpeta `R`. En la carpeta `vignettes` hay tres archivos importantes: un guión de lectura y organización de la tabla de datos, otro que realiza y tabula las clasificaciones según todos los modelos y este archivo de informe.  
+
   Todas las funciones están diseñadas para tomar formulas multivariadas, con las predicciones sobre una sola variable como caso particular.
+
   El indicador de eficiencia que elegimos en esta ocasión es la tasa de acierto promedio durante la evaluación en k pliegues (trabajamos con $k=10$), que en la tabla se llama **tasa pesada**.
+
   Decidimos que dado que no se va a llevar ningún proceso de decisión posterior con los modelos entrenados y seleccionados, no necesitamos reevaluar el rendimiento de los mismos con una tercera partición de validación y en lugar de eso volcamos la mayor cantidad posible de datos al entrenamiento de las funciones. Lo que nos interesa es el rendimiento relativo. 
   Presentamos la tabla con la salida de la evaluación general, ordenada según la tasa de acierto promedio por pliegue antes de reflexionar sobre cada algoritmo por separado. 
 
@@ -309,3 +318,5 @@ abalone %>%
   Dicho esto, el análisis por discriminantes también evidenció una capacidad de predicción sensiblemente superior al predictor trivial y por lo tanto su interés puede radicar en conservar cierta efectividad siendo drásticamente menos costoso de calcular.
 
   Aunque el algoritmo de búsqueda de fronteras es algo primitivo y se desdibuja en los extremos, pudimos observar con claridad cómo diversos algoritmos trazan las fronteras con patrones diferentes, mostrando que más allá de  
+
+![](ramsay-abulones.gif)

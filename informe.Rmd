@@ -70,18 +70,10 @@ kable( head ( tabla_resultados )  )
   
   Si bien la tabla tiene 10 dimensiones, elegimos dos variables por modelo como ejes para mostrar una representación gráfica del conjunto a estudiar según cada fórmula. Más tarde, vamos a ir sobreimponiendo las diversas "caligrafías" de las funciones de clasificación de dos variables para ver cómo cada algoritmo interpreta la frontera. 
  
-![]("ggpairs.png")
+![](ggpairs.png)
 
-```{r primer gráfico del conjunto, cache=T, echo=F}
 
-abalone %>%
-  ggplot() +
-  aes(x=anillos, y=long.largo, color = adulto) +
-  geom_jitter()
-
-```
-
-  Como se puede ver (más adelante vamos a proyectar sobre más pares de ejes) los datos están profundamente imbricados y además los que podríamos considerar atípicos (puntos de un color, escondidos profundamente en la nube de la categoría opuesta) no forman cúmulos si no que están dispersos. Esto ya nos indica que ninguno de los métodos que vamos a considerar va a tener una eficiencia cercana al 100%, pero vamos a ver cuánto se alejan del predictor trivial. 
+  Como se puede ver (más adelante vamos a proyectar sobre los pares de ejes más relevantes para cada algoritmo) los datos están profundamente imbricados y además los que podríamos considerar atípicos (puntos de un color, escondidos profundamente en la nube de la categoría opuesta) no forman cúmulos si no que están dispersos. Esto ya nos indica que ninguno de los métodos que vamos a considerar va a tener una eficiencia cercana al 100%, pero vamos a ver cuánto se alejan del predictor trivial. 
 
 
 ### Predictor Trivial: Probabilidad a Priori de que el Abulón sea Adulto
@@ -141,6 +133,15 @@ p_rlog %>%
 
 #### Interpretación Gráfica: *Caligrafía* del Algoritmo
 
+
+```{r primer gráfico del conjunto, cache=T, echo=F}
+
+abalone %>%
+  ggplot() +
+  aes(x=anillos, y=long.largo, color = adulto) +
+  geom_jitter()
+
+```
   Elaboramos una pequeña utilidad que pretende copiar los gráficos observados en la bibliografía aunqnue por métodos algo brutales. Clasificamos una matriz de puntos, buscamos los puntos que son cambio de clase y trazamos una poligonal sobre ellos. No es sencillo extender este método más allá de dos dimensiones, así que vamos a ver el tipo de frontera entre clases que dibuja cada algoritmo para su fórmula de dos predictores más rendidora. 
 
  En este caso, las variables `anillos` y `long.largo` son las más frecuentes entre los mejores modelos, así que las elegimos para trazar sobre ellas la frontera con su modelo asociado.

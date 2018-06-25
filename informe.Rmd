@@ -22,7 +22,10 @@ source("R/k_vecinos.R")
 ```{r, tablas particulares, cache=T, echo=F}
 abalone  <-  leer_abalone("data/abalone.data")
 
-tabla_resultados  <- read.csv("data/resumen_resultados-p8.csv") %>% as.tibble() %>% arrange(-tasa_pesada)
+tabla_resultados <-
+  read_csv("data/resumen_resultados.csv") %>%
+  mutate(tasa_pesada = round(tasa_pesada, 5)) %>%
+  arrange(-tasa_pesada)
 
 tabla_rlog  <- filter(tabla_resultados, algo == "rlog") %>% arrange(-tasa_pesada)    
 
@@ -67,10 +70,16 @@ estimador_trivial  <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
 
 
 ```{r}
-kable( head ( tabla_resultados )  )
+tabla_resultados %>% head %>% kable
 ```
 
   Dado que el algoritmo k vecinos más cercanos (*kvmc*) acapara la tabla, la reelaboramos para mostrar los dos mejores resultados en cada algoritmo:
+
+```{r}
+tabla_resultados %>%
+  group_by(algo) %>%
+  top_n(2, tasa_pesada)
+```
 
 
 ## El Conjunto de Datos

@@ -1,6 +1,7 @@
-setwd("../../maestria/analisis-exploratorio-datos/tp4-aed/")
 load("resultados.RData")
+
 library(tidyverse)
+
 df %>%
   mutate(
     modelo_desc = 

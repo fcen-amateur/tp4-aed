@@ -68,4 +68,4 @@ print(fig)
 
 ggsave("busqueda_k_optimo.png", fig)
 
-save.image("busqueda_k_optimo.RData")
+save.image("imagenes/busqueda_k_optimo.RData")

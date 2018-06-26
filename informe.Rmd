@@ -1,6 +1,6 @@
 ---
 title: "TP4 Análisis Exploratorio de Datos"
-author: "Juan Manuel Berros, Octavio M. Duarte y Gonzalo Barrera Borla"
+author: "Octavio M. Duarte, Juan Manuel Berros y Gonzalo Barrera Borla"
 date: "16 de Mayo de 2018"
 output:
 #  pdf_document: default
@@ -10,7 +10,9 @@ output:
 ```{r, previos, echo=F}
 library("tidyverse")
 library("knitr")
+
 set.seed(42)
+
 source("R/leer_abalone.R")
 source("R/graficarareas.R")
 source("R/ADL.R")
@@ -20,22 +22,19 @@ source("R/k_vecinos.R")
 ```
 
 ```{r, tablas particulares, cache=T, echo=F}
-abalone  <-  leer_abalone("data/abalone.data")
+abalone <- leer_abalone("data/abalone.data")
 
 tabla_resultados <-
   read_csv("data/resumen_resultados.csv") %>%
   mutate(tasa_pesada = round(tasa_pesada, 5)) %>%
   arrange(-tasa_pesada)
 
-tabla_rlog  <- filter(tabla_resultados, algo == "rlog") %>% arrange(-tasa_pesada)    
+tabla_rlog <- filter(tabla_resultados, algo == "rlog") %>% arrange(-tasa_pesada)
+tabla_adl <- filter(tabla_resultados, algo == "adl") %>% arrange(-tasa_pesada)
+tabla_adc <- filter(tabla_resultados, algo == "adc") %>% arrange(-tasa_pesada)
+tabla_kvmc <- filter(tabla_resultados, algo == "kvmc") %>% arrange(-tasa_pesada)    
 
-tabla_adl  <- filter(tabla_resultados, algo == "adl") %>% arrange(-tasa_pesada)    
-
-tabla_adc  <- filter(tabla_resultados, algo == "adc") %>% arrange(-tasa_pesada)    
-
-tabla_kvmc  <- filter(tabla_resultados, algo == "kvmc") %>% arrange(-tasa_pesada)    
-
-estimador_trivial  <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
+estimador_trivial <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
 
 ```
 
@@ -46,9 +45,7 @@ estimador_trivial  <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
 
   En esta ocasión, nuestro objetivo es fundamentalmente lograr familiaridad con una serie de algoritmos de clasificación. Estos son de naturaleza y metodología bastante dispar y por lo tanto su comparación es difícil y quizás requeriría para llevarse a cabo correctamente la aplicación sobre varios conjuntos de datos. 
 
-  La entrega que estamos llevando a cabo no sólo incluye programas que implementan cada uno de los algoritmos en cuestión si no que procuramos implementar un pequeño entorno de clasificación. Las funciones comparten una interface común que permite llamarlas en forma automatizada, cosa que aprovechamos para hacer una prueba extensiva e intensiva. Pudimnos probar el rendimiento sobre todas las formulas concebibles sobre los datos disponibles con objeto de realizar comparaciones entre algoritmos similares y de distintas familias. 
-
-
+  La entrega que estamos llevando a cabo no sólo incluye programas que implementan cada uno de los algoritmos en cuestión si no que procuramos implementar un pequeño entorno de clasificación. Las funciones comparten una interfaz común que permite llamarlas en forma automatizada, cosa que aprovechamos para hacer una prueba extensiva e intensiva. Pudimnos probar el rendimiento sobre todas las formulas concebibles sobre los datos disponibles con objeto de realizar comparaciones entre algoritmos similares y de distintas familias. 
 
 
 # Algoritmos Implementados: Detalles de la Implementación y Algunos Comentarios Teóricos
@@ -57,7 +54,7 @@ estimador_trivial  <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
 
   Para poder aplicar masivamente los algoritmos, pretendimos lograr un esquema similar al que propone *R* con la función `lm`.
 
-  Todos los modelos disponen de una función que, más allá de los vericuetos específicos a cada método, es capaz de tomar una tabla de datos adecuada y una formula (similar a la llamada `lm(y~x_1,x_2 ... , datos)` ), y entrenar una función de clasificación capaz de tomar como argumento una nueva tabla con más datos. 
+  Todos los modelos disponen de una función que, más allá de los vericuetos específicos a cada método, es capaz de tomar una tabla de datos adecuada y una formula (similar a la llamada `lm(y ~ x_1, x_2, ..., x_p, datos)` ), y entrenar una función de clasificación capaz de tomar como argumento una nueva tabla con más datos. 
 
   Por ser significativa la cantidad de código requerida por cada función, esta vez organizamos todo el TP como un proyecto de mayor envergadura y separamos el código puro en una carpeta `R`. En la carpeta `vignettes` hay tres archivos importantes: un guión de lectura y organización de la tabla de datos, otro que realiza y tabula las clasificaciones según todos los modelos y este archivo de informe.  
 
@@ -88,8 +85,7 @@ tabla_resultados %>%
   
   Si bien la tabla tiene 10 dimensiones, elegimos dos variables por modelo como ejes para mostrar una representación gráfica del conjunto a estudiar según cada fórmula. Más tarde, vamos a ir sobreimponiendo las diversas "caligrafías" de las funciones de clasificación de dos variables para ver cómo cada algoritmo interpreta la frontera. 
  
-![](ggpairs.png)
-
+![](imagenes/ggpairs.png)
 
   Como se puede ver (más adelante vamos a proyectar sobre los pares de ejes más relevantes para cada algoritmo) los datos están profundamente imbricados y además los que podríamos considerar atípicos (puntos de un color, escondidos profundamente en la nube de la categoría opuesta) no forman cúmulos si no que están dispersos. Esto ya nos indica que ninguno de los métodos que vamos a considerar va a tener una eficiencia cercana al 100%, pero vamos a ver cuánto se alejan del predictor trivial. 
 
@@ -97,18 +93,17 @@ tabla_resultados %>%
 ### Predictor Trivial: Probabilidad a Priori de que el Abulón sea Adulto
 
 ```{r}
-pi_adulto  <-  nrow (abalone %>% filter(adulto==T) ) / nrow(abalone)
+n_adultos <- sum(abalone$adulto)
+pi_adulto <- n_adultos / nrow(abalone)
 ``` 
 
-
-  Para pesar realmente la eficacia del trabajo realizado, es importante conocer el rendimiento de un predictor trivial. En este caso, la probabilidad de pertenecer a la clase $adulto=TRUE$ es de `r pi_adulto`.
+Para pesar realmente la eficacia del trabajo realizado, es importante conocer el rendimiento de un predictor trivial. En este caso, la probabilidad de pertenecer a la clase $adulto=TRUE$ es de `r pi_adulto`.
 
 ## Regresión Logística:
   
  Para implementar este algoritmo, fue necesario resolver varios problemas:
 
 * Para parametrizar el modelo se requiere una función de descenso por el gradiente (`dg`, en el archivo `rlog.R`). 
-
 * La función de penalización (maximización) asociada es la logverosimilitud, que también fue implementada junto a su gradiente para poder aplicar el proceso de maximización. 
 
 * Dado que esta función nos devuelve en realidad las probabilidades de pertenecer a la clase asociada con el valor 1, es posible implementar también la curva ROC.
@@ -119,7 +114,7 @@ pi_adulto  <-  nrow (abalone %>% filter(adulto==T) ) / nrow(abalone)
 ### Resultados de Este Algoritmo
 
 ```{r}
-kable(head(tabla_rlog))
+tabla_rlog %>% head %>% kable
 ```
 
 ### Algunos patrones notables:
@@ -133,19 +128,21 @@ kable(head(tabla_rlog))
 #### Rendimiento Contra Predictores 
 
 ```{r p vs tasa logi, echo=F, cache=T}
-p_rlog  <- 
-  tabla_rlog %>%
-  group_by(p) %>%
-  summarise(tasa_media = mean(tasa_pesada),
-            tasa_mediana = median(tasa_pesada)) %>%
-  arrange(-tasa_media)
+
+graficar_tasa_vs_p <- function(resultados) {
+  resultados %>%
+    group_by(p) %>%
+    summarise(tasa = max(tasa_pesada)) %>%
+    arrange(-tasa) %>%
+    ggplot() +
+    aes(x = p, y = tasa) +
+    ggtitle("Tasa máxima obtenida con cada p") +
+    geom_line() +
+    geom_point()  
+}
 
 
-p_rlog %>%
-  ggplot() +
-  aes(x=p, y=tasa_media, color=tasa_mediana ) +
-  geom_line() +
-  geom_point()
+graficar_tasa_vs_p(tabla_rlog)
 ```
 
 
@@ -170,7 +167,9 @@ grilla_log <- rlog_area(adulto~anillos+peso.viscera, abalone, rlog)
 abalone %>%
   ggplot(data = abalone, mapping = aes(x=anillos, y=peso.viscera, color = adulto)) +
   geom_jitter() +
-  geom_smooth(data = grilla_log, mapping = aes(x=anillos, y=peso.viscera), inherit.aes = F)   
+  geom_smooth(data = grilla_log,
+              mapping = aes(x=anillos, y=peso.viscera),
+              inherit.aes = F)   
 ```
 
   Como cabe esperar, el aspecto de la frontera es rectilíneo. Esto se condice con la idea de que la función logística es prácticamente una recta antes de entrar a su comportamiento asintótico (que es el que le da la ventaja de no introducir probabilidades fuera del rango $\left[0,1\right]$)
@@ -198,27 +197,13 @@ abalone %>%
 
 
 ```{r}
-kable(head(tabla_adl))
+tabla_adl %>% head %>% kable
 ```
 
 #### Rendimiento Contra Predictores 
 
 ```{r p vs tasa lineal, echo=F, cache=T}
-
-p_adl  <- 
-  tabla_adc %>%
-  group_by(p) %>%
-  summarise(tasa_media = mean(tasa_pesada),
-            tasa_mediana = median(tasa_pesada)) %>%
-  arrange(-tasa_media)
-
-
-p_adl %>%
-  ggplot() +
-  aes(x=p, y=tasa_media, color=tasa_mediana ) +
-  geom_line() +
-  geom_point()
-
+graficar_tasa_vs_p(tabla_adl)
 ```
 
 ### Interpetación Gráfica
@@ -236,25 +221,13 @@ abalone %>%
 ### Discriminantes Cuadráticos
 
 ```{r}
-kable(head(tabla_adc))
+tabla_adc %>% head %>% kable
 ```
  
 #### Rendimiento Contra Predictores 
 
 ```{r p vs tasa cuadrático, echo=F, cache=T}
-p_adc  <- 
-  tabla_adc %>%
-  group_by(p) %>%
-  summarise(tasa_media = mean(tasa_pesada),
-            tasa_mediana = median(tasa_pesada)) %>%
-  arrange(-tasa_media)
-
-
-p_adc %>%
-  ggplot() +
-  aes(x=p, y=tasa_media, color=tasa_mediana ) +
-  geom_line() +
-  geom_point()
+graficar_tasa_vs_p(tabla_adc)
 ```
 
 ### Interpetación Gráfica
@@ -290,19 +263,7 @@ Otra vez, observamos que el mayor valor de p no garantizó la mayor tasa de acie
 ### Rendimiento Contra Predictores 
 
 ```{r p vs tasa kvmc, echo=F, cache=T}
-p_kvmc  <- 
-  tabla_kvmc %>%
-  group_by(p) %>%
-  summarise(tasa_media = mean(tasa_pesada),
-            tasa_mediana = median(tasa_pesada)) %>%
-  arrange(-tasa_media)
-
-
-p_kvmc %>%
-  ggplot() +
-  aes(x=p, y=tasa_media, color=tasa_mediana ) +
-  geom_line() +
-  geom_point()
+graficar_tasa_vs_p(tabla_kvmc)
 ```
 
 ### Interpetación Gráfica

@@ -20,7 +20,7 @@ df %>%
 
 df2 %>%
   group_by(p, algo) %>%
-  summarise(tasa_maxima = max(tasa_pesada) %>%
+  summarise(tasa_maxima = max(tasa_pesada)) %>%
   ggplot(aes(p, tasa_maxima, color = algo)) +
   geom_line()
 

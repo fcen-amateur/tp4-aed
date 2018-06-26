@@ -24,6 +24,6 @@ df2 %>%
   ggplot(aes(p, tasa_maxima, color = algo)) +
   geom_line()
 
-ggsave("imagenes/tasa_por_algoritmo_y_p.png", height = 5, width = 7)
+ggsave("~/AnálisisExploratorio/tp4-aed/imagenes/tasa_por_algoritmo_y_p.png", height = 5, width = 7)
 
-write_csv(df2, "data/resumen_resultados.csv")
+write_csv(df2, "~/AnálisisExploratorio/tp4-aed/data/resumen_resultados.csv")

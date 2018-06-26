@@ -1,7 +1,7 @@
 ---
 title: "TP4 Análisis Exploratorio de Datos"
-author: "Octavio M. Duarte, Juan Manuel Berros y Gonzalo Barrera Borla"
-date: "16 de Mayo de 2018"
+author: "Gonzalo Barrera Borla, Juan Manuel Berros y Octavio Martín Duarte "
+date: "25 de Junio de 2018"
 output:
 #  pdf_document: default
   html_document: default
@@ -21,7 +21,7 @@ source("R/rlog.R")
 source("R/k_vecinos.R")
 ```
 
-```{r, tablas particulares, cache=T, echo=F}
+```{r, tablas particulares, cache=F, echo=F, warning=F, message=F}
 abalone <- leer_abalone("data/abalone.data")
 
 tabla_resultados <-
@@ -38,8 +38,7 @@ estimador_trivial <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
 
 ```
 
-![](imagenes/abulon.jpg =500x)
-
+<img src="imagenes/abulon-chico.jpg" width="200" height="200" />
 
 # Motivo y Estructura del Informe
 
@@ -66,11 +65,16 @@ estimador_trivial <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
   
   Presentamos la tabla con las dos mejores tasas de acierto que obtuvo cada algoritmo:
   
-```{r}
+```{r tabla resumen, echo=F}
 tabla_resultados %>%
   group_by(algo) %>%
-  top_n(2, tasa_pesada)
+  top_n(2, tasa_pesada) ->  tabla_mejores
+
+tabla_mejores %>% kable
+
 ```
+
+
 
 ## El Conjunto de Datos
 
@@ -78,7 +82,7 @@ tabla_resultados %>%
   
   Si bien la tabla tiene 10 dimensiones, elegimos dos variables por modelo como ejes para mostrar una representación gráfica del conjunto a estudiar según cada fórmula. Más tarde, vamos a ir sobreimponiendo las diversas "caligrafías" de las funciones de clasificación de dos variables para ver cómo cada algoritmo interpreta la frontera. 
  
-![](imagenes/ggpairs.png)
+![](imagenes/ggpairs-color.png)
 
   Como se puede ver (más adelante vamos a proyectar sobre los pares de ejes más relevantes para cada algoritmo) los datos están profundamente imbricados y además los que podríamos considerar atípicos (puntos de un color, escondidos profundamente en la nube de la categoría opuesta) no forman cúmulos si no que están dispersos. Esto ya nos indica que ninguno de los métodos que vamos a considerar va a tener una eficiencia cercana al 100%, pero vamos a ver cuánto se alejan del predictor trivial. 
 
@@ -120,7 +124,7 @@ tabla_rlog %>% head %>% kable
 
 #### Rendimiento Contra Predictores 
 
-```{r p vs tasa logi, echo=F, cache=T}
+```{r p vs tasa logi, echo=F, cache=F}
 
 graficar_tasa_vs_p <- function(resultados) {
   resultados %>%
@@ -142,7 +146,7 @@ graficar_tasa_vs_p(tabla_rlog)
 #### Interpretación Gráfica: *Caligrafía* del Algoritmo
 
 
-```{r primer gráfico del conjunto, cache=T, echo=F}
+```{r primer gráfico del conjunto, cache=F, echo=F}
 
 abalone %>%
   ggplot() +
@@ -156,7 +160,7 @@ abalone %>%
 
  En este caso, las variables `anillos` y `long.largo` son las más frecuentes entre los mejores modelos, así que las elegimos para trazar sobre ellas la frontera con su modelo asociado.
 
-```{r caligra log, cache=T}
+```{r caligra log, cache=F}
 grilla_log <- rlog_area(adulto~anillos+peso.viscera, abalone, rlog) 
 
 abalone %>%
@@ -176,7 +180,7 @@ abalone %>%
   Para ambos modelos de la familia se obtuvo una eficiencia muy alta a nivel computacional, tanto en el entrenamiento como en la clasificación. 
   Para ver el comportamiento, elegimos las dos variables que definieron el modelo más explicativo. Tanto en este algoritmo como en el siguiente (*análisis por discriminante cuadrático*) esta fórmula es `adulto ~ anillos + peso.viscera`:
 
-```{r gráfico base discriminantes, cache=T, echo=F}
+```{r gráfico base discriminantes, cache=F, echo=F}
 
 abalone %>%
   ggplot() +
@@ -197,14 +201,14 @@ tabla_adl %>% head %>% kable
 
 #### Rendimiento Contra Predictores 
 
-```{r p vs tasa lineal, echo=F, cache=T}
+```{r p vs tasa lineal, echo=F, cache=F}
 graficar_tasa_vs_p(tabla_adl)
 ```
 
 ### Interpetación Gráfica
 
 
-```{r caligra adl, cache=T}
+```{r caligra adl, cache=F}
 grilla_adl <- trazar_area(adulto~peso.viscera+anillos, abalone, generar_el_predictor_adl) 
 
 abalone %>%
@@ -212,6 +216,8 @@ abalone %>%
   geom_jitter() +
   geom_smooth(data = grilla_adl, mapping = aes(x=anillos, y=peso.viscera), inherit.aes = F)   
 ```
+
+La frontera de este algoritmo es también una recta, cosa que también se condice con la teoría. 
 
 ### Discriminantes Cuadráticos
 
@@ -221,20 +227,23 @@ tabla_adc %>% head %>% kable
  
 #### Rendimiento Contra Predictores 
 
-```{r p vs tasa cuadrático, echo=F, cache=T}
+```{r p vs tasa cuadrático, echo=F, cache=F}
 graficar_tasa_vs_p(tabla_adc)
 ```
 
 ### Interpetación Gráfica
 
+Como el algoritmo no se hace cargo correctamente de la variable `anillos` (probablemente porque adopta valores enteros) elegimos la mejor fórmula sin anillos para ver su frontera.
 
-```{r caligra adc, cache=T}
-grilla_adc <- trazar_area(adulto~peso.viscera+anillos, abalone, generar_el_predictor_adc) 
+```{r caligra adc , cache=F}
+
+grilla_adc <- trazar_area(adulto~long.altura+long.diametro, abalone, generar_el_predictor_adc) 
 
 abalone %>%
-  ggplot(data = abalone, mapping = aes(x=anillos, y=peso.viscera, color = adulto)) +
+  ggplot(data = abalone, mapping = aes(x=long.altura, y=long.diametro, color = adulto)) +
   geom_jitter() +
-  geom_smooth(data = grilla_adc, mapping = aes(x=anillos, y=peso.viscera), inherit.aes = F)
+  geom_line(data = grilla_adc, mapping = aes(x=long.altura, y=long.diametro), inherit.aes = F)
+
 ```
 
 ## Análisis por los K Vecinos Más Cercanos
@@ -258,23 +267,22 @@ Otra vez, observamos que el mayor valor de p no garantizó la mayor tasa de acie
 
 ### Rendimiento Contra Predictores 
 
-```{r p vs tasa kvmc, echo=F, cache=T}
+```{r p vs tasa kvmc, echo=F, cache=F}
 graficar_tasa_vs_p(tabla_kvmc)
 ```
 
 ### Interpetación Gráfica
 
-Primero buscamos el mejor modelo de dos predictores. `r filter(tabla_kvmc, p==2)`
+  Adoptamos el mismo criterio que en el caso cuadrático, por razones similares. 
 
-```{r caligra kvmc, cache=T}
-grilla_kvmc <- trazar_area(adulto~peso.desenvainado+anillos, abalone, generar_k_vecinos_con_k_optimo) 
+```{r kligra k, cache=T, echo=F}
+grilla_kvmc2 <- trazar_area(adulto~peso.viscera+long.largo, abalone, generar_k_vecinos_con_k_optimo) 
 
 abalone %>%
-  ggplot(data = abalone, mapping = aes(x=anillos, y=peso.desenvainado, color= adulto)) +
+  ggplot(data = abalone, mapping = aes(x=long.largo, y=peso.viscera, color= adulto)) +
   geom_jitter() +
-  geom_smooth(data = grilla_kvmc, mapping = aes( x = anillos, y = peso.desenvainado), inherit.aes = F)   
+  geom_line(data = grilla_kvmc2, mapping = aes( x = long.largo, y = peso.viscera), inherit.aes = F)   
 ```
-
 
 # Conclusiones
 
@@ -282,7 +290,7 @@ abalone %>%
   
   Se observó una clara ventaja en la precisión del Análisis por K Vecinos más Cercanos. Este es también el algoritmo más costoso y en general se observó que los algoritmos más pesados fueron más precisos. A continuación, resumimos en un gráfico los mejores resultados obtenidos con cada algoritmo y cada número de variables predictoras:
   
-```{r}
+```{r tabla resultados, echo=F, cache=T}
 tabla_resultados %>%
   group_by(algo, p) %>%
   summarise(tasa_de_aciertos = max(tasa_pesada)) %>%
@@ -296,6 +304,10 @@ tabla_resultados %>%
   
   Dicho esto, el análisis por discriminantes también evidenció una capacidad de predicción sensiblemente superior al predictor trivial y por lo tanto su interés puede radicar en conservar cierta efectividad siendo drásticamente menos costoso de calcular.
 
-  Aunque el algoritmo de búsqueda de fronteras es algo primitivo y se desdibuja en los extremos, pudimos observar con claridad cómo diversos algoritmos trazan las fronteras con patrones diferentes, mostrando que más allá de  
+  Aunque el algoritmo de búsqueda de fronteras es algo primitivo y se desdibuja en los extremos, pudimos observar con claridad cómo diversos algoritmos trazan las fronteras con patrones diferentes, mostrando que más allá de las tasas de acierto comparables, el comportamiento de los mismos es muy diferente.  
+
+  Si bien es poco probable que los datos sean muy significativos, incluso una análisis somero como este podría representar una mejora notable para alguna actividad que considere relevante estos datos, como conservacionismo o cría ya que el incremento en la calidad de predicción respecto al predictor nulo es considerable, el 12% de mejora que brindan algunos de los modelos más sencillos es una cantidad más que significativa para actividades de este tipo. 
+
+  El impacto podría ser relevante para la continua expansión de la gastronomía norteamericana, como nos muestra esta reiterada escena de un conocido *reality show* yanqui
 
 ![](imagenes/ramsay-abulones.gif)

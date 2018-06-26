@@ -284,7 +284,20 @@ abalone %>%
 
   Por lo menos en el caso de estos datos, parece ser evidente que para todos los métodos la fuente principal de precisión es elegir las variables más adecuadas más que añadirlas indiscriminadamente. Las mismas variables tuvieron presencia en las fórmulas ganadoras para todos los algoritmos, sobre todo "anillos". Esto muestra que los algoritmos tienen un comportamiento similar por lo menos en este caso. 
   
-  Se observó una clara ventaja en la precisión del Análisis por K Vecinos más Cercanos. Este es también el algoritmo más costoso y en general se observó que los algoritmos más pesados fueron más precisos. 
+  Se observó una clara ventaja en la precisión del Análisis por K Vecinos más Cercanos. Este es también el algoritmo más costoso y en general se observó que los algoritmos más pesados fueron más precisos. A continuación, resumimos en un gráfico los mejores resultados obtenidos con cada algoritmo y cada número de variables predictoras:
+  
+```{r}
+tabla_resultados %>%
+  group_by(algo, p) %>%
+  summarise(tasa_de_aciertos = max(tasa_pesada)) %>%
+  mutate(algoritmo = algo) %>%
+  ggplot() +
+    aes(x = p, y = tasa_de_aciertos, color = algoritmo) +
+    geom_point() +
+    ggtitle("Tasa máxima de aciertos: K-vecinos es el algoritmo ganador") +
+    geom_line()
+```
+  
   Dicho esto, el análisis por discriminantes también evidenció una capacidad de predicción sensiblemente superior al predictor trivial y por lo tanto su interés puede radicar en conservar cierta efectividad siendo drásticamente menos costoso de calcular.
 
   Aunque el algoritmo de búsqueda de fronteras es algo primitivo y se desdibuja en los extremos, pudimos observar con claridad cómo diversos algoritmos trazan las fronteras con patrones diferentes, mostrando que más allá de  

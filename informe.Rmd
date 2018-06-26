@@ -38,7 +38,7 @@ estimador_trivial <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
 
 ```
 
-![](imagenes/abulon.jpg)
+![](imagenes/abulon.jpg =500x)
 
 
 # Motivo y Estructura del Informe
@@ -62,22 +62,15 @@ estimador_trivial <- nrow(filter(abalone, adulto == T )) / nrow(abalone)
 
   El indicador de eficiencia que elegimos en esta ocasión es la tasa de acierto promedio durante la evaluación en k pliegues (trabajamos con $k=10$), que en la tabla se llama **tasa pesada**.
 
-  Decidimos que dado que no se va a llevar ningún proceso de decisión posterior con los modelos entrenados y seleccionados, no necesitamos reevaluar el rendimiento de los mismos con una tercera partición de validación y en lugar de eso volcamos la mayor cantidad posible de datos al entrenamiento de las funciones. Lo que nos interesa es el rendimiento relativo. 
-  Presentamos la tabla con la salida de la evaluación general, ordenada según la tasa de acierto promedio por pliegue antes de reflexionar sobre cada algoritmo por separado. 
-
-
-```{r}
-tabla_resultados %>% head %>% kable
-```
-
-  Dado que el algoritmo k vecinos más cercanos (*kvmc*) acapara la tabla, la reelaboramos para mostrar los dos mejores resultados en cada algoritmo:
-
+  Decidimos que dado que no se va a llevar ningún proceso de decisión posterior con los modelos entrenados y seleccionados, no necesitamos reevaluar el rendimiento de los mismos con una tercera partición de validación y en lugar de eso volcamos la mayor cantidad posible de datos al entrenamiento de las funciones. Lo que nos interesa es el rendimiento relativo.
+  
+  Presentamos la tabla con las dos mejores tasas de acierto que obtuvo cada algoritmo:
+  
 ```{r}
 tabla_resultados %>%
   group_by(algo) %>%
   top_n(2, tasa_pesada)
 ```
-
 
 ## El Conjunto de Datos
 
@@ -157,6 +150,8 @@ abalone %>%
   geom_jitter()
 
 ```
+ 
+ 
   Elaboramos una pequeña utilidad que pretende copiar los gráficos observados en la bibliografía aunqnue por métodos algo brutales. Clasificamos una matriz de puntos, buscamos los puntos que son cambio de clase y trazamos una poligonal sobre ellos. No es sencillo extender este método más allá de dos dimensiones, así que vamos a ver el tipo de frontera entre clases que dibuja cada algoritmo para su fórmula de dos predictores más rendidora. 
 
  En este caso, las variables `anillos` y `long.largo` son las más frecuentes entre los mejores modelos, así que las elegimos para trazar sobre ellas la frontera con su modelo asociado.
@@ -239,7 +234,7 @@ grilla_adc <- trazar_area(adulto~peso.viscera+anillos, abalone, generar_el_predi
 abalone %>%
   ggplot(data = abalone, mapping = aes(x=anillos, y=peso.viscera, color = adulto)) +
   geom_jitter() +
-  geom_smooth(data = grilla_adc, mapping = aes(x=anillos, y=peso.viscera), inherit.aes = F)   
+  geom_smooth(data = grilla_adc, mapping = aes(x=anillos, y=peso.viscera), inherit.aes = F)
 ```
 
 ## Análisis por los K Vecinos Más Cercanos
@@ -252,10 +247,11 @@ abalone %>%
  
   Tal y como se dijo en clase, optamos por sistematizar el cálculo de las distancias en forma matricial para aprovechar optimizaciones de los motores numéricos de R, usando el producto de la matriz de datos por su traspuesta para obtener los cuadrados de todas las coordenadas y el producto por un vector de unos para sumar las filas obteniendo los cuadrados de las distancias: $\vec{v}\times\vec{v}^{T}\cdot\boldsymbol{1}=\lVert\vec{v}\rVert$.
   Este algoritmo fue el más costoso de entrenar y aplicar, pero su eficacia fue la más alta de todas. 
+
 ### Resultados de Este Algoritmo
 
 ```{r}
-kable(head(tabla_kvmc))
+tabla_kvmc %>% head %>% kable
 ```
 
 Otra vez, observamos que el mayor valor de p no garantizó la mayor tasa de acierto. En cambio, no sólo tenemos como ganadora una fórmula de 4 variables si no que un modelo de sólo tres variables presenta con el modelo ganador una diferencia de sólo 2 centésimas en su tasa. 
